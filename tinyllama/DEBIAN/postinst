@@ -1,0 +1,105 @@
+#!/bin/bash
+set -eu
+
+# Ollama
+OLLAMA_BIN="/usr/local/bin/ollama"
+if [ -f "$OLLAMA_BIN" ]; then
+    echo "Skipping Ollama installation"
+    # TODO updates
+else
+    # Download ollama
+    curl -fsSL https://ollama.com/install.sh | sh
+
+    # Ollama service configuration
+    OLLAMA_SERVICE="/etc/systemd/system/ollama.service"
+    OLLAMA_HOST_STR="Environment=\"OLLAMA_HOST=0.0.0.0\""
+    if ! grep -q $OLLAMA_HOST_STR $OLLAMA_SERVICE; then
+        line=$(grep -n "ExecStart" $OLLAMA_SERVICE | cut -d ":" -f 1)
+        sed -i "${line}i ${OLLAMA_HOST_STR}" $OLLAMA_SERVICE
+    fi
+
+    $OLLAMA_BIN pull llama3:instruct
+    $OLLAMA_BIN pull codeqwen:chat
+    $OLLAMA_BIN pull codeqwen:code
+fi
+
+# Docker
+DOCKER_BIN=/usr/bin/docker
+if [ -f "$DOCKER_BIN" ]; then
+    echo "Skipping Docker installation"
+    # TODO updates
+else
+    curl -fsSL https://get.docker.com | sh
+
+    # NVIDIA Container Toolkit for Docker
+    curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
+    && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
+        sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
+        sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+
+    apt-get update && apt-get install -y nvidia-container-toolkit
+fi
+
+# Open-WebUI
+OPEN_WEBUI_SERVICE="/etc/systemd/system/open-webui.service"
+if [ -f "$OPEN_WEBUI_SERVICE" ]; then
+    echo "Skipping Open-WebUI installation"
+    # TODO updates
+else
+    # TODO: Auto-update with Watchtower?
+    $DOCKER_BIN pull ghcr.io/open-webui/open-webui:main
+
+    # Add Open-WebUI Service
+    cat <<EOF | tee $OPEN_WEBUI_SERVICE >/dev/null
+[Unit]
+Description=open-webui
+After=network.target
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+ExecStartPre=-/snap/bin/docker stop open-webui
+ExecStartPre=-/snap/bin/docker rm open-webui
+ExecStart=/snap/bin/docker run --rm -p 80:8080 --network=host -e OLLAMA_BASE_URL=http://127.0.0.1:11434 -v /root/open-webui:/app/backend/data --name open-webui ghcr.io/open-webui/open-webui:main
+
+
+[Install]
+WantedBy=default.target
+EOF
+fi
+
+# StableSwarmUI
+STABLESWARMUI_SERVICE="/etc/systemd/system/stableswarmui.service"
+if [ -f "$STABLESWARMUI_SERVICE" ]; then
+    echo "Skipping StableSwarmUI installation"
+    # TODO updates
+else
+    pushd /root >/dev/null
+    wget https://github.com/Stability-AI/StableSwarmUI/releases/download/0.6.1-Beta/install-linux.sh 
+
+    INSTALL_LINUX_SCRIPT="./install-linux.sh"
+    SSUI_LAUNCH_STR="launch-linux.sh"
+    if grep -q $SSUI_LAUNCH_STR $INSTALL_LINUX_SCRIPT; then
+        line=$(grep -n $SSUI_LAUNCH_STR $INSTALL_LINUX_SCRIPT | cut -d ":" -f 1)
+        sed -i "${line}d" $INSTALL_LINUX_SCRIPT
+    fi
+    sh $INSTALL_LINUX_SCRIPT
+    popd >/dev/null
+
+    # TODO: StableSwarmUI/Data/Settings.fds is missing -- it must be created on first launch. hmm
+
+    # Add StableSwarmUI Service
+    cat <<EOF | tee $STABLESWARMUI_SERVICE >/dev/null
+[Unit]
+Description=StableSwarmUI Runner
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/bash -l -c 'PATH="$PATH:~/.dotnet"; ASPNETCORE_ENVIRONMENT="Production" ASPNETCORE_URLS="http://*:7801" dotnet src/bin/live_release/StableSwarmUI.dll'
+WorkingDirectory=/root/StableSwarmUI
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOF
+fi
