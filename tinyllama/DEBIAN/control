@@ -1,8 +1,0 @@
-Package: tinyllama
-Version: 1.0
-Section: utils
-Priority: optional
-Architecture: all
-Maintainer: InsightReactions <support@insightreactions.com>
-Description: The TinyLlama package configures a given Debian system for COTS and FOSS LLM deployment
-Depends: curl, git, python3-pip, python3-venv
