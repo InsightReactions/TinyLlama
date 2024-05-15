@@ -105,7 +105,34 @@ EOF
 systemctl enable open-webui
 systemctl start open-webui
 
-# Add StableSwarmUI Service
+# Avahi-daemon for mDNS discovery
+apt-get install -y avahi-daemon
+systemctl enable avahi-daemon
+
+cat <<EOF | tee -a "/etc/avahi/avahi-daemon.conf" >/dev/null
+[server]
+enabled = yes
+
+[reflector]
+use-ipv4=yes
+use-ipv6=yes
+EOF
+
+cat <<EOF | tee "/etc/avahi/services/tinyllama.service" >/dev/null
+<?xml version="1.0" standalone='no'?>
+<!DOCTYPE service-group SYSTEM "avahi-service.dtd">
+<service-group>
+  <name>Tiny Llama</name>
+  <service protocol="any">
+    <type>_http._tcp</type>
+    <port>80</port>
+    <txt-record>key=TinyLlama</txt-record>
+  </service>
+</service-group>
+EOF
+systemctl start avahi-daemon
+
+# StableSwarmUI
 cat <<EOF | tee "/etc/systemd/system/stableswarmui.service" >/dev/null
 [Unit]
 Description=StableSwarmUI Runner
