@@ -13,6 +13,7 @@
 		AE5905C62BF670CE007B0E1F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE5905C52BF670CE007B0E1F /* Assets.xcassets */; };
 		AE5905CA2BF670CE007B0E1F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE5905C92BF670CE007B0E1F /* Preview Assets.xcassets */; };
 		AE5905ED2BF6933F007B0E1F /* BonjourResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5905EC2BF6933F007B0E1F /* BonjourResolver.swift */; };
+		AE5905F52BF6B783007B0E1F /* AsyncDNSResolver in Frameworks */ = {isa = PBXBuildFile; productRef = AE5905F42BF6B783007B0E1F /* AsyncDNSResolver */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE5905F52BF6B783007B0E1F /* AsyncDNSResolver in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +95,9 @@
 			dependencies = (
 			);
 			name = TinyLlama;
+			packageProductDependencies = (
+				AE5905F42BF6B783007B0E1F /* AsyncDNSResolver */,
+			);
 			productName = TinyLlama;
 			productReference = AE5905BC2BF670CD007B0E1F /* TinyLlama.app */;
 			productType = "com.apple.product-type.application";
@@ -121,6 +126,9 @@
 				Base,
 			);
 			mainGroup = AE5905B32BF670CD007B0E1F;
+			packageReferences = (
+				AE5905F32BF6B783007B0E1F /* XCRemoteSwiftPackageReference "swift-async-dns-resolver" */,
+			);
 			productRefGroup = AE5905BD2BF670CD007B0E1F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -375,6 +383,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AE5905F32BF6B783007B0E1F /* XCRemoteSwiftPackageReference "swift-async-dns-resolver" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-async-dns-resolver";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.3.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AE5905F42BF6B783007B0E1F /* AsyncDNSResolver */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AE5905F32BF6B783007B0E1F /* XCRemoteSwiftPackageReference "swift-async-dns-resolver" */;
+			productName = AsyncDNSResolver;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AE5905B42BF670CD007B0E1F /* Project object */;
 }

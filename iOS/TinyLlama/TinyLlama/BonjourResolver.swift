@@ -97,7 +97,6 @@ final class BonjourResolver: NSObject, NetServiceDelegate {
         if let ref = self.refQ {
             self.refQ = nil
             DNSServiceRefDeallocate(ref)
-            
             Unmanaged.passUnretained(self).release()
         }
         
