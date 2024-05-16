@@ -109,27 +109,21 @@ systemctl start open-webui
 apt-get install -y avahi-daemon
 systemctl enable avahi-daemon
 
-cat <<EOF | tee -a "/etc/avahi/avahi-daemon.conf" >/dev/null
-[server]
-enabled = yes
-
-[reflector]
-use-ipv4=yes
-use-ipv6=yes
-EOF
-
 cat <<EOF | tee "/etc/avahi/services/tinyllama.service" >/dev/null
 <?xml version="1.0" standalone='no'?>
 <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
 <service-group>
   <name>Tiny Llama</name>
-  <service protocol="any">
+  <service protocol="ipv4">
     <type>_http._tcp</type>
     <port>80</port>
-    <txt-record>key=TinyLlama</txt-record>
   </service>
 </service-group>
 EOF
+sed -i "s/use-ipv6=yes/use-ipv6=no/g" /etc/avahi/avahi-daemon.conf
+sed -i "s/publish-hinfo=no/publish-hinfo=yes/g" /etc/avahi/avahi-daemon.conf
+sed -i "s/publish-workstation=no/publish-workstation=yes/g" /etc/avahi/avahi-daemon.conf
+sed -i "s/enable-reflector=no/enable-reflector=yes/g" /etc/avahi/avahi-daemon.conf
 systemctl start avahi-daemon
 
 # StableSwarmUI
