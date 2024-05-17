@@ -41,6 +41,34 @@ EOF
 systemctl enable tinyllama-web
 systemctl start tinyllama-web
 
+# Avahi-daemon for mDNS discovery
+
+apt-get install -y avahi-daemon
+systemctl enable avahi-daemon
+
+cat <<EOF | tee "/etc/avahi/services/tinyllama.service" >/dev/null
+<?xml version="1.0" standalone='no'?>
+<!DOCTYPE service-group SYSTEM "avahi-service.dtd">
+<service-group>
+  <name>Tiny Llama</name>
+  <service protocol="ipv4">
+    <type>_http._tcp</type>
+    <port>80</port>
+  </service>
+</service-group>
+EOF
+
+# A fix to help fix avahi services from coming down after a couple minutes
+cat <<EOF | tee "/etc/cron.d/avahi" >/dev/null
+*/1 * * * * root systemctl restart avahi-daemon.service
+EOF
+
+sed -i "s/use-ipv6=yes/use-ipv6=no/g" /etc/avahi/avahi-daemon.conf
+sed -i "s/#publish-aaaa-on-ipv4=yes/publish-aaaa-on-ipv4=no/g" /etc/avahi/avahi-daemon.conf
+sed -i "s/publish-hinfo=no/publish-hinfo=yes/g" /etc/avahi/avahi-daemon.conf
+sed -i "s/publish-workstation=no/publish-workstation=yes/g" /etc/avahi/avahi-daemon.conf
+systemctl start avahi-daemon
+
 # Docker
 apt update && apt install -y ca-certificates curl
 
@@ -81,6 +109,7 @@ fi
 #ollama pull codeqwen:chat
 #ollama pull codeqwen:code
 
+
 # Open-WebUI
 docker pull ghcr.io/open-webui/open-webui:main
 
@@ -104,27 +133,6 @@ EOF
 
 systemctl enable open-webui
 systemctl start open-webui
-
-# Avahi-daemon for mDNS discovery
-apt-get install -y avahi-daemon
-systemctl enable avahi-daemon
-
-cat <<EOF | tee "/etc/avahi/services/tinyllama.service" >/dev/null
-<?xml version="1.0" standalone='no'?>
-<!DOCTYPE service-group SYSTEM "avahi-service.dtd">
-<service-group>
-  <name>Tiny Llama</name>
-  <service protocol="ipv4">
-    <type>_http._tcp</type>
-    <port>80</port>
-  </service>
-</service-group>
-EOF
-sed -i "s/use-ipv6=yes/use-ipv6=no/g" /etc/avahi/avahi-daemon.conf
-sed -i "s/publish-hinfo=no/publish-hinfo=yes/g" /etc/avahi/avahi-daemon.conf
-sed -i "s/publish-workstation=no/publish-workstation=yes/g" /etc/avahi/avahi-daemon.conf
-sed -i "s/enable-reflector=no/enable-reflector=yes/g" /etc/avahi/avahi-daemon.conf
-systemctl start avahi-daemon
 
 # StableSwarmUI
 cat <<EOF | tee "/etc/systemd/system/stableswarmui.service" >/dev/null
