@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Tiny Llama"
+rootProject.name = "Tiny Llama Connector"
 include(":app")

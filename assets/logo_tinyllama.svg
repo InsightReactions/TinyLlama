@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   sodipodi:docname="logo_tinyllama.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#000000"
+     bordercolor="#eeeeee"
+     borderopacity="0.21176471"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#000000"
+     inkscape:document-units="mm"
+     inkscape:zoom="2"
+     inkscape:cx="188.5"
+     inkscape:cy="275.5"
+     inkscape:window-width="1654"
+     inkscape:window-height="1335"
+     inkscape:window-x="2147"
+     inkscape:window-y="68"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer4"
+     showgrid="false" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="Layer 3">
+    <rect
+       style="fill:#2e2e34;fill-opacity:1;stroke-width:0.285039"
+       id="rect5"
+       width="96"
+       height="96"
+       x="0"
+       y="0"
+       inkscape:export-filename="../../../../Downloads/tinyllama_logo.png"
+       inkscape:export-xdpi="270.93332"
+       inkscape:export-ydpi="270.93332" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Layer 2">
+    <path
+       id="rect2"
+       style="fill:#006fee;fill-opacity:1;stroke-width:1.54652"
+       d="M 12,18 V 77.999958 H 29.897616 V 24.000151 H 18.000151 V 18 Z m 35.794714,0 v 6.000151 H 35.897249 V 77.999958 H 53.794864 V 18 Z m 12.0003,0 v 53.999808 h 18.20509 v 6.00015 h 6.00015 V 18 Z" />
+  </g>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1" />
+</svg>

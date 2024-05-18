@@ -2,6 +2,7 @@ package com.insightreactions.tinyllama.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
+val Blue80 = Color(0xFF006FEE)
 val Purple80 = Color(0xFFD0BCFF)
 val PurpleGrey80 = Color(0xFFCCC2DC)
 val Pink80 = Color(0xFFEFB8C8)

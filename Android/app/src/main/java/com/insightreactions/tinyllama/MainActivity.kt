@@ -7,18 +7,27 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import com.github.druk.dnssd.BrowseListener
 import com.github.druk.dnssd.DNSSDEmbedded
 import com.github.druk.dnssd.DNSSDService
 import com.github.druk.dnssd.QueryListener
 import com.github.druk.dnssd.ResolveListener
+import com.insightreactions.tinyllama.ui.theme.Blue80
 import com.insightreactions.tinyllama.ui.theme.TinyLlamaTheme
 import java.net.InetAddress
 
@@ -43,8 +52,9 @@ class MainActivity : ComponentActivity() {
             TinyLlamaTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
-                            name = "Android",
-                            modifier = Modifier.padding(innerPadding)
+                            modifier = Modifier
+                                .padding(innerPadding)
+                                .fillMaxSize()
                     )
                 }
             }
@@ -61,16 +71,16 @@ class MainActivity : ComponentActivity() {
 
                 override fun serviceFound(browser: DNSSDService?, flags: Int, ifIndex: Int, serviceName: String?, regType: String?, domain: String?) {
                     Log.d(TAG, "Found service: $serviceName")
-                    if (serviceName != "Tiny Llama") {
+                    if (serviceName != "Tiny Llama Connector") {
                         return;
                     }
                     dnssd?.resolve(flags, ifIndex, serviceName, regType, domain, object : ResolveListener {
                         override fun operationFailed(p0: DNSSDService?, p1: Int) {
-                            Log.e(TAG, "Failed to resolve Tiny Llama service")
+                            Log.e(TAG, "Failed to resolve Tiny Llama Connector service")
                         }
 
                         override fun serviceResolved(resolver: DNSSDService?, flags: Int, ifIndex: Int, fullName: String?, hostName: String?, port: Int, txtRecord: MutableMap<String, String>?) {
-                            Log.d(TAG, "Tiny Llama Service resolved: $resolver $flags $ifIndex $fullName $hostName $port")
+                            Log.d(TAG, "Tiny Llama Connector Service resolved: $resolver $flags $ifIndex $fullName $hostName $port")
                             dnssd?.queryRecord(0, ifIndex, hostName, 1, 1, object : QueryListener {
                                 override fun operationFailed(service: DNSSDService?, errorCode: Int) {
                                     Log.e(TAG, "Querying records failed for service: $service $errorCode")
@@ -112,17 +122,36 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-            text = "Hello $name!",
-            modifier = modifier
-    )
+fun Greeting(modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Box(
+            modifier = modifier.fillMaxWidth(0.5f),
+            contentAlignment = Alignment.Center
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_launcher_round),
+                contentDescription = "The Tiny Llama icon",
+                modifier = Modifier.size(Dp(168f))
+            )
+            CircularProgressIndicator(
+                color = Blue80,
+                trackColor = MaterialTheme.colorScheme.surfaceVariant,
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .size(Dp(168f)),
+                strokeWidth = Dp(10f),
+            )
+        }
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     TinyLlamaTheme {
-        Greeting("Android")
+        Greeting()
     }
 }
