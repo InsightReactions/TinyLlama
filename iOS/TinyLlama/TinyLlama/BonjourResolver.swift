@@ -1,10 +1,3 @@
-//
-//  BonjourResolver.swift
-//  TinyLlama
-//
-//  Created by Brian Erikson (Work) on 5/16/24.
-//
-
 import Foundation
 import Network
 import dnssd

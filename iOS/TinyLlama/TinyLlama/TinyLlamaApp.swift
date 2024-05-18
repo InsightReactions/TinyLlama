@@ -1,10 +1,3 @@
-//
-//  TinyLlamaApp.swift
-//  TinyLlama
-//
-//  Created by Brian Erikson (Work) on 5/16/24.
-//
-
 import SwiftUI
 import SwiftData
 

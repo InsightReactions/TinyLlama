@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  TinyLlama
-//
-//  Created by Brian Erikson (Work) on 5/16/24.
-//
-
 import SwiftUI
 import SwiftData
 import Network
@@ -51,27 +44,45 @@ struct ContentView: View {
     var body: some View {
         
         NavigationSplitView {
-            Text("Hello Tiny Llama")
-            .onAppear {
-                let completionHandler: BonjourResolver.CompletionHandler = {
-                    result in switch result {
-                    case .success(let (string, int)):
-                        print("recieved success response: \(string) - \(int)")
+            VStack {
+                Image("TinyLlamaLogo")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(
+                        minWidth: 64,
+                        idealWidth: 128,
+                        maxWidth: 128,
+                        minHeight: 64,
+                        idealHeight: 128,
+                        maxHeight: 128
+                    )
+                    .onAppear {
+                        let completionHandler: BonjourResolver.CompletionHandler = {
+                            result in switch result {
+                            case .success(let (string, int)):
+                                print("recieved success response: \(string) - \(int)")
+                                stopBonjourResolver()
+                                onTinyLlamaHostResolved(host: string)
+                            case .failure(let error):
+                                print("Error: \(error.localizedDescription)")
+                            }
+                        }
                         stopBonjourResolver()
-                        onTinyLlamaHostResolved(host: string)
-                    case .failure(let error):
-                        print("Error: \(error.localizedDescription)")
+                        print("Starting Bonjour Resolver")
+                        bonjourResolver = BonjourResolver.resolve(endpoint: endpoint, completionHandler: completionHandler)
                     }
-                }
-                stopBonjourResolver()
-                print("Starting Bonjour Resolver")
-                bonjourResolver = BonjourResolver.resolve(endpoint: endpoint, completionHandler: completionHandler)
-            }
-            .onDisappear {
-                stopBonjourResolver()
+                    .onDisappear {
+                        stopBonjourResolver()
+                    }
+                ProgressView()
+                    .progressViewStyle(.circular)
+                    .frame(
+                        width: 64,
+                        height: 64
+                    )
             }
         } detail: {
-            Text("Select an item")
+            Text("Searching for a Tiny Llama device")
         }
     }
 }
