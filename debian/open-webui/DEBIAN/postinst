@@ -1,0 +1,7 @@
+#!/bin/bash
+set -eu
+
+mkdir -p /srv/www/open-webui
+docker pull ghcr.io/open-webui/open-webui:git-d43ee0f
+systemctl enable open-webui
+systemctl start open-webui

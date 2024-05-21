@@ -1,0 +1,9 @@
+Package: tinyllama
+Version: 1.0
+Maintainer: InsightReactions <support@insightreactions.com>
+Section: utils
+Priority: optional
+Architecture: amd64
+Description: Official Tiny Llama webserver by InsightReactions
+Depends: python3-pip, curl, git
+Suggests: tinyllama-mdns

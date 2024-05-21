@@ -21,3 +21,5 @@
 
 ## TODO List
 - iOS app does not rediscover the Tiny Llama service when returning to the app after a detection
+- Hook up Open WebUI image generation
+- 

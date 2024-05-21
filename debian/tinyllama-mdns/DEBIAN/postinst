@@ -1,0 +1,9 @@
+#!/bin/bash
+
+sed -i "s/use-ipv6=yes/use-ipv6=no/g" /etc/avahi/avahi-daemon.conf
+sed -i "s/#publish-aaaa-on-ipv4=yes/publish-aaaa-on-ipv4=no/g" /etc/avahi/avahi-daemon.conf
+sed -i "s/publish-hinfo=no/publish-hinfo=yes/g" /etc/avahi/avahi-daemon.conf
+sed -i "s/publish-workstation=no/publish-workstation=yes/g" /etc/avahi/avahi-daemon.conf
+
+systemctl enable avahi-daemon
+systemctl restart avahi-daemon

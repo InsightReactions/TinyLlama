@@ -1,0 +1,34 @@
+#!/bin/bash
+set -eu
+
+mkdir -p /srv/www
+cd /srv/www
+
+if [ -d "StableSwarmUI" ]; then
+    mv StableSwarmUI StableSwarmUI_bak
+fi
+
+git clone https://github.com/Stability-AI/StableSwarmUI.git --depth 1 --branch 0.6.2-Beta
+
+if [ -d "StableSwarmUI_bak" ]; then
+    mv StableSwarmUI_bak/* StableSwarmUI/
+    rm -r StableSwarmUI_bak
+fi
+
+cd StableSwarmUI
+
+dotnet build src/StableSwarmUI.csproj --configuration Release -o ./src/bin/live_release
+
+systemctl enable stableswarmui
+systemctl start stableswarmui
+
+echo "Please wait while StableSwarmUI is being configured..."
+sleep 5
+
+STABLESWARMUI_SETTINGS="/src/www/StableSwarmUI/Data/Settings.fds"
+sed -i "s/PortCanChange: true/PortCanChange: false/g" $STABLESWARMUI_SETTINGS
+sed -i "s/ClearVRAMAfterMinutes: 10/ClearVRAMAfterMinutes: 1/g" $STABLESWARMUI_SETTINGS
+sed -i "s/ClearSystemRAMAfterMinutes: 60/ClearSystemRAMAfterMinutes: 5/g" $STABLESWARMUI_SETTINGS
+sed -i "s/CheckForUpdates: true/CheckForUpdates: false/g" $STABLESWARMUI_SETTINGS
+
+systemctl restart stableswarmui

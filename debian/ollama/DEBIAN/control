@@ -1,0 +1,8 @@
+Package: ollama
+Version: 0.1.38
+Maintainer: InsightReactions <support@insightreactions.com>
+Section: utils
+Priority: optional
+Architecture: amd64
+Description: ollama configured for the Tiny Llama AI Home server platform by InsightReactions
+Depends: curl

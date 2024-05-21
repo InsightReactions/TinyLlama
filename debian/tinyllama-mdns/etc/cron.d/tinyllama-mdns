@@ -1,0 +1,2 @@
+# This fixes issues caused by avahi-daemon failing to process mDNS requests after 60s
+*/1 * * * * root systemctl restart avahi-daemon.service

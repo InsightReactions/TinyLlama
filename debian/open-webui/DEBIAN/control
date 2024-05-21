@@ -1,0 +1,8 @@
+Package: open-webui
+Version: 1.0-git-d43ee0f
+Maintainer: InsightReactions <support@insightreactions.com>
+Section: utils
+Priority: optional
+Architecture: amd64
+Description: Open WebUI configured for the Tiny Llama AI Home server platform by InsightReactions
+Depends: docker-ce

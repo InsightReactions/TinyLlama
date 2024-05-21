@@ -1,0 +1,17 @@
+#!/bin/bash
+systemctl stop stableswarmui
+systemctl disable stableswarmui
+rm /etc/systemd/system/stableswarmui.service
+
+cd /srv/www
+mv StableSwarmUI/Models ./Models_bak ||:
+mv StableSwarmUI/Output ./Output_bak ||:
+rm -r StableSwarmUI
+
+if [ -d "Output_bak" ] || [ -d "Models_bak" ]; then
+    mkdir StableSwarmUI
+    mv ./Models_bak StableSwarmUI/Models ||:
+    mv ./Output_bak StableSwarmUI/Output ||:
+fi
+
+echo "StableSwarmUI user data must be removed manually, if desired, at path /srv/www/StableSwarmUI"

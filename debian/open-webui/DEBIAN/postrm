@@ -1,0 +1,6 @@
+#!/bin/bash
+systemctl stop open-webui
+systemctl disable open-webui
+rm /etc/systemd/system/open-webui.service
+
+echo "Open-WebUI user data must be removed manually, if desired, at path /srv/www/open-webui"

@@ -1,0 +1,12 @@
+[Unit]
+Description=TinyLlama Web Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 -m gunicorn -w 2 -b 0.0.0.0:80 'app:app'
+WorkingDirectory=/srv/www/tinyllama
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
