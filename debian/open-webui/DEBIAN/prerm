@@ -1,0 +1,3 @@
+#!/bin/bash
+systemctl stop open-webui ||:
+systemctl disable open-webui ||:

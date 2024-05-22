@@ -1,7 +1,5 @@
 #!/bin/bash
-systemctl stop ollama
-systemctl disable ollama
-rm /etc/systemd/system/ollama.service
-rm /usr/bin/ollama
+rm /etc/systemd/system/ollama.service ||:
+rm /usr/bin/ollama ||:
 
 echo "Ollama user data must be removed manually, if desired, at path /usr/share/ollama"

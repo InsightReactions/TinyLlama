@@ -3,7 +3,7 @@ Description=StableSwarmUI Runner
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/bash -l -c 'ASPNETCORE_ENVIRONMENT="Production" ASPNETCORE_URLS="http://*:7801" dotnet src/bin/live_release/StableSwarmUI.dll'
+ExecStart=/usr/bin/bash -l -c 'ASPNETCORE_ENVIRONMENT="Production" ASPNETCORE_URLS="http://*:7801" /root/.dotnet/dotnet src/bin/live_release/StableSwarmUI.dll --launch_mode none --host 0.0.0.0'
 WorkingDirectory=/srv/www/StableSwarmUI
 Restart=always
 

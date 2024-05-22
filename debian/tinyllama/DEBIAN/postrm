@@ -1,2 +1,2 @@
 #!/bin/bash
-rm -r /srv/www/tinyllama
+rm -r /srv/www/tinyllama ||:

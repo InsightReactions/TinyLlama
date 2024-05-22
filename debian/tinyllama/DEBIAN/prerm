@@ -1,0 +1,3 @@
+#!/bin/bash
+systemctl stop tinyllama ||:
+systemctl disable tinyllama ||:

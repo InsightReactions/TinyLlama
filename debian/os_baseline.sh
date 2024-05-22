@@ -9,7 +9,7 @@ if [ "$(id -u)" != 0 ]; then
 fi
 
 # Docker
-apt update && apt install -y ca-certificates curl
+apt update && apt-get install -y ca-certificates curl
 
 install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
@@ -26,12 +26,23 @@ curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | gpg --dearmor -
     sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
     tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
     
-apt update && apt-get install -y wget curl git python3-pip python3-venv nvidia-container-toolkit docker-ce docker-ce-cli containerd.io
+apt update && apt-get install -y nvidia-container-toolkit docker-ce docker-ce-cli containerd.io
 
-# Post package installations
+# InsightReactions repository
+# Install the InsightReactions GPG key
+curl -s --compressed "https://debian.insightreactions.com/KEY.gpg" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/insightreactions.gpg >/dev/null
+
+# Download the InsightReactions apt sources list
+curl -s --compressed -o /etc/apt/sources.list.d/insightreactions.list "https://debian.insightreactions.com/insightreactions.list"
+
+# Install the packages
+apt update && apt-get install -y tinyllama tinyllama-mdns ollama open-webui stableswarmui
 
 # Ollama
 #ollama pull yi
 #ollama pull llama3:instruct
 #ollama pull codeqwen:chat
 #ollama pull codeqwen:code
+
+# StableSwarmUI
+# Download models...

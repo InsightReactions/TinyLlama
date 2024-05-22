@@ -1,0 +1,20 @@
+0:
+	type: comfyui_selfstart
+	title: \x
+	enabled: true
+	settings:
+		#The location of the 'main.py' file. Can be an absolute or relative path, but must end with 'main.py'.
+		#If you used the installer, this should be 'dlbackend/ComfyUI/main.py'.
+		StartScript: dlbackend/ComfyUI/main.py
+		#Any arguments to include in the launch script.
+		ExtraArgs: \x
+		#If unchecked, the system will automatically add some relevant arguments to the comfy launch. If checked, automatic args (other than port) won't be added.
+		DisableInternalArgs: false
+		#If checked, will automatically keep the comfy backend up to date when launching.
+		AutoUpdate: false
+		#If checked, tells Comfy to generate image previews. If unchecked, previews will not be generated, and images won't show up until they're done.
+		EnablePreviews: true
+		#Which GPU to use, if multiple are available.
+		GPU_ID: 0
+		#How many extra requests may queue up on this backend while one is processing.
+		OverQueue: 1

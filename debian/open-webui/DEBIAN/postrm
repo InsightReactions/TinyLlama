@@ -1,6 +1,5 @@
 #!/bin/bash
-systemctl stop open-webui
-systemctl disable open-webui
-rm /etc/systemd/system/open-webui.service
+
+docker rmi ghcr.io/open-webui/open-webui:git-d43ee0f
 
 echo "Open-WebUI user data must be removed manually, if desired, at path /srv/www/open-webui"

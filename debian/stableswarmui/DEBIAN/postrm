@@ -1,17 +1,16 @@
 #!/bin/bash
-systemctl stop stableswarmui
-systemctl disable stableswarmui
-rm /etc/systemd/system/stableswarmui.service
 
 cd /srv/www
-mv StableSwarmUI/Models ./Models_bak ||:
-mv StableSwarmUI/Output ./Output_bak ||:
-rm -r StableSwarmUI
 
-if [ -d "Output_bak" ] || [ -d "Models_bak" ]; then
+if [ -d "StableSwarmUI/Models" ] || [ -d "StableSwarmUI/Output" ] || [ -d "StableSwarmUI/Data" ]; then
+    mv StableSwarmUI/Models ./Models_bak ||:
+    mv StableSwarmUI/Output ./Output_bak ||:
+    mv StableSwarmUI/Data ./Data_bak ||:
+    rm -r StableSwarmUI ||:
     mkdir StableSwarmUI
     mv ./Models_bak StableSwarmUI/Models ||:
     mv ./Output_bak StableSwarmUI/Output ||:
+    mv ./Data_bak StableSwarmUI/Data ||:
 fi
 
-echo "StableSwarmUI user data must be removed manually, if desired, at path /srv/www/StableSwarmUI"
+echo "StableSwarmUI user data must be removed manually, if desired, at path /srv/www/StableSwarmUI and /root/.dotnet"

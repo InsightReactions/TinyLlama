@@ -5,5 +5,5 @@ Section: utils
 Priority: optional
 Architecture: amd64
 Description: Official Tiny Llama webserver by InsightReactions
-Depends: python3-pip, curl, git
+Depends: python3-venv, curl, git
 Suggests: tinyllama-mdns

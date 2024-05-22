@@ -1,11 +1,12 @@
 #!/bin/bash
+set -e
 
 cd /srv/www/tinyllama
 
-# Add tinyllama-web Service
-python -m venv venv
+# Add tinyllama Service
+python3 -m venv venv
 source venv/bin/activate
 pip install -r ./requirements.txt
 
-systemctl enable tinyllama-web
-systemctl start tinyllama-web
+systemctl enable tinyllama
+systemctl start tinyllama

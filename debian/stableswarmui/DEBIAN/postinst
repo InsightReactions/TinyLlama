@@ -1,6 +1,10 @@
 #!/bin/bash
 set -eu
 
+# Ensure correct local path.
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+cd $SCRIPT_DIR
+
 mkdir -p /srv/www
 cd /srv/www
 
@@ -8,27 +12,38 @@ if [ -d "StableSwarmUI" ]; then
     mv StableSwarmUI StableSwarmUI_bak
 fi
 
-git clone https://github.com/Stability-AI/StableSwarmUI.git --depth 1 --branch 0.6.2-Beta
+# Download swarm
+git clone https://github.com/Stability-AI/StableSwarmUI --depth 1 --branch 0.6.2-Beta
 
 if [ -d "StableSwarmUI_bak" ]; then
-    mv StableSwarmUI_bak/* StableSwarmUI/
+    rsync -au StableSwarmUI_bak/ StableSwarmUI/
     rm -r StableSwarmUI_bak
 fi
 
 cd StableSwarmUI
 
-dotnet build src/StableSwarmUI.csproj --configuration Release -o ./src/bin/live_release
+# install dotnet
+cd launchtools
+# https://learn.microsoft.com/en-us/dotnet/core/install/linux-scripted-manual#scripted-install
+wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
+chmod +x dotnet-install.sh
+
+# Note: manual installers that want to avoid home dir, add to both of the below lines: --install-dir $SCRIPT_DIR/.dotnet
+./dotnet-install.sh --channel 8.0 --runtime aspnetcore
+./dotnet-install.sh --channel 8.0
+cd ..
+
+# Build the project
+/root/.dotnet/dotnet build src/StableSwarmUI.csproj --configuration Release -o ./src/bin/live_release
+
+# Install ComfyUI
+bash ./launchtools/comfy-install-linux.sh
+
+# Copy configuration files
+if [ ! -d "Data" ]; then
+    mkdir -p Data
+    rsync -au /usr/share/stableswarmui/ .
+fi
 
 systemctl enable stableswarmui
 systemctl start stableswarmui
-
-echo "Please wait while StableSwarmUI is being configured..."
-sleep 5
-
-STABLESWARMUI_SETTINGS="/src/www/StableSwarmUI/Data/Settings.fds"
-sed -i "s/PortCanChange: true/PortCanChange: false/g" $STABLESWARMUI_SETTINGS
-sed -i "s/ClearVRAMAfterMinutes: 10/ClearVRAMAfterMinutes: 1/g" $STABLESWARMUI_SETTINGS
-sed -i "s/ClearSystemRAMAfterMinutes: 60/ClearSystemRAMAfterMinutes: 5/g" $STABLESWARMUI_SETTINGS
-sed -i "s/CheckForUpdates: true/CheckForUpdates: false/g" $STABLESWARMUI_SETTINGS
-
-systemctl restart stableswarmui

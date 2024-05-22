@@ -5,5 +5,4 @@ Section: utils
 Priority: optional
 Architecture: amd64
 Description: StableSwarmUI configured for the Tiny Llama AI Home server platform by InsightReactions
-Depends: dotnet-sdk-8.0, aspnetcore-runtime-8.0, git
-PreDepends: packages-microsoft-prod
+Depends: git, rsync
