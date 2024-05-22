@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Tiny Llama</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#006fee">
+    <meta name="msapplication-TileColor" content="#006fee">
+    <meta name="theme-color" content="#006fee">
+</head>
+
+<body class="mat-app-background mat-body" style="padding: 12px;">
+    <div style="display: flex; justify-content: center; border-bottom: 1px solid var(--ir-border-color); padding-bottom: 12px;">
+        <img src="logo_render_tinyllama.png" alt="Tiny Llama Compressed Logo" style="height: 36px; margin-left: 24px; margin-right: 24px;" />
+        <p style="color: #006fee; margin-right: 5%; font-weight: 700; font-size: large; margin-bottom: 0; align-content: center; text-align: center; align-self: center;">Tiny Llama</p>
+        <a class="header-link" href="https://github.com/InsightReactions/TinyLlama/wiki" style="padding-left: 2%;">Wiki</a>
+        <div style="border: 0; border-right: 1px solid var(--ir-border-color); margin-left: 2%; margin-right: 2%;"></div>
+        <a class="header-link" href="https://github.com/InsightReactions/TinyLlama/discussions">Discussions</a>
+        <div style="border: 0; border-right: 1px solid var(--ir-border-color); margin-left: 2%; margin-right: 2%;"></div>
+        <a class="header-link" href="https://tinyllama.insightreactions.com">News</a>
+        <div style="border: 0; border-right: 1px solid var(--ir-border-color); margin-left: 2%; margin-right: 2%;"></div>
+        <a class="header-link" href="https://tinyllama.insightreactions.com">About</a>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2%; gap: 12px;">
+      <div class="card-frame fitArticleWidth">
+        <img src="open-webui.png" style="height: 96px; padding: 12px;"/>
+        <div class="mat-card">
+            <a href="http://:" class="mat-card-title openwebui">Open WebUI</a>
+            <p class="mat-card-content">Open WebUI is an extensible, feature-rich, and user-friendly self-hosted web-based AI chat interface designed to operate entirely offline. It supports various LLM runners, including Ollama and OpenAI-compatible APIs.</p>
+        </div>
+      </div>
+      <div class="card-frame fitArticleWidth">
+        <img src="stableswarmui.png" style="height: 96px; padding: 12px;"/>
+        <div class="mat-card" style="">
+            <a href="http://:" class="mat-card-title stableswarmui">StableSwarmUI</a>
+            <p class="mat-card-content">A Modular Stable Diffusion web-based image generation interface, with an emphasis on making AI powertools easily accessible, performant, and extensible.</p>
+        </div>
+        <script>
+          const ipAddress = window.location.href.replace(/^.*?:\/\//, '').replace(/\/.*/, '').replace(/:.*/, '')
+          document.querySelector('.openwebui').href = 'http://' + ipAddress + ':8080';
+          document.querySelector('.stableswarmui').href = 'http://' + ipAddress + ':7801';
+        </script>
+      </div>
+</body>
+
+<footer class="mat-app-background"
+    style="position: absolute; bottom: 0; left:12px; right:12px; padding: 12px; display: flex; align-items: center; gap: 12px; border-top: 1px solid var(--ir-border-color); font-weight: 500;">
+    &copy; InsightReactions LLC. All rights reserved.
+    <hr style="border: 0; border-right: 0px solid var(--ir-border-color);" />
+    <span>
+        <img src="x-logo.svg" style="height: 10px;" alt="X Logo" />
+        <a class="footer-link" href="https://twitter.com/insightreact" style="margin-left: 0px;">@TinyLlama_IR</a>
+    </span>
+    <a class="footer-link" href="mailto:support@insightreactions.com">support@insightreactions.com</a>
+</footer>
+
+</html>
