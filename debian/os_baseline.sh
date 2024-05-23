@@ -36,13 +36,4 @@ curl -s --compressed "https://debian.insightreactions.com/KEY.gpg" | gpg --dearm
 curl -s --compressed -o /etc/apt/sources.list.d/insightreactions.list "https://debian.insightreactions.com/insightreactions.list"
 
 # Install the packages
-apt update && apt-get install -y tinyllama tinyllama-mdns ollama open-webui stableswarmui
-
-# Ollama
-#ollama pull yi
-#ollama pull llama3:instruct
-#ollama pull codeqwen:chat
-#ollama pull codeqwen:code
-
-# StableSwarmUI
-# Download models...
+apt update && apt-get install -y tinyllama tinyllama-default tinyllama-plus tinyllama-mdns tinyllama-ollama tlweb-open-webui tlweb-stableswarmui

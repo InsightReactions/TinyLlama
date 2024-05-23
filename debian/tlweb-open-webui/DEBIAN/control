@@ -6,3 +6,4 @@ Priority: optional
 Architecture: amd64
 Description: Open WebUI configured for the Tiny Llama AI Home server platform by InsightReactions
 Depends: docker-ce
+Recommends: tinyllama, tinyllama-plus

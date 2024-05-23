@@ -5,4 +5,5 @@ Section: utils
 Priority: optional
 Architecture: amd64
 Description: Official Avahi mDNS configuration for Tiny Llama by InsightReactions
-Depends: avahi-daemon
+Depends: avahi-daemon, tinyllama
+Recommends: tinyllama-plus

@@ -1,0 +1,7 @@
+#!/bin/bash
+set -e
+
+# TODO: Echo the disclaimer to verify licensing 
+
+ollama pull taozhiyuai/hermes-2-theta-llama-3:8b-q8_0
+ollama pull llama3:instruct

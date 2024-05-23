@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e
+
+if [ -d "/srv/www/StableSwarmUI" ]; then
+
+fi
+
+if [ -d "/srv/www/open-webui" ]; then
+
+fi

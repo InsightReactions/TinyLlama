@@ -1,4 +1,4 @@
-Package: stableswarmui
+Package: tlweb-stableswarmui
 Version: 0.6.2-Beta
 Maintainer: InsightReactions <support@insightreactions.com>
 Section: utils
@@ -6,3 +6,4 @@ Priority: optional
 Architecture: amd64
 Description: StableSwarmUI configured for the Tiny Llama AI Home server platform by InsightReactions
 Depends: git, rsync
+Recommends: tinyllama, tinyllama-plus
