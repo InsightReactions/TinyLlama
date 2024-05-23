@@ -5,3 +5,7 @@ set -e
 
 ollama pull taozhiyuai/hermes-2-theta-llama-3:8b-q8_0
 ollama pull llama3:instruct
+
+# Hook up open-webui image generation configuration
+
+# ? Set default model for open-webui as llama3:8b-instruct-q8_0

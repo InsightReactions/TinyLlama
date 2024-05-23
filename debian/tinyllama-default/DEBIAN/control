@@ -5,5 +5,5 @@ Section: utils
 Priority: optional
 Architecture: amd64
 Description: Official default configuration for Tiny Llama by InsightReactions
-Depends: tinyllama-ollama
+Depends: tinyllama-ollama, tlweb-open-webui, tlweb-stableswarmui
 Recommends: tinyllama-plus
