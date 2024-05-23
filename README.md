@@ -2,6 +2,8 @@
 
 ![Tiny Llama Logo](web/static/android-chrome-192x192.png)
 
+[Debian Repository](https://github.com/InsightReactions/debian.insightreactions.github.io)
+
 Harness the power of Stable Diffusion Image Generation and robust LLM chat interface for breathtaking image quality and intelligent conversations. Plus, unlock new creative possibilities with LLM-image interoperability. And with the permissive open-source licensing structure, you're in control.
 
 Tiny Llama is a baseline configuration layer on top of Debian:latest, which provides the following value:
