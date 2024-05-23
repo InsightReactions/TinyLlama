@@ -5,7 +5,7 @@
 Harness the power of Stable Diffusion Image Generation and robust LLM chat interface for breathtaking image quality and intelligent conversations. Plus, unlock new creative possibilities with LLM-image interoperability. And with the permissive open-source licensing structure, you're in control.
 
 Tiny Llama is a baseline configuration layer on top of Debian:latest, which provides the following value:
-- Pre-packaged AI WebUI software which alleviates the technical experience required to enjoy the latest open-source AI products and can be enjoyed on any device with appropriate aspect ratio displays (per-product basis).
+- Pre-packaged AI WebUI software which alleviates the technical experience required to use the latest open-source AI products and can be enjoyed on any device with appropriate aspect ratio displays (per-product basis).
 - Effortless access to a growing and continuously updating repository of cutting-edge open-source AI technologies
 - mDNS server auto-discovery support paired with iOS/Android apps for ease of access using your favorite mobile web browser
 - A landing page on port 80 for a 'Home Portal' where all of the web apps can be accessed without memorizing or bookmarking urls
@@ -53,7 +53,7 @@ Notice: Systems that utilize the Tiny Llama service offered by InsightReactions 
 
 1. Obtain a working system with a fresh installation of Debian 12 (Home or server) that is connected to the internet
 2. Run this command to baseline the system: `sudo bash -lc "curl -fsSL https://raw.githubusercontent.com/InsightReactions/TinyLlama/main/debian/os_baseline.sh | bash"`
-3. The Tiny Llama landing page can be accessed at http://localhost on the device. If mDNS is enabled, the landing page can be accessed from the Tiny Llama app on the iOS and Android app stores. The IP address of the server may be retrieved from the web page after using the mobile apps to navigate to the landing page, or you can find it by running the command `ip addr` on the Tiny Llama device and looking for the IP address with the appropriate subnet. Once the IP is retrieved, the landing page can be accessed with the following template: `http://<IP_ADDRESS>` 
+3. The Tiny Llama landing page can be accessed at http://localhost on the device. If mDNS is enabled, the landing page can be accessed from the Tiny Llama app on the iOS and Android app stores. The IP address of the server may be retrieved from the browser url after using the mobile apps to navigate to the landing page, or you can find it by running the command `ip addr` on the Tiny Llama device and looking for the IP address with the appropriate subnet. Once the IP is retrieved, the landing page can be accessed with the following template: `http://<IP_ADDRESS>` 
 4. That's it. Enjoy! Feel free to bookmark each web service in your favorite browsers on all of your home devices for maximal ease of access.
 
 ## v1.0 Software TODO List
