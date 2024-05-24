@@ -8,8 +8,13 @@ if [ "$(id -u)" != 0 ]; then
     exit 1
 fi
 
+# Install NVIDIA driver
+sed -i "s/bookworm main/bookworm main contrib non-free non-free-firmware/g" /etc/apt/sources.list
+apt update
+apt-get install -y nvidia-driver firmware-misc-nonfree
+
 # Docker
-apt update && apt-get install -y ca-certificates curl ssh
+apt-get install -y ca-certificates curl ssh
 
 install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc

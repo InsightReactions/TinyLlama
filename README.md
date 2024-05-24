@@ -2,7 +2,7 @@
 
 ![Tiny Llama Logo](web/static/android-chrome-192x192.png)
 
-[Debian Repository](https://github.com/InsightReactions/debian.insightreactions.github.io)
+[Link to Debian Repository](https://github.com/InsightReactions/debian.insightreactions.github.io)
 
 Harness the power of Stable Diffusion Image Generation and robust LLM chat interface for breathtaking image quality and intelligent conversations. Plus, unlock new creative possibilities with LLM-image interoperability. And with the permissive open-source licensing structure, you're in control.
 
@@ -56,11 +56,12 @@ Notice: Systems that utilize the Tiny Llama service offered by InsightReactions 
 
 1. Obtain a working system with a fresh installation of Debian 12 (Home or server) that is connected to the internet
 2. Run this command to baseline the system: `sudo bash -lc "curl -fsSL https://raw.githubusercontent.com/InsightReactions/TinyLlama/main/debian/os_baseline.sh | bash"`
-3. The Tiny Llama landing page can be accessed at http://localhost on the device. The IP address of the server may be retrieved by: 
+3. Reboot
+4. The Tiny Llama landing page can be accessed at http://localhost on the device. The IP address of the server may be retrieved by: 
    - The browser url after using the mobile app *Tiny Llama Connector* (iOS/Android) to navigate to the landing page
    - Running this command on a Linux PC with *avahi-utils* installed: `avahi-browse -art | grep -a2 "Tiny Llama" | grep address | cut -d'[' -f2 | cut -d']' -f1`
    - Running the command `ip addr` on the Tiny Llama device and looking for the IP address with the appropriate subnet. Once the IP is retrieved, the landing page can be accessed with the following template: `http://<IP_ADDRESS>` 
-4. That's it. Enjoy! Feel free to bookmark each web service in your favorite browsers on all of your home devices for maximal ease of access.
+5. That's it. Enjoy! Feel free to bookmark each web service in your favorite browsers on all of your home devices for maximal ease of access.
 
 ## v1.0 Software TODO List
 
