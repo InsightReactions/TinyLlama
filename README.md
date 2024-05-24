@@ -56,7 +56,10 @@ Notice: Systems that utilize the Tiny Llama service offered by InsightReactions 
 
 1. Obtain a working system with a fresh installation of Debian 12 (Home or server) that is connected to the internet
 2. Run this command to baseline the system: `sudo bash -lc "curl -fsSL https://raw.githubusercontent.com/InsightReactions/TinyLlama/main/debian/os_baseline.sh | bash"`
-3. The Tiny Llama landing page can be accessed at http://localhost on the device. If mDNS is enabled, the landing page can be accessed from the Tiny Llama app on the iOS and Android app stores. The IP address of the server may be retrieved from the browser url after using the mobile apps to navigate to the landing page, or you can find it by running the command `ip addr` on the Tiny Llama device and looking for the IP address with the appropriate subnet. Once the IP is retrieved, the landing page can be accessed with the following template: `http://<IP_ADDRESS>` 
+3. The Tiny Llama landing page can be accessed at http://localhost on the device. The IP address of the server may be retrieved by: 
+   - The browser url after using the mobile app *Tiny Llama Connector* (iOS/Android) to navigate to the landing page
+   - Running this command on a Linux PC with *avahi-utils* installed: `avahi-browse -art | grep -a2 "Tiny Llama" | grep address | cut -d'[' -f2 | cut -d']' -f1`
+   - Running the command `ip addr` on the Tiny Llama device and looking for the IP address with the appropriate subnet. Once the IP is retrieved, the landing page can be accessed with the following template: `http://<IP_ADDRESS>` 
 4. That's it. Enjoy! Feel free to bookmark each web service in your favorite browsers on all of your home devices for maximal ease of access.
 
 ## v1.0 Software TODO List

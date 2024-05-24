@@ -9,7 +9,7 @@ if [ "$(id -u)" != 0 ]; then
 fi
 
 # Docker
-apt update && apt-get install -y ca-certificates curl
+apt update && apt-get install -y ca-certificates curl ssh
 
 install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
