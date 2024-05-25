@@ -1190,8 +1190,9 @@ body {
 .mat-card {
   display: flex; 
   flex-direction: column;
-  justify-content: center;
-  padding-left: 12px;
+  justify-content: space-around;
+  padding: 12px;
+  width: 100%;
   background: #242429;
   color: white; }
   .mat-card:not([class*='mat-elevation-z']) {
@@ -2347,6 +2348,11 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
   border-radius: 6px;
   display: flex;
   align-items: stretch;
+}
+
+a, .mat-card-title {
+  text-decoration: none;
+  font-weight: 600;
 }
 
 /* Unvisited link */

@@ -1,0 +1,18 @@
+# Tiny Llama Web
+
+## Development Testing
+
+Set up a python3 virtual environment and download the requirements:
+```bash
+cd web
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+And to run the webserver (make sure port 80 is available):
+```bash
+cd web
+source venv/bin/activate
+flask run
+```

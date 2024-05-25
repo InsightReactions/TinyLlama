@@ -5,5 +5,8 @@ sed -i "s/#publish-aaaa-on-ipv4=yes/publish-aaaa-on-ipv4=no/g" /etc/avahi/avahi-
 sed -i "s/publish-hinfo=no/publish-hinfo=yes/g" /etc/avahi/avahi-daemon.conf
 sed -i "s/publish-workstation=no/publish-workstation=yes/g" /etc/avahi/avahi-daemon.conf
 
+chown root:root /etc/cron.d/tinyllama-mdns
+chmod 0600 /etc/cron.d/tinyllama-mdns
+
 systemctl enable avahi-daemon
 systemctl restart avahi-daemon

@@ -71,16 +71,16 @@ class MainActivity : ComponentActivity() {
 
                 override fun serviceFound(browser: DNSSDService?, flags: Int, ifIndex: Int, serviceName: String?, regType: String?, domain: String?) {
                     Log.d(TAG, "Found service: $serviceName")
-                    if (serviceName != "Tiny Llama Connector") {
+                    if (serviceName != "Tiny Llama") {
                         return;
                     }
                     dnssd?.resolve(flags, ifIndex, serviceName, regType, domain, object : ResolveListener {
                         override fun operationFailed(p0: DNSSDService?, p1: Int) {
-                            Log.e(TAG, "Failed to resolve Tiny Llama Connector service")
+                            Log.e(TAG, "Failed to resolve Tiny Llama service")
                         }
 
                         override fun serviceResolved(resolver: DNSSDService?, flags: Int, ifIndex: Int, fullName: String?, hostName: String?, port: Int, txtRecord: MutableMap<String, String>?) {
-                            Log.d(TAG, "Tiny Llama Connector Service resolved: $resolver $flags $ifIndex $fullName $hostName $port")
+                            Log.d(TAG, "Tiny Llama Service resolved: $resolver $flags $ifIndex $fullName $hostName $port")
                             dnssd?.queryRecord(0, ifIndex, hostName, 1, 1, object : QueryListener {
                                 override fun operationFailed(service: DNSSDService?, errorCode: Int) {
                                     Log.e(TAG, "Querying records failed for service: $service $errorCode")
