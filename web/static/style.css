@@ -2348,6 +2348,7 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
   border-radius: 6px;
   display: flex;
   align-items: stretch;
+  min-width: 500px;
 }
 
 a, .mat-card-title {
