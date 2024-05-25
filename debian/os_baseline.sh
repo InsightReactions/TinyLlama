@@ -42,3 +42,6 @@ curl -s --compressed -o /etc/apt/sources.list.d/insightreactions.list "https://d
 
 # Install the packages
 apt update && apt-get install -y tinyllama tinyllama-default tinyllama-plus tinyllama-mdns tinyllama-ollama tlweb-open-webui tlweb-stableswarmui
+
+# Configure system to not go to sleep
+systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
