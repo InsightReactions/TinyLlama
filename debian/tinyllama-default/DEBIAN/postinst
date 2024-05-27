@@ -6,6 +6,32 @@ set -e
 ollama pull taozhiyuai/hermes-2-theta-llama-3:8b-q4_k_m
 ollama pull llama3:instruct
 
-# Hook up open-webui image generation configuration
+# Image Generation
+MODEL_DIR="/srv/www/StableSwarmUI/Models/Stable-Diffusion"
+wget "https://huggingface.co/InsightReactions/TinyLlama/resolve/main/dreamshaperXL_v21TurboDPMSDE.safetensors?download=true" -O "$MODEL_DIR/dreamshaperXLv21.safetensors"
 
-# ? Set default model for open-webui as llama3:8b-instruct-q8_0
+# Open-WebUI Config
+WEBUI_DIR="/srv/www/open-webui"
+if ! grep -q "image_generation" $WEBUI_DIR/config.json; then
+    rm $WEBUI_DIR/config.json ||:
+fi
+
+if [ ! -f "$WEBUI_DIR/config.json" ]; then
+    cat <<EOF > $WEBUI_DIR/config.json
+{
+    "image_generation": {
+		"engine": "comfyui",
+		"enable": true,
+		"comfyui": {
+			"base_url": "http://localhost:7821"
+		},
+		"model": "dreamshaperXLv21.safetensors",
+		"size": "1024x1024",
+		"steps": 24
+	},
+    "ui": {
+		"default_models": "llama3:instruct"
+	}
+}
+EOF
+fi

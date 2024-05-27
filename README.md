@@ -2,7 +2,8 @@
 
 ![Tiny Llama Logo](web/static/android-chrome-192x192.png)
 
-[Link to Debian Repository](https://github.com/InsightReactions/debian.insightreactions.github.io)
+[Debian Repository](https://github.com/InsightReactions/debian.insightreactions.github.io)
+[HuggingFace Repository](https://huggingface.co/InsightReactions/TinyLlama)
 
 Harness the power of Stable Diffusion Image Generation and robust LLM chat interface for breathtaking image quality and intelligent conversations. Plus, unlock new creative possibilities with LLM-image interoperability. And with the permissive open-source licensing structure, you're in control.
 
@@ -27,8 +28,10 @@ Tiny Llama is a baseline configuration layer on top of Debian:latest, which prov
 
 Notice: Tiny Llama is primarily geared toward serving home users in a non-commercial/hobbyist context with pre-configured COTS hardware to encourage wide adoption of AI technologies by the general public.
 
-## Upcoming Additions
+## Upcoming Additions 
 
+in no particular order:
+- Speech-to-Text (STT) Support
 - Continued support for cutting-edge models
 - Virtual Girlfriend Open-WebUI Modelfile (codenamed: Sarah)
 - StableSwarmUI prompt presets, pre-configured selection of models as a known-good configuration
