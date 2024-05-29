@@ -5,7 +5,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$(dirname "$SCRIPT_DIR/../..")" && pwd)"
 DEB_REPO_ROOT="$REPO_ROOT/../debian.insightreactions.github.io"
 
-./build.sh
+bash $SCRIPT_DIR/build.sh
 
 cd $DEB_REPO_ROOT
 
