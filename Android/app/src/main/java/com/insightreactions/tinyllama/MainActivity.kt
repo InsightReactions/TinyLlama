@@ -37,6 +37,9 @@ class MainActivity : ComponentActivity() {
     private var tlSub: DNSSDService? = null
 
     private fun onTinyLlamaServiceFound(ipAddress: String) {
+        if (tlSub == null) {
+            return;
+        }
         tlSub?.stop()
         tlSub = null
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://$ipAddress"))
@@ -63,6 +66,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
+        Log.d(TAG, "MainActivity resumed")
         if (dnssd != null && tlSub == null) {
             tlSub = dnssd!!.browse("_http._tcp", object : BrowseListener {
                 override fun operationFailed(p0: DNSSDService?, p1: Int) {
@@ -114,6 +118,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onPause() {
         super.onPause()
+        Log.d(TAG, "MainActivity paused")
         if (tlSub != null) {
             tlSub!!.stop()
             tlSub = null
