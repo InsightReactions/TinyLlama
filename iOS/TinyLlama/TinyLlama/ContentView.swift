@@ -7,6 +7,7 @@ import AsyncDNSResolver
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.openURL) private var openURL
+    @Environment(\.scenePhase) private var scenePhase
     @Query private var items: [Item]
     private var endpoint: NWEndpoint = NWEndpoint.service(name: "Tiny Llama", type: "_http._tcp", domain: "local", interface: nil)
     @State private var bonjourResolver: BonjourResolver? = nil
@@ -56,23 +57,25 @@ struct ContentView: View {
                         idealHeight: 128,
                         maxHeight: 128
                     )
-                    .onAppear {
-                        let completionHandler: BonjourResolver.CompletionHandler = {
-                            result in switch result {
-                            case .success(let (string, int)):
-                                print("recieved success response: \(string) - \(int)")
-                                stopBonjourResolver()
-                                onTinyLlamaHostResolved(host: string)
-                            case .failure(let error):
-                                print("Error: \(error.localizedDescription)")
+                    .onChange(of: scenePhase) { oldScenePhase, newScenePhase in
+                        if (newScenePhase == .active) {
+                            let completionHandler: BonjourResolver.CompletionHandler = {
+                                result in switch result {
+                                case .success(let (string, int)):
+                                    print("recieved success response: \(string) - \(int)")
+                                    stopBonjourResolver()
+                                    onTinyLlamaHostResolved(host: string)
+                                case .failure(let error):
+                                    print("Error: \(error.localizedDescription)")
+                                }
                             }
+                            stopBonjourResolver()
+                            print("Starting Bonjour Resolver")
+                            bonjourResolver = BonjourResolver.resolve(endpoint: endpoint, completionHandler: completionHandler)
                         }
-                        stopBonjourResolver()
-                        print("Starting Bonjour Resolver")
-                        bonjourResolver = BonjourResolver.resolve(endpoint: endpoint, completionHandler: completionHandler)
-                    }
-                    .onDisappear {
-                        stopBonjourResolver()
+                        else if (oldScenePhase == .active) {
+                            stopBonjourResolver()
+                        }
                     }
                 ProgressView()
                     .progressViewStyle(.circular)
