@@ -26,6 +26,54 @@
         <a class="header-link" href="https://tinyllama.insightreactions.com">News</a>
         <div style="border: 0; border-right: 1px solid var(--ir-border-color); margin-left: 2%; margin-right: 2%;"></div>
         <a class="header-link" href="https://tinyllama.insightreactions.com">About</a>
+        <button class="mat-stroked-button" id="update-button" style="margin-left: 2%; font-weight: 700; cursor: pointer; display: none;" title="Click to upgrade">
+          Update
+        </button>
+        <script>
+          const updateButton = document.getElementById('update-button');
+          updateButton.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            fetch('/upgrade', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({}),
+            })
+              .then((response) => response.json())
+              .then(data => {
+                const upgradeLog = document.getElementById('upgrade-log');
+                upgradeLog.innerHTML = data.log;
+
+                const updateModal = document.getElementById('update-modal');
+                updateModal.style.display = 'flex';
+              })
+              .catch((error) => console.error(error));
+          });
+
+          fetch('/hasUpdates')
+            .then(response => response.json())
+            .then(data => {
+              const hasUpdates = data.hasUpdates;
+              updateButton.style.display = hasUpdates ? 'block' : 'none';
+            })
+            .catch((error) => console.error(error));
+        </script>
+        <div class="card-frame fitArticleWidth" id="update-modal" style="display: none; flex-direction: column; justify-content: space-between; align-items: center; z-index: 1; height: 80%; padding: 12px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: var(--ir-background-color);">
+          <h2>Upgrade Log</h2>
+          <textarea id="upgrade-log" class="card-frame mat-card" style="height: 80%;">
+          </textarea>
+          <button class="mat-stroked-button" id="close-button" style="cursor: pointer; border-radius: 10px;">
+            Close
+          </button>
+          <script>
+            const umcButton = document.getElementById('close-button');
+            umcButton.addEventListener('click', (e) => {
+              e.preventDefault();
+              const updateModal = document.getElementById('update-modal');
+              updateModal.style.display = 'none';
+            });
+          </script>
+        </div>
     </div>
     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2%; gap: 12px;">
       <div class="card-frame fitArticleWidth">
