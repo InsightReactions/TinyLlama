@@ -3,6 +3,7 @@ const ipAddress = window.location.href.replace(/^.*?:\/\//, '').replace(/\/.*/, 
 var checkPid = undefined;
 var pidCheckIntervalId = undefined;
 var newPatchDate = new Date(localStorage.getItem("lastPatchDate"));
+var refreshOnClose = false;
 const upgradeWaitingContainer = document.getElementById('upgrade-waiting-container');
 const upgradeResultsContainer = document.getElementById('upgrade-results-container');
 const patchnotesContainer = document.getElementById('patchnotes-container');
@@ -109,10 +110,13 @@ updateButton.addEventListener('click', (e) => {
     })
         .then((response) => response.json())
         .then(data => {
+            refreshOnClose = true;
             checkPid = data.pid;
             pidCheckIntervalId = setInterval(checkPidExists, 1000);
+
             upgradeWaitingContainer.style.display = 'flex';
             upgradeResultsContainer.style.display = 'none';
+
             updateModal.style.display = 'flex';
             updateButton.style.display = 'none';
         })
@@ -126,5 +130,7 @@ document.getElementById('close-button').addEventListener('click', (e) => {
     upgradeWaitingContainer.style.display = 'none';
     upgradeResultsContainer.style.display = 'none';
     updateModal.style.display = 'none';
-    window.location.reload();
+    if (refreshOnClose) {
+        window.location.reload();
+    }
 });
