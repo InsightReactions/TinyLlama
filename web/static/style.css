@@ -2283,6 +2283,81 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
   .material-icons .mat-badge-content {
     font-family: 'Raleway'; }
 
+.lds-grid {
+  color: #FFFFFF;
+}
+.lds-grid,
+.lds-grid div {
+  box-sizing: border-box;
+}
+.lds-grid {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-grid div {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: lds-grid 1.2s linear infinite;
+}
+.lds-grid div:nth-child(1) {
+  top: 8px;
+  left: 8px;
+  animation-delay: 0s;
+}
+.lds-grid div:nth-child(2) {
+  top: 8px;
+  left: 32px;
+  animation-delay: -0.4s;
+}
+.lds-grid div:nth-child(3) {
+  top: 8px;
+  left: 56px;
+  animation-delay: -0.8s;
+}
+.lds-grid div:nth-child(4) {
+  top: 32px;
+  left: 8px;
+  animation-delay: -0.4s;
+}
+.lds-grid div:nth-child(5) {
+  top: 32px;
+  left: 32px;
+  animation-delay: -0.8s;
+}
+.lds-grid div:nth-child(6) {
+  top: 32px;
+  left: 56px;
+  animation-delay: -1.2s;
+}
+.lds-grid div:nth-child(7) {
+  top: 56px;
+  left: 8px;
+  animation-delay: -0.8s;
+}
+.lds-grid div:nth-child(8) {
+  top: 56px;
+  left: 32px;
+  animation-delay: -1.2s;
+}
+.lds-grid div:nth-child(9) {
+  top: 56px;
+  left: 56px;
+  animation-delay: -1.6s;
+}
+@keyframes lds-grid {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
 :root {
     --ir-primary-color: #006FEE;
     --ir-secondary-color: #7EE7FC;
@@ -2315,7 +2390,7 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
   width: 50%;
 
   @media (max-width: 1300px) {
-    width: 100%;
+    width: 80%;
   }
 }
 
@@ -2371,4 +2446,40 @@ a:hover {
 /* Selected link (active) */
 a:active {
   color: #006fee;
+}
+
+textarea {
+  background-color: var(--ir-background2-color);
+  color: var(--ir-inputText-color);
+  border: 1px solid var(--ir-border-color);
+  border-radius: 6px;
+  padding: 8px;
+  font-size: 1em;
+  resize: vertical;
+}
+
+textarea:focus {
+  outline: none;
+  box-shadow: 0 0 5px var(--ir-border-color);
+}
+
+/* Webkit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ir-background-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--ir-border-color);
+  border-radius: 6px;
+  border: 3px solid var(--ir-background-color);
+}
+
+/* Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ir-border-color) var(--ir-background-color);
 }
