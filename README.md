@@ -28,19 +28,37 @@ Tiny Llama is a baseline configuration layer on top of Debian:latest, which prov
 
 Notice: Tiny Llama is primarily geared toward serving home users in a non-commercial/hobbyist context with pre-configured COTS hardware to encourage wide adoption of AI technologies by the general public.
 
+## Tiny Llama AI Home Server
+
+The Tiny Llama AI Home Server is an **affordable pre-configured Mini-ITX PC** that is **100% open source** and **designed for non-technical users** who are familiar with generative AI technologies but prefers the privacy of local computing and user data storage. 
+
+It's a plug-and-play solution that allows you to easily host your own Tiny Llama server without the need for technical expertise. The Tiny Llama AI Home Server is built using off-the-shelf PC components and is based on Debian Linux, making it simple to upgrade and maintain -- or repurpose as desired for those more technically-inclined users.
+
+The hardware is capable of generating **55 tokens per second with Meta's Llama3-8b** (comparable with ChatGPT-3.5 speeds) and supports loading any AI model that is both adequately supported by the RAM/VRAM of the device and the desired AI service (Open WebUI, StableSwarmUI, etc). In practice, this means to **expect to be able to run 8b-13b parameter LLMs and comparable diffusion models**. Currently, the hardware requirements for intelligent AI systems are *decreasing*, which means this hardware will be able to run increasingly more performant models without needing to replace any PC components for the forseeable future. These gains can be deployed to all Tiny Llama users at no cost through Tiny Llama's update functionality on the device's home page.
+
+Paired with the Tiny Llama Connector mobile app, the setup process to install the Tiny Llama AI Home Server is as easy as plugging in the device (power + ethernet), turning it on, and launching the Tiny Llama Connector app on your iOS or Android device.
+
+Specifications:
+- CPU: AMD Ryzen 5 4600G, 6-Core, 12-Thread
+- GPU: GeForce RTX 3060 12GB
+- MOBO: Gigabyte A520I AC (Mini-ITX/Direct 6 Phases Digital PWM with 55A DrMOS/Gaming GbE LAN/Intel WiFi+Bluetooth/NVMe PCIe 3.0 x4 M.2/3 Display Interfaces)
+- PSU: SFX, 450W
+- RAM: 16GB
+- Storage: NAND SSD, 256GB
+- Case: PETG Mini-ITX Tiny Llama branded MODCASE, Dark Gray
+
+The Tiny Llama AI Home Server costs **$999.99** pre-tax, sales starting early **Q3 2024**.
+
 ## Upcoming Additions 
 
-in no particular order:
+in no particular order and non-exhaustive:
 - Speech-to-Text (STT) Support
 - Continued support for cutting-edge models
-- Virtual Girlfriend Open-WebUI Modelfile (codenamed: Sarah)
 - StableSwarmUI prompt presets, pre-configured selection of models as a known-good configuration
 - How-to Guides
   - LoRAs and how to use them
   - Walkthrough of advanced ComfyUI Workflows provided by tinyllama-plus
-  - The differences between the provided model selections with tinyllama-default and tinyllama-plus
-  - LLM Prompting
-  - TinyLlama technical install guide
+  - LLM Prompting Guide
 - Tiny Llama Website (tlweb) plugin add/remove gallery on the device landing page to manage the system configuration
 - Civit.ai native integration
 
@@ -65,12 +83,6 @@ Notice: Systems that utilize the Tiny Llama service offered by InsightReactions 
    - Running this command on a Linux PC with *avahi-utils* installed: `avahi-browse -art | grep -a2 "Tiny Llama" | grep address | cut -d'[' -f2 | cut -d']' -f1`
    - Running the command `ip addr` on the Tiny Llama device and looking for the IP address with the appropriate subnet. Once the IP is retrieved, the landing page can be accessed with the following template: `http://<IP_ADDRESS>` 
 5. That's it. Enjoy! Feel free to bookmark each web service in your favorite browsers on all of your home devices for maximal ease of access.
-
-## v1.0 Software TODO List
-
-- iOS app does not rediscover the Tiny Llama service when returning to the app after a detection
-- Hook up Open WebUI image generation
-- Add default Open-WebUI model for better experience for first-time users
 
 ## Disclaimers
 
