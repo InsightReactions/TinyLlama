@@ -53,7 +53,7 @@ function fetchPatchnotes(showSystemOnlyUpdates) {
                 newPatchDate = new Date(patchnotes[0].creationTime);
             } else {
                 const p = document.createElement('p');
-                p.textContent = "No additional patch notes are available."
+                p.textContent = "System update complete. No additional patch notes are available."
                 patchnotesContainer.appendChild(p);
             }
 
