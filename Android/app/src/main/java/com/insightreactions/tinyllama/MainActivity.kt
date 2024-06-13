@@ -8,20 +8,29 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.github.druk.dnssd.BrowseListener
 import com.github.druk.dnssd.DNSSDEmbedded
 import com.github.druk.dnssd.DNSSDService
@@ -132,22 +141,35 @@ fun Greeting(modifier: Modifier = Modifier) {
         modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        Box(
-            modifier = modifier.fillMaxWidth(0.5f),
-            contentAlignment = Alignment.Center
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_launcher_round),
-                contentDescription = "The Tiny Llama icon",
-                modifier = Modifier.size(Dp(168f))
-            )
-            CircularProgressIndicator(
-                color = Blue80,
-                trackColor = MaterialTheme.colorScheme.surfaceVariant,
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .size(Dp(168f)),
-                strokeWidth = Dp(10f),
+            Box(
+                contentAlignment = Alignment.Center
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_launcher_round),
+                    contentDescription = "The Tiny Llama icon",
+                    modifier = Modifier.size(Dp(168f))
+                )
+                CircularProgressIndicator(
+                    color = Blue80,
+                    trackColor = MaterialTheme.colorScheme.surfaceVariant,
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .size(Dp(168f)),
+                    strokeWidth = Dp(10f),
+                )
+            }
+            Spacer(modifier = Modifier.height(16.dp)) // Add space between image and text
+            Text(
+
+                text = "Searching for TinyLlama...",
+                style = TextStyle(
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 20.sp
+                )
             )
         }
     }
