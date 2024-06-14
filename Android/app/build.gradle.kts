@@ -11,7 +11,7 @@ android {
         applicationId = "com.insightreactions.tinyllama"
         minSdk = 21
         targetSdk = 34
-        versionCode = 1
+        versionCode = 3
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
