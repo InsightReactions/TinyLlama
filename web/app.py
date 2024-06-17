@@ -2,7 +2,7 @@
 import subprocess
 from flask import Flask, request, jsonify
 import os
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timezone
 #import logging
 
 #logging.basicConfig(level=logging.DEBUG)
@@ -10,10 +10,22 @@ from datetime import datetime, timezone, timedelta
 # Maximum amount of patchnotes to serve to the client at once
 PATCHNOTE_LIMIT = 10
 
-
-app = Flask(__name__, 
+app = Flask("Tiny Llama Service", 
             static_url_path='', 
             static_folder='static')
+
+def get_default_route_ip():
+    # Get the default route IP address
+    result = subprocess.run(['ip', 'route'], stdout=subprocess.PIPE)
+    output = result.stdout.decode('utf-8').strip()
+
+    for line in output.split('\n'):
+        if 'default' in line:
+            for idx, e in enumerate(line.split()):
+                if 'src' in e:
+                    return line.split()[idx + 1]
+    
+    return None
 
 
 def check_pid_running(pid):
@@ -83,12 +95,15 @@ def find_patchnotes(since):
 @app.route('/has-updates', methods=['GET'])
 def has_updates():
     print("Checking for updates")
-    output = subprocess.check_output(["apt", "update"]).decode("utf-8")
-    if " can be upgraded." in output:
-        return jsonify(hasUpdates=True)
-    else:
-        return jsonify(hasUpdates=False)
+    has_updates = False
+    try:
+        output = subprocess.check_output(["apt", "update"]).decode("utf-8")
+        if " can be upgraded." in output:
+            has_updates = True
+    except Exception as e:
+        print(f"Error checking for updates: {e}")
 
+    return jsonify(hasUpdates=has_updates)
 
 @app.route('/upgrade', methods=['POST'])
 def upgrade():
@@ -103,6 +118,12 @@ def pid_exists(pid):
     print("PID {} running?: {}".format(pid, is_running))
     return jsonify({'exists': is_running})
 
+
+@app.route('/default-route', methods=['GET'])
+def default_route():
+    ip = get_default_route_ip()
+    print("Default route IP:", ip)
+    return jsonify(defaultRoute=ip)
 
 @app.route('/patchnotes', methods=['GET'])
 def get_patchnotes():
@@ -126,3 +147,6 @@ def get_patchnotes():
 @app.route('/')
 def root():
     return app.send_static_file('index.html')
+
+if __name__ == '__main__':
+    app.run(host="0.0.0.0")

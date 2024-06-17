@@ -12,7 +12,6 @@ const updateButton = document.getElementById('update-button');
 
 // FUNCTIONS
 function fetchPatchnotes(showSystemOnlyUpdates) {
-    console.log("Fetching patch notes...");
     fetch(`/patchnotes?since=${localStorage.getItem("lastPatchDate")}`)
         .then(response => response.json())
         .then(data => {
@@ -86,7 +85,21 @@ function checkPidExists() {
         .catch(error => console.error('Error:', error));
 }
 
+function assignDefaultRoute() {
+    fetch('/default-route')
+        .then(response => response.json())
+        .then(data => {
+            var route = data.defaultRoute;
+            if (route != null && ipAddress !== route) {
+                // replace ipAddress in the current url with route
+                window.location.href = window.location.href.replace(ipAddress, route);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
 // ON LOAD
+assignDefaultRoute();
 fetchPatchnotes(false);
 
 fetch('/has-updates')

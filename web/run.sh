@@ -8,4 +8,4 @@ fi
 
 source $SCRIPT_DIR/venv/bin/activate
 pip install -r $SCRIPT_DIR/requirements.txt
-flask run --host=0.0.0.0
+./app.py
