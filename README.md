@@ -53,6 +53,7 @@ The Tiny Llama AI Home Server costs **$999.99** pre-tax, sales starting early **
 
 in no particular order and non-exhaustive:
 - Speech-to-Text (STT) Support
+- Open WebUI - Web Search via Searxng
 - Continued support for cutting-edge models
 - StableSwarmUI prompt presets, pre-configured selection of models as a known-good configuration
 - How-to Guides

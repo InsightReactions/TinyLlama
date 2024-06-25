@@ -41,7 +41,10 @@ curl -s --compressed "https://debian.insightreactions.com/KEY.gpg" | gpg --dearm
 curl -s --compressed -o /etc/apt/sources.list.d/insightreactions.list "https://debian.insightreactions.com/insightreactions.list"
 
 # Install the packages
-apt update && apt-get install -y tinyllama tinyllama-default tinyllama-plus tinyllama-mdns tinyllama-ollama tlweb-open-webui tlweb-stableswarmui
+apt update && apt-get install -y xrdp tinyllama tinyllama-default tinyllama-plus tinyllama-mdns tinyllama-ollama tlweb-open-webui tlweb-stableswarmui
+
+#  Configure xdrp user to allow secure connections
+sudo adduser xrdp ssl-cert
 
 # Configure system to not go to sleep
 systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target

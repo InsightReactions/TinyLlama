@@ -1,10 +1,9 @@
 #!/bin/bash
 set -e
 
-# TODO: Echo the disclaimer to verify licensing 
-
 ollama pull taozhiyuai/hermes-2-theta-llama-3:8b-q4_k_m
 ollama pull llama3:instruct
+ollama pull llava-phi3
 
 # Image Generation
 MODEL_DIR="/srv/www/StableSwarmUI/Models/Stable-Diffusion"

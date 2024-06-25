@@ -40,7 +40,7 @@ function fetchPatchnotes(showSystemOnlyUpdates) {
                     const textarea = document.createElement('textarea');
                     textarea.title = "Patch Notes";
                     textarea.textContent = item.content;
-                    textarea.style.width = '600px';
+                    textarea.style.width = '100%';
                     textarea.style.height = '400px'; // Adjust the height as needed for your design
                     textarea.style.marginBottom = '12px'; // Add some space below each textarea
                     textarea.readOnly = true;
