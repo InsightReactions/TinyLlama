@@ -105,18 +105,19 @@ def has_updates():
 
     return jsonify(hasUpdates=has_updates)
 
+
 @app.route('/upgrade', methods=['POST'])
 def upgrade():
-    process = subprocess.Popen(["apt", "upgrade", "-y"])
-    print(f"Starting upgrade with PID {process.pid}")
-    return jsonify(pid=process.pid)
+    subprocess.run(["systemctl", "start", "tinyllama-upgrade"])
+    return jsonify({"message": "Upgrade started successfully"})
 
 
-@app.route('/pid-exists/<int:pid>', methods=['GET'])
-def pid_exists(pid):
-    is_running = check_pid_running(pid)
-    print("PID {} running?: {}".format(pid, is_running))
-    return jsonify({'exists': is_running})
+@app.route("/upgrade/status")
+def check_upgrade_status():
+    # Run shell command to get systemd service status and parse output
+    result = subprocess.run(["systemctl", "is-active", "tinyllama-upgrade"], capture_output=True, text=True)
+    state = result.stdout.strip()  # Remove trailing newline character
+    return jsonify({"state": state})
 
 
 @app.route('/default-route', methods=['GET'])

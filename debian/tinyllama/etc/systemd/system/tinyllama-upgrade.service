@@ -1,0 +1,10 @@
+[Unit]
+Description=Upgrade packages using apt
+
+[Service]
+Type=simple
+ExecStart=apt upgrade -y
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

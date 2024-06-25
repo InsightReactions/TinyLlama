@@ -1,7 +1,6 @@
 // GLOBALS
 const ipAddress = window.location.href.replace(/^.*?:\/\//, '').replace(/\/.*/, '').replace(/:.*/, '');
-var checkPid = undefined;
-var pidCheckIntervalId = undefined;
+var checkUpgradeIntervalId = undefined;
 var newPatchDate = new Date(localStorage.getItem("lastPatchDate"));
 var refreshOnClose = false;
 const upgradeWaitingContainer = document.getElementById('upgrade-waiting-container');
@@ -29,7 +28,6 @@ function fetchPatchnotes(showSystemOnlyUpdates) {
 
             if (patchnotes.length > 0) {
                 patchnotes.forEach((item) => {
-                    console.log("Processing item:", item);
                     const header = document.createElement('h2');
                     const filenameParts = item.filename.split('-'); // Split the string at '-'
                     const nameVersionParts = filenameParts[1].split('.') // Split the second part of the split string at '.'
@@ -68,17 +66,12 @@ function fetchPatchnotes(showSystemOnlyUpdates) {
         });
 }
 
-function checkPidExists() {
-    if (typeof checkPid !== 'number') {
-        clearInterval(pidCheckIntervalId);
-        return;
-    }
-
-    fetch(`/pid-exists/${checkPid}`)
+function checkUpgrading() {
+    fetch('/upgrade/status')
         .then(response => response.json())
         .then(data => {
-            if (!data.exists) {
-                clearInterval(pidCheckIntervalId);
+            if (data.state === 'inactive') {
+                clearInterval(checkUpgradeIntervalId);
                 fetchPatchnotes(true);
             }
         })
@@ -124,8 +117,7 @@ updateButton.addEventListener('click', (e) => {
         .then((response) => response.json())
         .then(data => {
             refreshOnClose = true;
-            checkPid = data.pid;
-            pidCheckIntervalId = setInterval(checkPidExists, 1000);
+            checkUpgradeIntervalId = setInterval(checkUpgrading, 1000);
 
             upgradeWaitingContainer.style.display = 'flex';
             upgradeResultsContainer.style.display = 'none';
