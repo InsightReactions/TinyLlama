@@ -7,7 +7,10 @@ ollama pull llava-phi3
 
 # Image Generation
 MODEL_DIR="/srv/www/StableSwarmUI/Models/Stable-Diffusion"
-wget "https://huggingface.co/InsightReactions/TinyLlama/resolve/main/dreamshaperXL_v21TurboDPMSDE.safetensors?download=true" -O "$MODEL_DIR/dreamshaperXLv21.safetensors"
+IMAGE_GEN_MODEL="CyberRealistic_V4.2_FP16.safetensors"
+if [ ! -f "$MODEL_DIR/$IMAGE_GEN_MODEL" ]; then
+	wget "https://huggingface.co/InsightReactions/TinyLlama/resolve/main/${IMAGE_GEN_MODEL}?download=true" -O "$MODEL_DIR/$IMAGE_GEN_MODEL"
+fi
 
 # Open-WebUI Config
 WEBUI_DIR="/srv/www/open-webui"
@@ -24,7 +27,7 @@ if [ ! -f "$WEBUI_DIR/config.json" ]; then
 		"comfyui": {
 			"base_url": "http://localhost:7821"
 		},
-		"model": "dreamshaperXLv21.safetensors",
+		"model": "${IMAGE_GEN_MODEL}",
 		"size": "1024x1024",
 		"steps": 24
 	},
