@@ -267,6 +267,7 @@
   font-weight: 500; }
 
 .mat-card-title {
+  line-height: 1.2;
   padding-bottom: 12px;
   font-size: 24px;
   font-weight: 500; }
@@ -2390,7 +2391,7 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
   width: 50%;
 
   @media (max-width: 1300px) {
-    width: 80%;
+      width: 80%;
   }
 }
 
@@ -2403,7 +2404,7 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
 }
 
 .header-link:hover {
-  color: #006fee;
+  color: var(--ir-primary-color);
 }
 
 .footer-link {
@@ -2415,7 +2416,7 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
 }
 
 .footer-link:hover {
-  color: #006fee;
+  color: var(--ir-primary-color);
 }
 
 .card-frame {
@@ -2441,11 +2442,11 @@ a:visited {
 }
 /* Mouse over link */
 a:hover {
-  color: #006fee;
+  color: var(--ir-primary-color);
 }
 /* Selected link (active) */
 a:active {
-  color: #006fee;
+  color: var(--ir-primary-color);
 }
 
 textarea {
@@ -2482,6 +2483,36 @@ textarea:focus {
 html {
   scrollbar-width: thin;
   scrollbar-color: var(--ir-border-color) var(--ir-background-color);
+}
+
+.warning-card {
+  padding-left: 1em;
+  margin: 1em;
+  margin-left: 3em;
+  border-left: 6px solid #F5A524; 
+  position: relative; /* This is so that we can absolutely position the triangle */
+}
+
+.warning-card::before {
+  content: "\26A0"; 
+  font-size: 2em; 
+  color: #F5A524; 
+  position: absolute;
+  top: 50%;
+  left: -1.5em; /* Position the triangle outside of the card */
+  transform: translateY(-50%); /* Vertically center the triangle */
+}
+
+.toc {
+  padding-left: 2em;
+  margin: 1em;
+  border-left: 6px solid var(--ir-border-color); 
+  width: fit-content;
+}
+
+.fitImage {
+  width:100%; 
+  height:auto;
 }
 
 a[target="_blank"]::after {
