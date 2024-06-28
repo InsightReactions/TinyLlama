@@ -33,5 +33,5 @@ dpkg-deb -b tinyllama-ollama .
 chmod -R 0775 tlweb-open-webui/DEBIAN
 dpkg-deb -b tlweb-open-webui .
 
-chmod -R 0775 tlweb-stableswarmui/DEBIAN
-dpkg-deb -b tlweb-stableswarmui .
+chmod -R 0775 tlweb-swarmui/DEBIAN
+dpkg-deb -b tlweb-swarmui .

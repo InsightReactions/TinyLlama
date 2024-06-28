@@ -1,0 +1,16 @@
+#!/bin/bash
+
+cd /srv/www
+
+if [ -d "SwarmUI/Models" ] || [ -d "SwarmUI/Output" ] || [ -d "SwarmUI/Data" ]; then
+    mv SwarmUI/Models ./Models_bak ||:
+    mv SwarmUI/Output ./Output_bak ||:
+    mv SwarmUI/Data ./Data_bak ||:
+    rm -r SwarmUI ||:
+    mkdir SwarmUI
+    mv ./Models_bak SwarmUI/Models ||:
+    mv ./Output_bak SwarmUI/Output ||:
+    mv ./Data_bak SwarmUI/Data ||:
+fi
+
+echo "SwarmUI user data must be removed manually, if desired, at path /srv/www/SwarmUI and /root/.dotnet"

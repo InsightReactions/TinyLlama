@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-#if [ -d "/srv/www/StableSwarmUI" ]; then
+#if [ -d "/srv/www/SwarmUI" ]; then
 
 #fi
 

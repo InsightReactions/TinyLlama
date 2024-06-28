@@ -34,7 +34,7 @@ The Tiny Llama AI Home Server is an **affordable pre-configured Mini-ITX PC** th
 
 It's a plug-and-play solution that allows you to easily host your own Tiny Llama server without the need for technical expertise. The Tiny Llama AI Home Server is built using off-the-shelf PC components and is based on Debian Linux, making it simple to upgrade and maintain -- or repurpose as desired for those more technically-inclined users.
 
-The hardware is capable of generating **55 tokens per second with Meta's Llama3-8b** (comparable with ChatGPT-3.5 speeds) and supports loading any AI model that is both adequately supported by the RAM/VRAM of the device and the desired AI service (Open WebUI, StableSwarmUI, etc). In practice, this means to **expect to be able to run 8b-13b parameter LLMs and comparable diffusion models**. Currently, the hardware requirements for intelligent AI systems are *decreasing*, which means this hardware will be able to run increasingly more performant models without needing to replace any PC components for the forseeable future. These gains can be deployed to all Tiny Llama users at no cost through Tiny Llama's update functionality on the device's home page.
+The hardware is capable of generating **55 tokens per second with Meta's Llama3-8b** (comparable with ChatGPT-3.5 speeds) and supports loading any AI model that is both adequately supported by the RAM/VRAM of the device and the desired AI service (Open WebUI, SwarmUI, etc). In practice, this means to **expect to be able to run 8b-13b parameter LLMs and comparable diffusion models**. Currently, the hardware requirements for intelligent AI systems are *decreasing*, which means this hardware will be able to run increasingly more performant models without needing to replace any PC components for the forseeable future. These gains can be deployed to all Tiny Llama users at no cost through Tiny Llama's update functionality on the device's home page.
 
 Paired with the Tiny Llama Connector mobile app, the setup process to install the Tiny Llama AI Home Server is as easy as plugging in the device (power + ethernet), turning it on, and launching the Tiny Llama Connector app on your iOS or Android device.
 
@@ -55,7 +55,7 @@ in no particular order and non-exhaustive:
 - Speech-to-Text (STT) Support
 - Open WebUI - Web Search via Searxng
 - Continued support for cutting-edge models
-- StableSwarmUI prompt presets, pre-configured selection of models as a known-good configuration
+- SwarmUI prompt presets, pre-configured selection of models as a known-good configuration
 - How-to Guides
   - LoRAs and how to use them
   - Walkthrough of advanced ComfyUI Workflows provided by tinyllama-plus
@@ -88,7 +88,7 @@ Notice: Systems that utilize the Tiny Llama service offered by InsightReactions 
 ## Disclaimers
 
 - Licensing
-  - Each third-party package provided by Tiny Llama has it's own licensing terms. Before attempting to use a specific suite of packages within a commercial context, verify that each module can be used legally within that context. The term "Packages" used here is defined (non-exhaustively) as a software service (Open-WebUI, StableSwarmUI), machine learning model (Llama3, Hermes2-Theta, SDXL), or plugins (ComfyUI Widgets, LLM Prompts). Use this product commercially at your own risk -- Tiny Llama is primarily geared toward serving home users in a non-commercial/hobbyist context with pre-configured COTS hardware to encourage wide adoption of AI technologies by the general public.
+  - Each third-party package provided by Tiny Llama has it's own licensing terms. Before attempting to use a specific suite of packages within a commercial context, verify that each module can be used legally within that context. The term "Packages" used here is defined (non-exhaustively) as a software service (Open-WebUI, SwarmUI), machine learning model (Llama3, Hermes2-Theta, SDXL), or plugins (ComfyUI Widgets, LLM Prompts). Use this product commercially at your own risk -- Tiny Llama is primarily geared toward serving home users in a non-commercial/hobbyist context with pre-configured COTS hardware to encourage wide adoption of AI technologies by the general public.
 - Tiny Llama Service
   - Some products offered by the Tiny Llama service may request login credentials. Unless otherwise specified, these accounts are created and stored locally on the device. Each service provides it's own mechanisms for user session management and authentication.
   - mDNS service is pre-installed during the [Installation step](#installation) and is required for proper functioning of the Tiny Llama Connector applications (iOS, Android). To uninstall it, you can simply run `sudo apt remove tinyllama-mdns`.

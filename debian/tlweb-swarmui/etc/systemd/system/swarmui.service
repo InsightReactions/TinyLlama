@@ -1,0 +1,11 @@
+[Unit]
+Description=SwarmUI Runner
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/bash -l -c 'ASPNETCORE_ENVIRONMENT="Production" ASPNETCORE_URLS="http://*:7801" /root/.dotnet/dotnet src/bin/live_release/SwarmUI.dll --launch_mode none --host 0.0.0.0'
+WorkingDirectory=/srv/www/SwarmUI
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

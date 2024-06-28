@@ -104,7 +104,7 @@ fetch('/has-updates')
     .catch((error) => console.error(error));
 
 document.querySelector('.openwebui').href = 'http://' + ipAddress + ':8080';
-document.querySelector('.stableswarmui').href = 'http://' + ipAddress + ':7801';
+document.querySelector('.swarmui').href = 'http://' + ipAddress + ':7801';
 
 updateButton.addEventListener('click', (e) => {
     e.preventDefault();

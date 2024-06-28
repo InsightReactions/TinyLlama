@@ -6,11 +6,14 @@ ollama pull llama3:instruct
 ollama pull llava-phi3
 
 # Image Generation
-MODEL_DIR="/srv/www/StableSwarmUI/Models/Stable-Diffusion"
-IMAGE_GEN_MODEL="CyberRealistic_V4.2_FP16.safetensors"
-if [ ! -f "$MODEL_DIR/$IMAGE_GEN_MODEL" ]; then
-	wget "https://huggingface.co/InsightReactions/TinyLlama/resolve/main/${IMAGE_GEN_MODEL}?download=true" -O "$MODEL_DIR/$IMAGE_GEN_MODEL"
-fi
+MODEL_DIR="/srv/www/SwarmUI/Models/Stable-Diffusion"
+IMAGE_GEN_MODELS=("CyberRealistic_V4.2_FP16.safetensors" "dreamshaperXL_v21TurboDPMSDE.safetensors")  # Add more models as needed
+for model in "${IMAGE_GEN_MODELS[@]}"
+do
+    if [ ! -f "$MODEL_DIR/$model" ]; then
+        wget "https://huggingface.co/InsightReactions/TinyLlama/resolve/main/${model}?download=true" -O "$MODEL_DIR/$model"
+    fi
+done
 
 # Open-WebUI Config
 WEBUI_DIR="/srv/www/open-webui"

@@ -8,19 +8,19 @@ cd $SCRIPT_DIR
 mkdir -p /srv/www
 cd /srv/www
 
-if [ -d "StableSwarmUI" ]; then
-    mv StableSwarmUI StableSwarmUI_bak
+if [ -d "SwarmUI" ]; then
+    mv SwarmUI SwarmUI_bak
 fi
 
 # Download swarm
-git clone https://github.com/Stability-AI/StableSwarmUI --depth 1 --branch 0.6.2-Beta
+git clone https://github.com/mcmonkeyprojects/SwarmUI --depth 1 --branch 0.9.0-Beta
 
-if [ -d "StableSwarmUI_bak" ]; then
-    rsync -au StableSwarmUI_bak/ StableSwarmUI/
-    rm -r StableSwarmUI_bak
+if [ -d "SwarmUI_bak" ]; then
+    rsync -au SwarmUI_bak/ SwarmUI/
+    rm -r SwarmUI_bak
 fi
 
-cd StableSwarmUI
+cd SwarmUI
 
 # install dotnet
 cd launchtools
@@ -34,7 +34,7 @@ chmod +x dotnet-install.sh
 cd ..
 
 # Build the project
-/root/.dotnet/dotnet build src/StableSwarmUI.csproj --configuration Release -o ./src/bin/live_release
+/root/.dotnet/dotnet build src/SwarmUI.csproj --configuration Release -o ./src/bin/live_release
 
 # Install ComfyUI
 bash ./launchtools/comfy-install-linux.sh
@@ -42,8 +42,8 @@ bash ./launchtools/comfy-install-linux.sh
 # Copy configuration files
 if [ ! -d "Data" ]; then
     mkdir -p Data
-    rsync -au /usr/share/stableswarmui/ .
+    rsync -au /usr/share/swarmui/ .
 fi
 
-systemctl enable stableswarmui
-systemctl start stableswarmui
+systemctl enable swarmui
+systemctl start swarmui
