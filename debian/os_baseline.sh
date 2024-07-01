@@ -8,6 +8,8 @@ if [ "$(id -u)" != 0 ]; then
     exit 1
 fi
 
+DEBIAN_FRONTEND=noninteractive
+
 # Install NVIDIA driver
 sed -i "s/bookworm main/bookworm main contrib non-free non-free-firmware/g" /etc/apt/sources.list
 apt update
