@@ -8,6 +8,9 @@ if [ "$(id -u)" != 0 ]; then
     exit 1
 fi
 
+# Configure system to not go to sleep
+systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+
 DEBIAN_FRONTEND=noninteractive
 
 # Install NVIDIA driver
@@ -47,6 +50,3 @@ apt update && apt-get install -y xrdp tinyllama tinyllama-default tinyllama-plus
 
 #  Configure xdrp user to allow secure connections
 sudo adduser xrdp ssl-cert
-
-# Configure system to not go to sleep
-systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
