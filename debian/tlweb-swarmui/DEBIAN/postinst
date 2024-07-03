@@ -18,6 +18,8 @@ git clone https://github.com/mcmonkeyprojects/SwarmUI --depth 1 --branch 0.9.0-B
 if [ -d "SwarmUI_bak" ]; then
     rsync -au SwarmUI_bak/ SwarmUI/
     rm -r SwarmUI_bak
+else
+    cp "/usr/share/swarmui/Data/Users.ldb" "/srv/www/SwarmUI/Data/Users.ldb"
 fi
 
 cd SwarmUI
