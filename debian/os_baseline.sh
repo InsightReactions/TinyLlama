@@ -11,6 +11,10 @@ fi
 # Configure system to not go to sleep
 systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
 
+# Set default Dark theme
+gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
+gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+
 DEBIAN_FRONTEND=noninteractive
 
 # Install NVIDIA driver
