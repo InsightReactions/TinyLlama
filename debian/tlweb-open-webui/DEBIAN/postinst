@@ -2,6 +2,6 @@
 set -eu
 
 mkdir -p /srv/www/open-webui
-docker pull ghcr.io/open-webui/open-webui:git-d43ee0f
+docker pull ghcr.io/open-webui/open-webui:git-2c06177
 systemctl enable open-webui
 systemctl start open-webui

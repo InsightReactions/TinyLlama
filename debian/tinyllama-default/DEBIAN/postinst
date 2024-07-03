@@ -31,8 +31,8 @@ if [ ! -f "$WEBUI_DIR/config.json" ]; then
 			"base_url": "http://localhost:7821"
 		},
 		"model": "${IMAGE_GEN_MODEL}",
-		"size": "1024x1024",
-		"steps": 24
+		"size": "512x512",
+		"steps": 30
 	},
     "ui": {
 		"default_models": "llama3:instruct"

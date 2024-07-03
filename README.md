@@ -21,7 +21,7 @@ Harness the power of Stable Diffusion Image Generation and robust LLM chat inter
 Tiny Llama is a baseline configuration layer on top of Debian:latest, which provides the following value:
 - Pre-packaged AI WebUI software which alleviates the technical experience required to use the latest open-source AI products and can be enjoyed on any device with appropriate aspect ratio displays (per-product basis).
 - Effortless access to a growing and continuously updating repository of cutting-edge open-source AI technologies
-- mDNS server auto-discovery support paired with iOS/Android apps for ease of access using your favorite mobile web browser
+- mDNS server auto-discovery support for ease of access using your favorite mobile web browser
 - A landing page on port 80 for a 'Home Portal' where all of the web apps can be accessed without memorizing or bookmarking urls
 - Premium content that provides a 'robust default experience' for each AI product such as:
   - [User How-to Guides](https://tinyllama.insightreactions.com/guides)
@@ -41,22 +41,21 @@ Notice: Tiny Llama is primarily geared toward serving home users in a non-commer
 
 # Tiny Llama AI Home Server
 
-The Tiny Llama AI Home Server is an **affordable pre-configured Mini-ITX PC** that is **100% open source** and **designed for non-technical users** who are familiar with generative AI technologies but prefers the privacy of local computing and user data storage. 
+Introducing the Tiny Llama AI Home Server - Your Ultimate Open-Source Generative AI Companion!
 
-It's a plug-and-play solution that allows you to easily host your own Tiny Llama server without the need for technical expertise. The Tiny Llama AI Home Server is built using off-the-shelf PC components and is based on Debian Linux, making it simple to upgrade and maintain -- or repurpose as desired for those more technically-inclined users.
+<img src="./assets/product-photo-a.png" alt="Tiny Llama AI Home Server 2024" width=200>
 
-The hardware is capable of generating **55 tokens per second with Meta's Llama3-8b** (comparable with ChatGPT-3.5 speeds) and supports loading any AI model that is both adequately supported by the RAM/VRAM of the device and the desired AI service (Open WebUI, SwarmUI, etc). In practice, this means to **expect to be able to run 8b-13b parameter LLMs and comparable diffusion models**. Currently, the hardware requirements for intelligent AI systems are *decreasing*, which means this hardware will be able to run increasingly more performant models without needing to replace any PC components for the forseeable future. These gains can be deployed to all Tiny Llama users at no cost through Tiny Llama's update functionality on the device's home page.
+Experience the power of cutting-edge image generation and large language models with our affordable, plug-and-play Mini-ITX PC. This open-source solution is perfect for users who are familiar with generative AI technologies like ChatGPT and Midjourney/DALL-E but prefer the privacy and control of local computing and user data storage.
 
-Paired with the Tiny Llama Connector mobile app, the setup process to install the Tiny Llama AI Home Server is as easy as plugging in the device (power + ethernet), turning it on, and launching the Tiny Llama Connector app on your iOS or Android device.
+Powered by an AMD Ryzen 5 4600G CPU, an NVIDIA GeForce RTX 3060 GPU with 12GB VRAM, and 16GB of RAM, the Tiny Llama AI Home Server provides a robust and snappy experience for running various consumer-grade AI models without breaking the bank. With a Gen3 PCIe 250GB Solid State Drive (SSD), you'll have ample storage space for your AI models and generated media. Additionally, the Tiny Llama AI Home Server also includes GbE LAN for fast and reliable network connections, optional Intel WiFi+Bluetooth for wireless connectivity, and four SATA3 ports for additional storage devices.
 
-Specifications:
-- CPU: AMD Ryzen 5 4600G, 6-Core, 12-Thread
-- GPU: GeForce RTX 3060 12GB
-- MOBO: Gigabyte A520I AC (Mini-ITX/Direct 6 Phases Digital PWM with 55A DrMOS/Gaming GbE LAN/Intel WiFi+Bluetooth/NVMe PCIe 3.0 x4 M.2/3 Display Interfaces)
-- PSU: SFX, 450W
-- RAM: 16GB
-- Storage: NAND SSD, 256GB
-- Case: PETG Mini-ITX Tiny Llama branded MODCASE, Dark Gray
+The Tiny Llama AI Home Server offers seamless access to state-of-the-art open-source services like SwarmUI and Open-WebUI, allowing you to generate images and interact with large language models effortlessly. Our comprehensive how-to guides cater to all the services offered by the Tiny Llama AI Home Server, ensuring that you get the most out of your experience.
+
+The Tiny Llama AI Home Server is housed in a 3D printed case, making it compact and easy to integrate into your home or office environment. With mDNS server auto-discovery support, you can easily access the system using your favorite web browser on any modern device. The tinyllama.local landing page serves as a 'Home Portal' where all of the web apps can be accessed without memorizing or bookmarking URLs.
+
+The setup process is simple - just plug in the device (power + ethernet), turn it on, and navigate to http://tinyllama.local on your PC or mobile device. Additionally, stay on the cutting-edge with effortless continuous easy-to-apply updates for the lifetime of the Tiny Llama product from InsightReactions as newer technologies are made available through open-source channels.
+
+Experience the convenience and security of harnessing the capabilities of generative AI on your own terms with the Tiny Llama AI Home Server!
 
 The Tiny Llama AI Home Server costs **$999.99** pre-tax, sales starting early **Q3 2024**.
 
@@ -101,6 +100,6 @@ Notice: Systems that utilize the Tiny Llama service offered by InsightReactions 
   - Each third-party package provided by Tiny Llama has it's own licensing terms. Before attempting to use a specific suite of packages within a commercial context, verify that each module can be used legally within that context. The term "Packages" used here is defined (non-exhaustively) as a software service (Open-WebUI, SwarmUI), machine learning model (Llama3, Hermes2-Theta, SDXL), or plugins (ComfyUI Widgets, LLM Prompts). Use this product commercially at your own risk -- Tiny Llama is primarily geared toward serving home users in a non-commercial/hobbyist context with pre-configured COTS hardware to encourage wide adoption of AI technologies by the general public.
 - Tiny Llama Service
   - Some products offered by the Tiny Llama service may request login credentials. Unless otherwise specified, these accounts are created and stored locally on the device. Each service provides it's own mechanisms for user session management and authentication.
-  - mDNS service is pre-installed during the [Installation step](#installation) and is required for proper functioning of the Tiny Llama Connector applications (iOS, Android). To uninstall it, you can simply run `sudo apt remove tinyllama-mdns`.
+  - mDNS service is pre-installed during the [Installation step](#installation) and is required for proper functioning of the http://tinyllama.local url. To uninstall it, you can simply run `sudo apt remove tinyllama-mdns`.
 - Tiny Llama Home Server
   - GNOME Location services are enabled by default for system clock timezone sychronization
