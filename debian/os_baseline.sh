@@ -15,7 +15,7 @@ systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
 gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 
-DEBIAN_FRONTEND=noninteractive
+export DEBIAN_FRONTEND=noninteractive
 
 # Install NVIDIA driver
 sed -i "s/bookworm main/bookworm main contrib non-free non-free-firmware/g" /etc/apt/sources.list
