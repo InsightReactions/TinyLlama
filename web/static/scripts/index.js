@@ -70,9 +70,40 @@ function checkUpgrading() {
     fetch('/upgrade/status')
         .then(response => response.json())
         .then(data => {
+            if (data.state === 'active') {
+                return;
+            }
+
+            clearInterval(checkUpgradeIntervalId);
+
             if (data.state === 'inactive') {
-                clearInterval(checkUpgradeIntervalId);
                 fetchPatchnotes(true);
+            } else if (data.state === 'failed') {
+                // clear patchnotes section
+                while (patchnotesContainer.firstChild) {
+                    patchnotesContainer.removeChild(patchnotesContainer.firstChild);
+                }
+                
+                // Show the error
+                const p = document.createElement('p');
+                p.textContent = "An error occurred during the update process. Please submit the following error log to support@insightreactions.com for further assistance:";
+
+                const textarea = document.createElement('textarea');
+                textarea.title = "Error Log";
+                textarea.textContent = data.errorMessage;
+                textarea.style.width = '100%';
+                textarea.style.height = '400px';
+                textarea.style.marginBottom = '12px';
+                textarea.readOnly = true;
+
+                patchnotesContainer.appendChild(p);
+                patchnotesContainer.appendChild(textarea);
+
+                upgradeWaitingContainer.style.display = 'none';
+                upgradeResultsContainer.style.display = 'flex';
+                updateModal.style.display = 'flex';
+            } else {
+                console.error('Unhandled upgrade state:', data.state);
             }
         })
         .catch(error => console.error('Error:', error));

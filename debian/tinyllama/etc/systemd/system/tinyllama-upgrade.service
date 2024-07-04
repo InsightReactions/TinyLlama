@@ -2,10 +2,9 @@
 Description=Upgrade packages using apt
 
 [Service]
+User=root
 Type=simple
-ExecStart=apt upgrade -y
-StandardInput=tty-force
-TTYPath=/dev/tty1
+ExecStart=/bin/bash -lc 'apt upgrade -y'
 
 [Install]
 WantedBy=multi-user.target

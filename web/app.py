@@ -116,8 +116,17 @@ def upgrade():
 def check_upgrade_status():
     # Run shell command to get systemd service status and parse output
     result = subprocess.run(["systemctl", "is-active", "tinyllama-upgrade"], capture_output=True, text=True)
-    state = result.stdout.strip()  # Remove trailing newline character
-    return jsonify({"state": state})
+    state = result.stdout.strip()
+    if state == "failed":
+        result = subprocess.run(["journalctl", "-u", "tinyllama-upgrade", "--since", "1 minutes ago", "--no-pager"], capture_output=True, text=True)
+        error_message = result.stdout.strip()
+
+        # Try to fix broken packages automatically
+        print("Running 'dpkg --configure -a' to try and fix broken packages automatically")
+        subprocess.run(["dpkg", "--configure", "-a"])
+    else:
+        error_message = ""
+    return jsonify({"state": state, "errorMessage": error_message})
 
 
 @app.route('/default-route', methods=['GET'])

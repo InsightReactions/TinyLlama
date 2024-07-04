@@ -2,14 +2,17 @@
 set -eu
 
 # Ollama
-export OLLAMA_VERSION="0.1.38"
+export OLLAMA_VERSION="0.1.48"
 curl -fsSL https://ollama.com/install.sh | sh
 
 # Ollama service configuration
 OLLAMA_SERVICE="/etc/systemd/system/ollama.service"
 OLLAMA_HOST_STR="Environment=\"OLLAMA_HOST=0.0.0.0\""
+OLLAMA_NOHISTORY_STR="Environment=\"OLLAMA_NOHISTORY=1\""
 line=$(grep -n "ExecStart" $OLLAMA_SERVICE | cut -d ":" -f 1)
 sed -i "${line}i ${OLLAMA_HOST_STR}" $OLLAMA_SERVICE
+sed -i "${line}i ${OLLAMA_NOHISTORY_STR}" $OLLAMA_SERVICE
+
 systemctl daemon-reload
 systemctl enable ollama
 systemctl restart ollama
