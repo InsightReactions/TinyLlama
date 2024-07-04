@@ -15,11 +15,21 @@ fi
 # Download swarm
 git clone https://github.com/mcmonkeyprojects/SwarmUI --depth 1 --branch 0.9.0-Beta
 
+echo "Restoring SwarmUI data from a backup. This may take some time. Please wait..."
 if [ -d "SwarmUI_bak" ]; then
-    rsync -au SwarmUI_bak/ SwarmUI/
+    # Move models instead of copy since they take up a lot of space
+    if [ -d "SwarmUI_bak/Models" ]; then
+        rm -rf SwarmUI/Models 2>/dev/null ||:
+        mv SwarmUI_bak/Models SwarmUI/
+    fi
+    # Next, move the Output folder since it may contain a lot of data
+    if [ -d "SwarmUI_bak/Output" ]; then
+        rm -r SwarmUI/Output 2>/dev/null ||:
+        mv SwarmUI_bak/Output SwarmUI/
+    fi
+    # Copy over the rest
+    rsync -avu SwarmUI_bak/ SwarmUI/
     rm -r SwarmUI_bak
-else
-    cp "/usr/share/swarmui/Data/Users.ldb" "/srv/www/SwarmUI/Data/Users.ldb"
 fi
 
 cd SwarmUI
@@ -43,7 +53,6 @@ bash ./launchtools/comfy-install-linux.sh
 
 # Copy configuration files
 if [ ! -d "Data" ]; then
-    mkdir -p Data
     rsync -au /usr/share/swarmui/ .
 fi
 
