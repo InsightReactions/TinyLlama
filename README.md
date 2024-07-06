@@ -23,19 +23,7 @@ Tiny Llama is a baseline configuration layer on top of Debian:latest, which prov
 - Effortless access to a growing and continuously updating repository of cutting-edge open-source AI technologies
 - mDNS server auto-discovery support for ease of access using your favorite mobile web browser
 - A landing page on port 80 for a 'Home Portal' where all of the web apps can be accessed without memorizing or bookmarking urls
-- Premium content that provides a 'robust default experience' for each AI product such as:
-  - [User How-to Guides](https://tinyllama.insightreactions.com/guides)
-  - LLM
-    - Prompt Presets
-    - Virtual Characters
-    - A compelling 'default personality'
-    - Hand-picked selection of LLMs to get started
-  - Image Generation
-    - Prompt Presets
-    - Hand-picked selection of Stable Diffusion Models and LoRAs
-    - Pre-installed Third-Party ComfyUI Widgets
-    - Powerful ComfyUI Workflow presets for upscaling, inpainting, consistent characters, etc
-  - And much more
+- Premium content that provides a 'robust default experience' for each AI product
 
 Notice: Tiny Llama is primarily geared toward serving home users in a non-commercial/hobbyist context with pre-configured COTS hardware to encourage wide adoption of AI technologies by the general public.
 
@@ -57,7 +45,7 @@ The setup process is simple - just plug in the device (power + ethernet), turn i
 
 Enjoy the convenience and security of harnessing the capabilities of generative AI on your own terms with the Tiny Llama AI Home Server!
 
-The Tiny Llama AI Home Server costs **$999.99** pre-tax, sales starting early **Q3 2024**.
+The Tiny Llama AI Home Server costs **$999.99** pre-tax (subject to change), sales starting early **Q3 2024**.
 
 # Upcoming Additions 
 
