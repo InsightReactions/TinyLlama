@@ -10,7 +10,7 @@ bash $SCRIPT_DIR/build.sh
 cd $DEB_REPO_ROOT
 
 # Push new build
-rm -rf "$DEB_REPO_ROOT/docs/pool/main/*.deb" 
+rm -rf "$DEB_REPO_ROOT/docs/pool/main/"*.deb
 cp "$REPO_ROOT/build/debian"/*.deb "$DEB_REPO_ROOT/docs/pool/main/"
 ./build.sh
 git add --all
