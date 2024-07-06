@@ -79,7 +79,7 @@ To run Tiny Llama in it's default-supported configuration:
 - CPU: 4-cores or more
 - System RAM: at least 16GB
 - GPU: NVIDIA GPUs only, 12GB VRAM or higher is necessary to enjoy AI products offered by Tiny Llama's default configuration at full-speed
-- Storage: SSD, 250GB or more is recommended
+- Storage: 60GB SSD, 250GB or more is recommended for additional models and to support future functionality
 - Wired internet connectivity during setup, wired LAN connectivity afterwards
 
 Notice: Systems that utilize the Tiny Llama service offered by InsightReactions are maintained based on this premise and the Debian package configuration. Deviate from the baseline configuration at your own risk. Precautionary measures will be taken to reduce unintended secondary effects from updates but we cannot provide any guarantees of system stability when deviation from the system baseline occurs.

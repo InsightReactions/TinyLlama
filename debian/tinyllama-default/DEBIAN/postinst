@@ -30,7 +30,7 @@ if [ ! -f "$WEBUI_DIR/config.json" ]; then
 		"comfyui": {
 			"base_url": "http://localhost:7821"
 		},
-		"model": "${IMAGE_GEN_MODEL}",
+		"model": "${IMAGE_GEN_MODELS[0]}",
 		"size": "512x512",
 		"steps": 30
 	},
