@@ -56,5 +56,15 @@ if [ ! -d "Data" ]; then
     rsync -au /usr/share/swarmui/ .
 fi
 
+# Download models
+MODEL_DIR="/srv/www/SwarmUI/Models/Stable-Diffusion"
+IMAGE_GEN_MODELS=("CyberRealistic_V4.2_FP16.safetensors" "dreamshaperXL_v21TurboDPMSDE.safetensors") 
+for model in "${IMAGE_GEN_MODELS[@]}"
+do
+    if [ ! -f "$MODEL_DIR/$model" ]; then
+        wget "https://huggingface.co/InsightReactions/TinyLlama/resolve/main/${model}?download=true" -O "$MODEL_DIR/$model"
+    fi
+done
+
 systemctl enable swarmui
 systemctl start swarmui

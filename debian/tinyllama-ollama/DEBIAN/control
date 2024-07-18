@@ -1,9 +1,9 @@
 Package: tinyllama-ollama
-Version: 1.0.1-0.1.48
+Version: 1.0.2-0.1.48
 Maintainer: InsightReactions <support@insightreactions.com>
 Section: utils
 Priority: optional
 Architecture: amd64
 Description: ollama configured for the Tiny Llama AI Home server platform by InsightReactions
 Depends: curl
-Reccomends: tinyllama, tinyllama-plus
+Reccomends: tinyllama

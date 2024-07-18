@@ -2449,6 +2449,18 @@ a:active {
   color: var(--ir-primary-color);
 }
 
+progress {
+  border: 1px solid var(--ir-border-color);
+  border-radius: 6px; 
+}
+progress::-webkit-progress-bar {
+  background-color: var(--ir-background2-color);
+}
+progress::-webkit-progress-value {
+  background-color: var(--ir-primary-color);
+  border-radius: 6px; 
+}
+
 textarea {
   background-color: var(--ir-background2-color);
   color: var(--ir-inputText-color);

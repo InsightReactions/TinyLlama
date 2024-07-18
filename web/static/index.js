@@ -1,6 +1,4 @@
-
 // GLOBALS
-const ipAddress = window.location.href.replace(/^.*?:\/\//, '').replace(/\/.*/, '').replace(/:.*/, '');
 var checkUpgradeIntervalId = undefined;
 var newPatchDate = new Date(localStorage.getItem("lastPatchDate"));
 var refreshOnClose = false;
@@ -10,6 +8,7 @@ const patchnotesContainer = document.getElementById('patchnotes-container');
 const updateModal = document.getElementById('update-modal');
 const updateButton = document.getElementById('update-button');
 const pluginBrowserContainer = document.getElementById('plugin-browser-container');
+const vramProgressBar = document.getElementById('vram-progress-bar');
 
 // FUNCTIONS
 function fetchPatchnotes(showSystemOnlyUpdates) {
@@ -111,21 +110,24 @@ function checkUpgrading() {
         .catch(error => console.error('Error:', error));
 }
 
-function assignDefaultRoute() {
-    fetch('/default-route')
-        .then(response => response.json())
-        .then(data => {
-            var route = data.defaultRoute;
-            if (route != null && ipAddress !== route) {
-                // replace ipAddress in the current url with route
-                window.location.href = window.location.href.replace(ipAddress, route);
-            }
-        })
-        .catch(error => console.error('Error:', error));
+function updateVram() {
+    fetch('/gpu/usage/memory/0')
+    .then(response => response.json())
+    .then(data => {
+         const total = data.total;
+         const used = data.used + data.reserved;
+
+         // Calculate the percentage of VRAM used
+         const percentUsed = (used / total) * 100;
+         console.log(percentUsed);
+         vramProgressBar.value = percentUsed;
+    })
+    .catch(error => console.error('Error:', error));
 }
 
+
 // ON LOAD
-assignDefaultRoute();
+updateVramIntervalId = setInterval(updateVram, 1000);
 fetchPatchnotes(false);
 
 fetch('/has-updates')

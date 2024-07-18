@@ -1,8 +1,20 @@
 # Deploy first builds the packages, then adds them to the debian repository
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$(dirname "$SCRIPT_DIR/../..")" && pwd)"
+DEB_REPO_ROOT="$REPO_ROOT/../debian.insightreactions.github.io"
+
 RELEASE_TYPE=$1
 if [[ $RELEASE_TYPE != "testing" && $RELEASE_TYPE != "stable" ]]; then
-    echo "Invalid release type."
-    echo "Usage: deploy.sh [testing|stable]"
+    echo "Error: Invalid release type."
+    echo "Usage: deploy.sh [testing|stable] <package>"
+    exit 1
+fi
+
+PACKAGE=$2
+if [[ -z $PACKAGE ]] || [[ ! -d "$SCRIPT_DIR/$PACKAGE" ]]; then
+    echo "Error: Package not provided or not found in directory: $SCRIPT_DIR/$PACKAGE"
+    echo "Usage: deploy.sh [testing|stable] <package>"
     exit 1
 fi
 
@@ -17,24 +29,23 @@ if [[ $RELEASE_TYPE == "stable" ]]; then
     fi
 fi
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd "$(dirname "$SCRIPT_DIR/../..")" && pwd)"
-DEB_REPO_ROOT="$REPO_ROOT/../debian.insightreactions.github.io"
-
-bash $SCRIPT_DIR/build.sh
+# Build the package
+bash $SCRIPT_DIR/build.sh $PACKAGE
 
 cd $DEB_REPO_ROOT
 
-# Push new build
-if [[ $RELEASE_TYPE == "stable" ]]; then
-    rm -rf "$DEB_REPO_ROOT/docs/pool/stable/main/"*.deb
-    cp "$REPO_ROOT/build/debian"/*.deb "$DEB_REPO_ROOT/docs/pool/stable/main/"
-    ./build.sh $RELEASE_TYPE
-else
-    rm -rf "$DEB_REPO_ROOT/docs/pool/testing/main/"*.deb
-    cp "$REPO_ROOT/build/debian"/*.deb "$DEB_REPO_ROOT/docs/pool/testing/main/"
-    ./build.sh $RELEASE_TYPE
-fi
+rm -rf "$DEB_REPO_ROOT/docs/pool/$RELEASE_TYPE/main/"$PACKAGE*.deb
+cp "$REPO_ROOT/build/debian"/$PACKAGE*.deb "$DEB_REPO_ROOT/docs/pool/$RELEASE_TYPE/main/"
+
+# Recompile the repository with the updated/new package
+./build.sh $RELEASE_TYPE
+
 git add --all
-git commit -m "updated repository"
-git push
+git status
+read -p "Would you like to push these changes? (y/n) " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    git commit -m "updated repository"
+    git push
+fi

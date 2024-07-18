@@ -1,0 +1,6 @@
+{
+    "package": "tlweb-swarmui",
+    "name": "SwarmUI",
+    "description": "A Modular Stable Diffusion web-based image generation interface, with an emphasis on making AI powertools easily accessible, performant, and extensible.",
+    "port": 7801
+}

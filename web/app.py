@@ -4,6 +4,7 @@ from flask import Flask, request, jsonify, send_from_directory
 import os
 from datetime import datetime, timezone
 import logging
+import json
 
 TL_TESTING = bool(os.environ.get('TL_TESTING', False))
 if TL_TESTING:
@@ -99,66 +100,6 @@ def find_patchnotes(since):
     return patchnotes
 
 
-def get_package_properties(package_name: str):
-    # Restrict to only plugin packages to prevent system snooping
-    if package_name.startswith('tlweb-'):
-        try:
-            output = subprocess.check_output(['apt', 'show', package_name], text=True).splitlines()
-            description = ''
-            name = ''
-            port = -1
-            desc_start_line_idx = -1
-            for i, line in enumerate(output):
-                if line.startswith("Name"):
-                    name = line[len("Name:"):].strip()
-                elif line.startswith('Port'):
-                    port = int(line[len('Port:'):].strip())
-                elif desc_start_line_idx >= 0 and not line.startswith(' '):
-                    description = '\n'.join(line.strip() for line in output[desc_start_line_idx:i])
-                    desc_start_line_idx = -1
-                elif line.strip().startswith('Description'):
-                    desc_start_line_idx = i
-
-                if len(name) > 0 and len(description) > 0:
-                    break
-
-            if len(name) > 0 and len(description) > 0:
-                return {
-                    'name': name,
-                    'description': description,
-                    'port': port
-                }
-        except subprocess.CalledProcessError:
-            print(f"Failed to get description for package '{package_name}'")
-
-    return None 
-
-
-def find_plugins():
-    result = subprocess.check_output(["apt", "search", "^tlweb-.*"]).decode("utf-8")
-    lines = result.split('\n')
-
-    plugins = []
-
-    for line in lines:
-        if '[installed]' in line:
-            package_name = line.split('/')[0].strip()
-            plugin_name = package_name.replace('tlweb-', '')
-            plugin_properties = get_package_properties(package_name)
-            if plugin_properties is not None:
-                plugins.append({
-                    'id': plugin_name,
-                    'name': plugin_properties['name'],
-                    'description': plugin_properties['description'],
-                    'iconHref': f'/plugin-icons/{plugin_name}.png',
-                    'url': f'http://{DEFAULT_ROUTE}:{plugin_properties['port']}'
-                })
-            else:
-                print(f"Failed to get properties for package '{package_name}'")
-
-    return jsonify(plugins=plugins)
-
-
 @app.route('/has-updates', methods=['GET'])
 def has_updates():
     print("Checking for updates")
@@ -220,19 +161,144 @@ def get_patchnotes():
 
     return jsonify(patchnotes=patchnotes)
 
-
-@app.route('/plugin-icons/<pluginname>.png', methods=['GET'])
-def get_plugin_file(pluginname):
-    filepath = f'/usr/share/{pluginname}/icon.png'
-    if not os.path.isfile(filepath):
-        return jsonify({'error': 'File not found'}), 404
-
-    return send_from_directory('/usr/share', f'{pluginname}/icon.png')
+PLUGIN_MARKETPLACE_DIR = "/usr/share/tinyllama/plugin-marketplace"
+@app.route('/plugin-marketplace/<plugin_file>', methods=['GET'])
+def get_plugin_file(plugin_file):
+    return send_from_directory(PLUGIN_MARKETPLACE_DIR, plugin_file)
 
 
-@app.route('/plugins', methods=['GET'])
+@app.route('/plugin-marketplace/status/<plugin_name>', methods=['GET'])
+def get_plugin_state(plugin_name):
+    installed = os.path.exists("/etc/systemd/system/" + plugin_name + ".service")
+    active = False
+    if installed:
+        result = subprocess.run(["systemctl", "is-active", plugin_name], capture_output=True, text=True)
+        active = result.stdout.strip() == "active"
+
+    return jsonify(installed=installed, active=active)
+
+
+@app.route('/plugin-marketplace/list' ,methods=['GET'])
 def get_plugins():
-    return find_plugins()
+    # Open the PLUGIN_MARKETPLACE_DIR directory and list all json files in it
+    plugins = []
+    for filename in os.listdir(PLUGIN_MARKETPLACE_DIR):
+        if filename.endswith(".json"):
+            # Append the filenames without the extension to the plugins list
+            plugins.append(filename[:-5])
+
+    return jsonify(plugins=plugins)
+
+
+@app.route('/plugin-marketplace/install/<plugin_name>', methods=['GET'])
+def install_plugin(plugin_name):
+    plugin_json_path = os.path.join(PLUGIN_MARKETPLACE_DIR, f"{plugin_name}.json")
+    if not os.path.exists(plugin_json_path):
+        return jsonify({"error": "Plugin not found"}), 404
+    
+    with open(plugin_json_path, 'r') as f:
+        plugin_metadata = json.load(f)
+
+    package = plugin_metadata['package']
+    # Install the apt package
+    try:
+         subprocess.run(['apt', 'install', '-y', package], check=True)
+    except subprocess.CalledProcessError as e:
+        return jsonify({"error": "Failed to install plugin", "details": str(e)}), 500
+    
+    # Enable and start the systemd service
+    try:
+        subprocess.run(['systemctl', 'enable', f'{plugin_name}.service'], check=True)
+        subprocess.run(['systemctl', 'start', f'{plugin_name}.service'], check=True)
+    except subprocess.CalledProcessError as e:
+        return jsonify({"error": "Failed to start plugin service", "details": str(e)}), 500
+    
+    return jsonify({"message": "Plugin installed successfully"}), 200
+
+
+@app.route('/plugin-marketplace/uninstall/<plugin_name>', methods=['GET'])
+def uninstall_plugin(plugin_name):
+    plugin_json_path = os.path.join(PLUGIN_MARKETPLACE_DIR, f"{plugin_name}.json")
+    if not os.path.exists(plugin_json_path):
+        return jsonify({"error": "Plugin not found"}), 404
+    
+    with open(plugin_json_path, 'r') as f:
+        plugin_metadata = json.load(f)
+    
+    package = plugin_metadata['package']
+    # Remove the apt package
+    try:
+         subprocess.run(['apt', 'remove', '-y', package], check=True)
+    except subprocess.CalledProcessError as e:
+        return jsonify({"error": "Failed to remove plugin", "details": str(e)}), 500
+    
+    return jsonify({"message": "Plugin uninstalled successfully"}), 200
+
+
+@app.route('/plugin-marketplace/start/<plugin_name>', methods=['GET'])
+def start_plugin(plugin_name):
+    plugin_json_path = os.path.join(PLUGIN_MARKETPLACE_DIR, f"{plugin_name}.json")
+    print(plugin_json_path)
+    if not os.path.exists(plugin_json_path):
+        return jsonify({"error": "Plugin not found"}), 404
+    
+    # Start the systemd service
+    try:
+        subprocess.run(['systemctl', 'start', f'{plugin_name}.service'], check=True)
+    except subprocess.CalledProcessError as e:
+        return jsonify({"error": "Failed to start plugin service", "details": str(e)}), 500
+    
+    return jsonify({"message": "Plugin started successfully"}), 200
+
+
+@app.route('/plugin-marketplace/stop/<plugin_name>', methods=['GET'])
+def stop_plugin(plugin_name):
+    plugin_json_path = os.path.join(PLUGIN_MARKETPLACE_DIR, f"{plugin_name}.json")
+    if not os.path.exists(plugin_json_path):
+        return jsonify({"error": "Plugin not found"}), 404
+
+    # Stop the systemd service
+    try:
+        subprocess.run(['systemctl', 'stop', f'{plugin_name}.service'], check=True)
+        subprocess.run(['systemctl', 'disable', f'{plugin_name}.service'], check=True)
+    except subprocess.CalledProcessError as e:
+        return jsonify({"error": "Failed to stop plugin service", "details": str(e)}), 500
+    
+    return jsonify({"message": "Plugin stopped and disabled successfully"}), 200
+
+
+@app.route('/gpu/usage/memory/<id>', methods=['GET'])
+def get_gpu_usage(id):
+    total, reserved, used, free = None, None, None, None
+    try:
+        output = subprocess.check_output(['nvidia-smi', '-q', '-i', id, '-d', 'MEMORY'])
+        lines = [line.strip() for line in output.decode('utf-8').split('\n')]
+        seek_done = False
+        for line in lines:
+            # Seek to line that contains "FB Memory Usage"
+            if not seek_done:
+                if "FB Memory Usage" == line:
+                    seek_done = True
+                continue
+            # Extract the following fields: Total, Reserved, Used, and Free
+            if "Total" in line:
+                total = int(line.split(":")[1].strip().split()[0])
+            elif "Reserved" in line:
+                reserved = int(line.split(":")[1].strip().split()[0])
+            elif "Used" in line:
+                used = int(line.split(":")[1].strip().split()[0])
+            elif "Free" in line:
+                free = int(line.split(":")[1].strip().split()[0])
+            
+            if total is not None and reserved is not None and used is not None and free is not None:
+                break
+        
+        if total is None or reserved is None or used is None or free is None:
+            return jsonify({"error": "Failed to parse GPU usage output"}), 500
+
+        return jsonify({"total": total, "reserved": reserved, "used": used, "free": free})
+    except subprocess.CalledProcessError as e:
+        return jsonify({"error": "Failed to get GPU usage", "details": str(e)}), 500
 
 
 @app.route('/')
