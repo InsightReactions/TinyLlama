@@ -1,9 +1,13 @@
 Package: tlweb-open-webui
-Version: 1.1-git-2c06177
+Version: 1.2-git-2c06177
 Maintainer: InsightReactions <support@insightreactions.com>
 Section: utils
 Priority: optional
 Architecture: amd64
-Description: Open WebUI configured for the Tiny Llama AI Home server platform by InsightReactions
+Port: 8080
+Name: Open WebUI
+Description: Open WebUI is an extensible, feature-rich, and user-friendly self-hosted web-based AI
+ chat interface designed to operate entirely offline. It supports various LLM runners, including Ollama and
+ OpenAI-compatible APIs.
 Depends: docker-ce
 Recommends: tinyllama, tinyllama-plus

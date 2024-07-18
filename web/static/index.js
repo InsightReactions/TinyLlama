@@ -1,3 +1,4 @@
+
 // GLOBALS
 const ipAddress = window.location.href.replace(/^.*?:\/\//, '').replace(/\/.*/, '').replace(/:.*/, '');
 var checkUpgradeIntervalId = undefined;
@@ -8,6 +9,7 @@ const upgradeResultsContainer = document.getElementById('upgrade-results-contain
 const patchnotesContainer = document.getElementById('patchnotes-container');
 const updateModal = document.getElementById('update-modal');
 const updateButton = document.getElementById('update-button');
+const pluginBrowserContainer = document.getElementById('plugin-browser-container');
 
 // FUNCTIONS
 function fetchPatchnotes(showSystemOnlyUpdates) {
@@ -133,9 +135,6 @@ fetch('/has-updates')
         updateButton.style.display = hasUpdates ? 'block' : 'none';
     })
     .catch((error) => console.error(error));
-
-document.querySelector('.openwebui').href = 'http://' + ipAddress + ':8080';
-document.querySelector('.swarmui').href = 'http://' + ipAddress + ':7801';
 
 updateButton.addEventListener('click', (e) => {
     e.preventDefault();

@@ -16,7 +16,6 @@ chmod -R 0775 tinyllama-mdns/DEBIAN
 dpkg-deb -b tinyllama-mdns .
 
 mkdir -p tinyllama/srv/www/TinyLlama
-
 rsync -a --exclude "__pycache__" --exclude "venv" "$REPO_ROOT/web/" tinyllama/srv/www/TinyLlama
 chmod -R 0775 tinyllama/DEBIAN
 dpkg-deb -b tinyllama .

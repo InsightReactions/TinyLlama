@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 import subprocess
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 import os
 from datetime import datetime, timezone
-#import logging
+import logging
 
-#logging.basicConfig(level=logging.DEBUG)
+TL_TESTING = bool(os.environ.get('TL_TESTING', False))
+if TL_TESTING:
+    logging.basicConfig(level=logging.DEBUG)
 
 # Maximum amount of patchnotes to serve to the client at once
 PATCHNOTE_LIMIT = 10
@@ -13,6 +15,9 @@ PATCHNOTE_LIMIT = 10
 app = Flask("Tiny Llama Service", 
             static_url_path='', 
             static_folder='static')
+app.config["JSON_AS_ASCII"] = False
+app.config["JSONIFY_MIMETYPE"] = "application/json; charset=utf-8"
+
 
 def get_default_route_ip():
     # Get the default route IP address
@@ -26,6 +31,8 @@ def get_default_route_ip():
                     return line.split()[idx + 1]
     
     return None
+
+DEFAULT_ROUTE = get_default_route_ip()
 
 
 def check_pid_running(pid):
@@ -92,6 +99,66 @@ def find_patchnotes(since):
     return patchnotes
 
 
+def get_package_properties(package_name: str):
+    # Restrict to only plugin packages to prevent system snooping
+    if package_name.startswith('tlweb-'):
+        try:
+            output = subprocess.check_output(['apt', 'show', package_name], text=True).splitlines()
+            description = ''
+            name = ''
+            port = -1
+            desc_start_line_idx = -1
+            for i, line in enumerate(output):
+                if line.startswith("Name"):
+                    name = line[len("Name:"):].strip()
+                elif line.startswith('Port'):
+                    port = int(line[len('Port:'):].strip())
+                elif desc_start_line_idx >= 0 and not line.startswith(' '):
+                    description = '\n'.join(line.strip() for line in output[desc_start_line_idx:i])
+                    desc_start_line_idx = -1
+                elif line.strip().startswith('Description'):
+                    desc_start_line_idx = i
+
+                if len(name) > 0 and len(description) > 0:
+                    break
+
+            if len(name) > 0 and len(description) > 0:
+                return {
+                    'name': name,
+                    'description': description,
+                    'port': port
+                }
+        except subprocess.CalledProcessError:
+            print(f"Failed to get description for package '{package_name}'")
+
+    return None 
+
+
+def find_plugins():
+    result = subprocess.check_output(["apt", "search", "^tlweb-.*"]).decode("utf-8")
+    lines = result.split('\n')
+
+    plugins = []
+
+    for line in lines:
+        if '[installed]' in line:
+            package_name = line.split('/')[0].strip()
+            plugin_name = package_name.replace('tlweb-', '')
+            plugin_properties = get_package_properties(package_name)
+            if plugin_properties is not None:
+                plugins.append({
+                    'id': plugin_name,
+                    'name': plugin_properties['name'],
+                    'description': plugin_properties['description'],
+                    'iconHref': f'/plugin-icons/{plugin_name}.png',
+                    'url': f'http://{DEFAULT_ROUTE}:{plugin_properties['port']}'
+                })
+            else:
+                print(f"Failed to get properties for package '{package_name}'")
+
+    return jsonify(plugins=plugins)
+
+
 @app.route('/has-updates', methods=['GET'])
 def has_updates():
     print("Checking for updates")
@@ -131,9 +198,9 @@ def check_upgrade_status():
 
 @app.route('/default-route', methods=['GET'])
 def default_route():
-    ip = get_default_route_ip()
-    print("Default route IP:", ip)
-    return jsonify(defaultRoute=ip)
+    DEFAULT_ROUTE = get_default_route_ip()
+    print("Default route IP:", DEFAULT_ROUTE)
+    return jsonify(defaultRoute=DEFAULT_ROUTE)
 
 @app.route('/patchnotes', methods=['GET'])
 def get_patchnotes():
@@ -154,9 +221,24 @@ def get_patchnotes():
     return jsonify(patchnotes=patchnotes)
 
 
+@app.route('/plugin-icons/<pluginname>.png', methods=['GET'])
+def get_plugin_file(pluginname):
+    filepath = f'/usr/share/{pluginname}/icon.png'
+    if not os.path.isfile(filepath):
+        return jsonify({'error': 'File not found'}), 404
+
+    return send_from_directory('/usr/share', f'{pluginname}/icon.png')
+
+
+@app.route('/plugins', methods=['GET'])
+def get_plugins():
+    return find_plugins()
+
+
 @app.route('/')
 def root():
     return app.send_static_file('index.html')
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0")

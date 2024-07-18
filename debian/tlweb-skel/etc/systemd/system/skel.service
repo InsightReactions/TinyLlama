@@ -1,0 +1,11 @@
+[Unit]
+Description=My short plugin description
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/bash -l -c '<my_commands>'
+WorkingDirectory=/srv/www/skel
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

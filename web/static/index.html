@@ -49,24 +49,13 @@
         </div>
     </div>
     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2%; gap: 12px;">
-      <h1>Generative AI Services</h1>
-      <p style="color: gray; font-style: italic;">Click on a title below to navigate to each respective service.</p>
-      <div class="card-frame fitArticleWidth">
-        <img src="open-webui.png" style="height: 64px; padding: 12px; align-self: center;"/>
-        <div class="mat-card">
-            <a href="http://:" class="mat-card-title openwebui">Open WebUI</a>
-            <p class="mat-card-content">Open WebUI is an extensible, feature-rich, and user-friendly self-hosted web-based AI chat interface designed to operate entirely offline. It supports various LLM runners, including Ollama and OpenAI-compatible APIs.</p>
-        </div>
+      <h1 id="page-title">Generative AI Services</h1>
+      <p style="color: gray; font-style: italic;" id="page-description">Click on a title below to navigate to each respective service.</p>
+      <div id="plugin-browser">
       </div>
-      <div class="card-frame fitArticleWidth">
-        <img src="swarmui.png" style="height: 64px; padding: 12px; align-self: center;"/>
-        <div class="mat-card" >
-            <a href="http://:" class="mat-card-title swarmui">SwarmUI</a>
-            <p class="mat-card-content">A Modular Stable Diffusion web-based image generation interface, with an emphasis on making AI powertools easily accessible, performant, and extensible.</p>
-        </div>
-      </div>
+      <script src="plugin-browser.js"></script>
     </div>
-    <script src="scripts/index.js"></script>
+    <script src="index.js"></script>
 </body>
 
 <footer class="mat-app-background" style="position: fixed; bottom: 0; left:12px; right:12px; padding: 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; border-top: 1px solid var(--ir-border-color); font-weight: 500;">

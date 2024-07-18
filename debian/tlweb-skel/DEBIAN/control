@@ -1,0 +1,9 @@
+Package: tlweb-skel
+Version: 0.1
+Maintainer: My Name <my@email.com>
+Section: utils
+Priority: optional
+Architecture: amd64
+Name: My Plugin Name
+Description: My plugin description
+Depends: tinyllama

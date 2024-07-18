@@ -2380,7 +2380,7 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
     height: 100vh;
 
     @media (max-width: 1024px) {
-        width: fit-content;
+        width: -moz-fit-content;
     }
     @media (max-height: 800px) {
         height: fit-content;
@@ -2507,7 +2507,7 @@ html {
   padding-left: 2em;
   margin: 1em;
   border-left: 6px solid var(--ir-border-color); 
-  width: fit-content;
+  width: -moz-fit-content;
 }
 
 .fitImage {

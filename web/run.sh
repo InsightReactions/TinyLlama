@@ -1,11 +1,14 @@
 #!/bin/bash
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
 
-if [ ! -d "$SCRIPT_DIR/venv" ]; then
-    python3 -m venv $SCRIPT_DIR/venv
+if [ ! -d "venv" ]; then
+    python3 -m venv ./venv
 fi
 
-source $SCRIPT_DIR/venv/bin/activate
-pip install -r $SCRIPT_DIR/requirements.txt
-"$SCRIPT_DIR"/app.py
+source venv/bin/activate
+pip install -r requirements.txt
+
+export TL_TESTING=True
+python3 app.py
