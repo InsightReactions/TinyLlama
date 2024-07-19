@@ -9,6 +9,8 @@ const updateModal = document.getElementById('update-modal');
 const updateButton = document.getElementById('update-button');
 const pluginBrowserContainer = document.getElementById('plugin-browser-container');
 const vramProgressBar = document.getElementById('vram-progress-bar');
+const removeCancelButton = document.getElementById('remove-cancel-button');
+const removeConfirmButton = document.getElementById('remove-confirm-button');
 
 // FUNCTIONS
 function fetchPatchnotes(showSystemOnlyUpdates) {
@@ -119,7 +121,6 @@ function updateVram() {
 
          // Calculate the percentage of VRAM used
          const percentUsed = (used / total) * 100;
-         console.log(percentUsed);
          vramProgressBar.value = percentUsed;
     })
     .catch(error => console.error('Error:', error));

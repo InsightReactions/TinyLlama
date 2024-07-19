@@ -29,13 +29,15 @@ if [[ $RELEASE_TYPE == "stable" ]]; then
     fi
 fi
 
+rm -rf "$REPO_ROOT/build/debian/${PACKAGE}_"*.deb
+
 # Build the package
 bash $SCRIPT_DIR/build.sh $PACKAGE
 
 cd $DEB_REPO_ROOT
 
-rm -rf "$DEB_REPO_ROOT/docs/pool/$RELEASE_TYPE/main/"$PACKAGE*.deb
-cp "$REPO_ROOT/build/debian"/$PACKAGE*.deb "$DEB_REPO_ROOT/docs/pool/$RELEASE_TYPE/main/"
+rm -rf "$DEB_REPO_ROOT/docs/pool/$RELEASE_TYPE/main/${PACKAGE}_"*.deb 2>/dev/null || true
+cp "$REPO_ROOT/build/debian/${PACKAGE}_"*.deb "$DEB_REPO_ROOT/docs/pool/$RELEASE_TYPE/main/"
 
 # Recompile the repository with the updated/new package
 ./build.sh $RELEASE_TYPE

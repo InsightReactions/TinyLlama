@@ -230,7 +230,12 @@ def uninstall_plugin(plugin_name):
     try:
          subprocess.run(['apt', 'remove', '-y', package], check=True)
     except subprocess.CalledProcessError as e:
-        return jsonify({"error": "Failed to remove plugin", "details": str(e)}), 500
+         # Try to fix broken packages automatically
+        print("Running 'dpkg --configure -a' to try and fix broken packages automatically")
+        try:
+            subprocess.run(["dpkg", "--configure", "-a"])
+        except subprocess.CalledProcessError as e:
+            return jsonify({"error": "Failed to remove plugin", "details": str(e)}), 500
     
     return jsonify({"message": "Plugin uninstalled successfully"}), 200
 

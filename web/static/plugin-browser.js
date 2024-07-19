@@ -1,6 +1,71 @@
+// Create the removal modal content
+let removeModal = document.createElement('div');
+removeModal.className = 'card-frame';
+removeModal.id = 'confirm-removal-modal';
+removeModal.style.cssText = "display: none; flex-direction: column; justify-content: space-between; align-items: center; z-index: 1; padding: 12px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: var(--ir-background-color); box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.8); max-height: 80%; overflow-y: auto;";
+
+let innerDiv1 = document.createElement('div');
+removeModal.appendChild(innerDiv1);
+
+let innerDiv2 = document.createElement('div');
+innerDiv2.style.cssText = "display: flex; flex-direction: column; justify-content: space-between; align-items: center; width: 100%; height: 100%;";
+removeModal.appendChild(innerDiv2);
+
+let h2Element = document.createElement('h2');
+h2Element.textContent = "Confirm Plugin Removal";
+innerDiv2.appendChild(h2Element);
+
+let buttonDiv = document.createElement('div');
+buttonDiv.style.cssText = "display: flex; justify-content: space-around; align-items: center; width: 100%; margin-top: 16px;";
+innerDiv2.appendChild(buttonDiv);
+
+let cancelButton = document.createElement('button');
+cancelButton.className = 'mat-raised-button mat-error';
+cancelButton.id = 'remove-cancel-button';
+cancelButton.textContent = "Cancel";
+cancelButton.addEventListener('click', function() {
+    removeModal.style.display = 'none';
+});
+buttonDiv.appendChild(cancelButton);
+
+let removalFrameTarget = null;
+function removePlugin() {
+    if (removalFrameTarget === null) {
+        return;
+    }
+    // else removePluginTarget is a valid plugin name
+    toggleSpinner(removalFrameTarget, true);
+    const pluginName = removalFrameTarget.getAttribute('plugin');
+    
+    fetch('/plugin-marketplace/uninstall/' + pluginName)
+    .then(response => {
+        updateControlState(removalFrameTarget);
+    })
+    .catch(error => {
+        console.log('Error:', error);
+    });
+}
+
+let confirmButton = document.createElement('button');
+confirmButton.className = 'mat-raised-button primary-button';
+confirmButton.id = 'remove-confirm-button';
+confirmButton.textContent = "Confirm";
+confirmButton.addEventListener('click', function() {
+    removeModal.style.display = 'none';
+    removePlugin();
+});
+buttonDiv.appendChild(confirmButton);
+
+let innerDiv3 = document.createElement('div');
+removeModal.appendChild(innerDiv3);
+
+// more GLOBALS
 const rootContainer = document.getElementById("plugin-browser");
+rootContainer.appendChild(removeModal);
+
 const rootSpinner = document.getElementsByClassName("lds-grid")[0];
 
+// FUNCTIONS
 function toggleSpinner(frame, show) {
     var cardControls = frame.querySelector('.card-controls');
     var spinner = frame.querySelector('.lds-grid');
@@ -62,16 +127,8 @@ function onAddPluginClicked() {
 }
 
 function onRemovePluginClicked() {
-    var frame = this.closest('.plugin-data');
-    const pluginName = frame.getAttribute('plugin');
-    toggleSpinner(frame, true);
-    
-    // if it succeeds, 200 OK will be returned. If fails, 404 or 500 will be returned
-    fetch('/plugin-marketplace/uninstall/' + pluginName)
-    .then(response => {
-        // TODO: show error message if response is not 200 OK
-        updateControlState(frame);
-    });
+    removalFrameTarget = this.closest('.plugin-data');
+    removeModal.style.display = 'flex';
 }
 
 function onStartPluginClicked() {
