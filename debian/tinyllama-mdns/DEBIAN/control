@@ -1,9 +1,9 @@
 Package: tinyllama-mdns
-Version: 1.0
+Version: 1.0.1
 Maintainer: InsightReactions <support@insightreactions.com>
 Section: utils
 Priority: optional
 Architecture: amd64
 Description: Official Avahi mDNS configuration for Tiny Llama by InsightReactions
 Depends: avahi-daemon
-Recommends: tinyllama, tinyllama-plus
+Recommends: tinyllama

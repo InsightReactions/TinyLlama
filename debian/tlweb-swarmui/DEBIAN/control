@@ -1,9 +1,10 @@
 Package: tlweb-swarmui
-Version: 1.0.4-0.9.0-Beta
+Version: 1.1.1-0.9.0-Beta
 Maintainer: InsightReactions <support@insightreactions.com>
 Section: utils
 Priority: optional
 Architecture: amd64
-Description: SwarmUI configured for the Tiny Llama AI Home server platform by InsightReactions
-Depends: git, rsync
-Recommends: tinyllama, tinyllama-plus
+Description: A Modular Stable Diffusion web-based image generation interface, with an emphasis on
+ making AI powertools easily accessible, performant, and extensible.
+Depends: git, rsync, wget
+Recommends: tinyllama

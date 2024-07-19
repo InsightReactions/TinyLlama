@@ -1,0 +1,7 @@
+Package: tlweb-marketplace
+Version: 0.9.3
+Maintainer: InsightReactions <support@insightreactions.com>
+Section: utils
+Priority: optional
+Architecture: amd64
+Description: The Official Tiny Llama Marketplace by InsightReactions

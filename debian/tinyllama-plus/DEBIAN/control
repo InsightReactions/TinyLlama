@@ -1,8 +1,0 @@
-Package: tinyllama-plus
-Version: 0.1
-Maintainer: InsightReactions <support@insightreactions.com>
-Section: utils
-Priority: optional
-Architecture: amd64
-Description: Official Tiny Llama Plus package by InsightReactions
-Depends: tinyllama-default

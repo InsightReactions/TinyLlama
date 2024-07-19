@@ -1,9 +1,0 @@
-Package: tinyllama-default
-Version: 1.0.5
-Maintainer: InsightReactions <support@insightreactions.com>
-Section: utils
-Priority: optional
-Architecture: amd64
-Description: Official default configuration for Tiny Llama by InsightReactions
-Depends: tinyllama-ollama, tlweb-open-webui, tlweb-swarmui
-Recommends: tinyllama-plus

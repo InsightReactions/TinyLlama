@@ -54,9 +54,10 @@ in no particular order and non-exhaustive:
 - Open WebUI - Web Search via Searxng
 - Continued support for cutting-edge models
 - SwarmUI prompt presets, pre-configured selection of models as a known-good configuration
+- Custom ComfyUI Workflows
 - How-to Guides
   - LoRAs and how to use them
-  - Walkthrough of advanced ComfyUI Workflows provided by tinyllama-plus
+  - Walkthrough of advanced ComfyUI Workflows
   - LLM Prompting Guide
 - Tiny Llama Website (tlweb) plugin add/remove gallery on the device landing page to manage the system configuration
 - Civit.ai native integration

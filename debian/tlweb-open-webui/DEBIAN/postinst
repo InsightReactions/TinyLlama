@@ -1,7 +1,37 @@
 #!/bin/bash
 set -eu
 
+ollama pull taozhiyuai/hermes-2-theta-llama-3:8b-q4_k_m
+ollama pull llama3:instruct
+ollama pull llava-phi3
+
 mkdir -p /srv/www/open-webui
 docker pull ghcr.io/open-webui/open-webui:git-2c06177
+
+WEBUI_DIR="/srv/www/open-webui"
+if ! grep -q "image_generation" $WEBUI_DIR/config.json; then
+    rm $WEBUI_DIR/config.json ||:
+fi
+
+if [ ! -f "$WEBUI_DIR/config.json" ]; then
+    cat <<EOF > $WEBUI_DIR/config.json
+{
+    "image_generation": {
+		"engine": "comfyui",
+		"enable": true,
+		"comfyui": {
+			"base_url": "http://localhost:7821"
+		},
+		"model": "${IMAGE_GEN_MODELS[0]}",
+		"size": "512x512",
+		"steps": 30
+	},
+    "ui": {
+		"default_models": "llama3:instruct"
+	}
+}
+EOF
+fi
+
 systemctl enable open-webui
 systemctl start open-webui
