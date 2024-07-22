@@ -8,6 +8,7 @@ ollama pull llava-phi3
 mkdir -p /srv/www/open-webui
 docker pull ghcr.io/open-webui/open-webui:git-2c06177
 
+DEFAULT_IMAGE_GEN_MODEL="CyberRealistic_V4.2_FP16.safetensors"
 WEBUI_DIR="/srv/www/open-webui"
 if ! grep -q "image_generation" $WEBUI_DIR/config.json; then
     rm $WEBUI_DIR/config.json ||:
@@ -22,7 +23,7 @@ if [ ! -f "$WEBUI_DIR/config.json" ]; then
 		"comfyui": {
 			"base_url": "http://localhost:7821"
 		},
-		"model": "${IMAGE_GEN_MODELS[0]}",
+		"model": "${DEFAULT_IMAGE_GEN_MODEL}",
 		"size": "512x512",
 		"steps": 30
 	},

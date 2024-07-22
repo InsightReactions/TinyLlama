@@ -59,6 +59,7 @@ fi
 # Download models
 MODEL_DIR="/srv/www/SwarmUI/Models/Stable-Diffusion"
 IMAGE_GEN_MODELS=("CyberRealistic_V4.2_FP16.safetensors" "dreamshaperXL_v21TurboDPMSDE.safetensors") 
+mkdir -p "$MODEL_DIR"
 for model in "${IMAGE_GEN_MODELS[@]}"
 do
     if [ ! -f "$MODEL_DIR/$model" ]; then

@@ -2,6 +2,7 @@
 ![Tiny Llama Logo](web/static/android-chrome-192x192.png)
 
 **Useful links**
+- [Purchase a Tiny Llama AI Home Server](https://insightreactions.com/store)
 - [Tiny Llama User Guides](https://tinyllama.insightreactions.com/guides)
 - [Debian Repository](https://github.com/InsightReactions/debian.insightreactions.github.io)
 - [Model Repository](https://huggingface.co/InsightReactions/TinyLlama)
@@ -45,7 +46,7 @@ The setup process is simple - just plug in the device (power + ethernet), turn i
 
 Enjoy the convenience and security of harnessing the capabilities of generative AI on your own terms with the Tiny Llama AI Home Server!
 
-The Tiny Llama AI Home Server costs **$999.99** pre-tax (subject to change), sales starting early **Q3 2024**.
+The Tiny Llama AI Home Server costs **$1099.00** pre-tax, sales starting **soon** at the [InsightReactions Store](https://insightreactions.com/store).
 
 # Upcoming Additions 
 
