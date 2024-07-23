@@ -32,21 +32,25 @@ Notice: Tiny Llama is primarily geared toward serving home users in a non-commer
 
 Introducing the Tiny Llama AI Home Server - Your Ultimate Open-Source Generative AI Companion!
 
-<img src="./assets/product-photo-a.png" alt="Tiny Llama AI Home Server 2024" width=200>
+<img src="./assets/storefront/product-photo-a.png" alt="Tiny Llama AI Home Server 2024" width=200>
 
-Experience the power of cutting-edge image generation and large language models with our affordable, plug-and-play Mini-ITX PC. This open-source solution is perfect for users who are familiar with generative AI technologies like ChatGPT and Midjourney/DALL-E but prefer the privacy and control of local computing and user data storage.
+Experience cutting-edge image generation and large language models with our affordable, plug-and-play Mini-ITX PC. Designed for users familiar with generative AI technologies like ChatGPT and Midjourney/DALL-E, the Tiny Llama AI Home Server prioritizes privacy and control by keeping your computing and user data storage local.
 
-Powered by an AMD Ryzen 5 4600G CPU, an NVIDIA GeForce RTX 3060 GPU with 12GB VRAM, and 16GB of RAM, the Tiny Llama AI Home Server provides a robust and snappy experience for running various consumer-grade AI models without breaking the bank. With a Gen3 PCIe 250GB Solid State Drive (SSD), you'll have ample storage space for your AI models and generated media. Additionally, the Tiny Llama AI Home Server also includes GbE LAN for fast and reliable network connections, optional Intel WiFi+Bluetooth for wireless connectivity, and four SATA3 ports for additional storage devices.
+**Key Features:**
+- **Privacy & Control:** Unlike cloud providers, keep all your data and computations on your own device, ensuring maximum privacy and security
+- **Powerful Hardware:** AMD Ryzen 5 4600G CPU, NVIDIA GeForce RTX 3060 GPU with 12GB VRAM, and 16GB RAM for robust performance
+- **Storage:** 250GB Gen3 PCIe SSD with four SATA3 ports for additional storage
+- **Connectivity:** GbE LAN for reliable network connections, optional Intel WiFi+Bluetooth for wireless connectivity
+- **Open-Source Software:** Access state-of-the-art open-source services like [SwarmUI](https://github.com/mcmonkeyprojects/SwarmUI) (AI Image Generation) and [Open WebUI](https://github.com/open-webui/open-webui?tab=readme-ov-file#open-webui-formerly-ollama-webui-) (Chat with Large Language Models) seamlessly with Tiny Llama's AI Plugin Dashboard
+- **Pre-Installed Models:** Comes with models such as llama3-8b (for chat), llava-phi3 (vision model), hermes-2-theta (uninhibited llama3 fine-tune), and stable diffusion models like CyberRealistic V4.2 (SD 1.5) and Dreamshaper XL (SDXL)
+- **User-Friendly Setup:** Simple plug-and-play setup with mDNS server auto-discovery and easy local network access via http://tinyllama.local
+- **Compact Design:** Housed in a 3D printed case, perfect for any home or office environment
+- **Continuous Updates:** Stay updated with effortless, ongoing improvements from InsightReactions and plugin providers at no extra cost.
+Harness the power of generative AI on your own terms with the Tiny Llama AI Home Server!
 
-The Tiny Llama AI Home Server offers seamless access to state-of-the-art open-source services like SwarmUI and Open-WebUI, allowing you to generate images and interact with large language models effortlessly. Our comprehensive how-to guides cater to all the services offered by the Tiny Llama AI Home Server, ensuring that you get the most out of your experience.
+[Explore our comprehensive guides](https://tinyllama.insightreactions.com/guides/) to learn more about Tiny Llama
 
-The Tiny Llama AI Home Server is housed in a 3D printed case, making it compact and easy to integrate into your home or office environment. With mDNS server auto-discovery support, you can easily access the system on your home network using your favorite web browser on any modern device. The tinyllama.local landing page serves as a 'Home Portal' where all of the web apps can be accessed without memorizing or bookmarking URLs.
-
-The setup process is simple - just plug in the device (power + ethernet), turn it on, and navigate to http://tinyllama.local on your PC or mobile device. Additionally, stay on the cutting-edge with effortless continuous easy-to-apply updates for the lifetime of the Tiny Llama product from InsightReactions as newer technologies are made available through open-source channels.
-
-Enjoy the convenience and security of harnessing the capabilities of generative AI on your own terms with the Tiny Llama AI Home Server!
-
-The Tiny Llama AI Home Server costs **$1099.00** pre-tax, sales starting **soon** at the [InsightReactions Store](https://insightreactions.com/store).
+The **Tiny Llama AI Home Server** starts at $1099.00, **available at the [InsightReactions Store](https://insightreactions.com/store)**.
 
 # Upcoming Additions 
 
