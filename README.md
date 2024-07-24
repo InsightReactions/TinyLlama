@@ -42,7 +42,7 @@ Experience cutting-edge image generation and large language models with our affo
 - **Storage:** 250GB Gen3 PCIe SSD with four SATA3 ports for additional storage
 - **Connectivity:** GbE LAN for reliable network connections, optional Intel WiFi+Bluetooth for wireless connectivity
 - **Open-Source Software:** Access state-of-the-art open-source services like [SwarmUI](https://github.com/mcmonkeyprojects/SwarmUI) (AI Image Generation) and [Open WebUI](https://github.com/open-webui/open-webui?tab=readme-ov-file#open-webui-formerly-ollama-webui-) (Chat with Large Language Models) seamlessly with Tiny Llama's AI Plugin Dashboard
-- **Pre-Installed Models:** Comes with models such as llama3-8b (for chat), llava-phi3 (vision model), hermes-2-theta (uninhibited llama3 fine-tune), and stable diffusion models like CyberRealistic V4.2 (SD 1.5) and Dreamshaper XL (SDXL)
+- **Pre-Installed Models:** Comes with models such as llama3.1-8b (for chat), llava-phi3 (vision model), hermes-2-theta (uninhibited llama3 fine-tune), and stable diffusion models like CyberRealistic V4.2 (SD 1.5) and Dreamshaper XL (SDXL)
 - **User-Friendly Setup:** Simple plug-and-play setup with mDNS server auto-discovery and easy local network access via http://tinyllama.local
 - **Compact Design:** Housed in a 3D printed case, perfect for any home or office environment
 - **Continuous Updates:** Stay updated with effortless, ongoing improvements from InsightReactions and plugin providers at no extra cost.
@@ -91,7 +91,7 @@ Notice: Systems that utilize the Tiny Llama service offered by InsightReactions 
 # Disclaimers
 
 - Licensing
-  - Each third-party package provided by Tiny Llama has it's own licensing terms. Before attempting to use a specific suite of packages within a commercial context, verify that each module can be used legally within that context. The term "Packages" used here is defined (non-exhaustively) as a software service (Open-WebUI, SwarmUI), machine learning model (Llama3, Hermes2-Theta, SDXL), or plugins (ComfyUI Widgets, LLM Prompts). Use this product commercially at your own risk -- Tiny Llama is primarily geared toward serving home users in a non-commercial/hobbyist context with pre-configured COTS hardware to encourage wide adoption of AI technologies by the general public.
+  - Each third-party package provided by Tiny Llama has it's own licensing terms. Before attempting to use a specific suite of packages within a commercial context, verify that each module can be used legally within that context. The term "Packages" used here is defined (non-exhaustively) as a software service (Open-WebUI, SwarmUI), machine learning model (Llama3.1, Hermes2-Theta, SDXL), or plugins (ComfyUI Widgets, LLM Prompts). Use this product commercially at your own risk -- Tiny Llama is primarily geared toward serving home users in a non-commercial/hobbyist context with pre-configured COTS hardware to encourage wide adoption of AI technologies by the general public.
 - Tiny Llama Service
   - Some products offered by the Tiny Llama service may request login credentials. Unless otherwise specified, these accounts are created and stored locally on the device. Each service provides it's own mechanisms for user session management and authentication.
   - mDNS service is pre-installed during the [Installation step](#installation) and is required for proper functioning of the http://tinyllama.local url. To uninstall it, you can simply run `sudo apt remove tinyllama-mdns`.

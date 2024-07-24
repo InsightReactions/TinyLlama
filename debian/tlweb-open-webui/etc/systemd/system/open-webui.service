@@ -7,7 +7,7 @@ TimeoutStartSec=0
 Restart=always
 ExecStartPre=-/usr/bin/docker stop open-webui
 ExecStartPre=-/usr/bin/docker rm open-webui
-ExecStart=/usr/bin/docker run --rm -p 8080:8080 --network=host -e OLLAMA_BASE_URL=http://127.0.0.1:11434 -e COMFYUI_CFG_SCALE=7 -e COMFYUI_SAMPLER=euler_ancestral -v /srv/www/open-webui:/app/backend/data --name open-webui ghcr.io/open-webui/open-webui:git-2c06177
+ExecStart=/usr/bin/docker run --rm -p 8080:8080 --network=host -e OLLAMA_BASE_URL=http://127.0.0.1:11434 -e COMFYUI_CFG_SCALE=7 -e COMFYUI_SAMPLER=euler_ancestral -v /srv/www/open-webui:/app/backend/data --name open-webui ghcr.io/open-webui/open-webui:git-c74e7df
 
 
 [Install]
