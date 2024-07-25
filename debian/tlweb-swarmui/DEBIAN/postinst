@@ -67,5 +67,16 @@ do
     fi
 done
 
+# Download upscalers
+UPSCALE_DIR="/srv/www/SwarmUI/Models/upscale_models"
+UPSCALE_MODELS=("4xUltrasharp_4xUltrasharpV10.pt")
+mkdir -p "$UPSCALE_DIR"
+for upscaler in "${UPSCALE_MODELS[@]}"
+do
+    if [ ! -f "$UPSCALE_DIR/$upscaler" ]; then
+        wget "https://huggingface.co/InsightReactions/TinyLlama/resolve/main/${upscaler}?download=true" -O "$UPSCALE_DIR/${upscaler}"
+    fi
+done
+
 systemctl enable swarmui
 systemctl start swarmui
