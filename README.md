@@ -56,16 +56,14 @@ The **Tiny Llama AI Home Server** starts at $1099.00, **available at the [Insigh
 
 in no particular order and non-exhaustive:
 - Speech-to-Text (STT) Support
-- Open WebUI - Web Search via Searxng
+- Text-to-Speech and Speech Cloning Support
+- Audio/Video Multimodal Model Support
 - Continued support for cutting-edge models
-- SwarmUI prompt presets, pre-configured selection of models as a known-good configuration
 - Custom ComfyUI Workflows
 - How-to Guides
   - LoRAs and how to use them
   - Walkthrough of advanced ComfyUI Workflows
   - LLM Prompting Guide
-- Tiny Llama Website (tlweb) plugin add/remove gallery on the device landing page to manage the system configuration
-- Civit.ai native integration
 
 # Minimum System Requirements
 
@@ -97,3 +95,19 @@ Notice: Systems that utilize the Tiny Llama service offered by InsightReactions 
   - mDNS service is pre-installed during the [Installation step](#installation) and is required for proper functioning of the http://tinyllama.local url. To uninstall it, you can simply run `sudo apt remove tinyllama-mdns`.
 - Tiny Llama Home Server
   - GNOME Location services are enabled by default for system clock timezone sychronization
+
+**Important Notice: The use of this product is not suitable for children and should only be used under adult supervision.**
+
+Tiny Llama is designed to provide a robust experience with cutting-edge open-source generative AI technologies, but it's essential to acknowledge that some features may not be suitable for all audiences, especially young users.
+
+**Please note the following:**
+
+* Some models and plugins may inadvertently contain mature or explicit content.
+* Certain features, such as chat interfaces, may allow for unmonitored dissemination of concepts or theories that children may be unprepared for.
+* The product's default configuration does not include any built-in parental controls or filtering mechanisms.
+
+**To ensure a safe experience:**
+
+* Adult supervision is strongly recommended when using the services provided by Tiny Llama, especially for children under 18 years old.
+* Parents and guardians should review the product's features and content before allowing their children to use it.
+* By using this product, you agree that InsightReactions LLC. is not responsible for any harm or damage caused by the misuse of this product.
