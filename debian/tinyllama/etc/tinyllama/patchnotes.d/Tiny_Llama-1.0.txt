@@ -5,7 +5,7 @@ A huge thank you for choosing our product, Tiny Llama, from InsightReactions! We
 At InsightReactions, we're committed to providing you with the best possible experience. If you need any assistance or have questions about how to use Tiny Llama, please don't hesitate to reach out. You can contact us at:
 
 support@insightreactions.com
-@TinyLlama_IR on Twitter
+@InsightReact on Twitter
 InsightReactions/TinyLlama on GitHub (file an issue or start a discussion)
 
 We're dedicated to addressing any issues you may encounter in a timely and effective manner. Your satisfaction is our top priority, and we're always here to help.

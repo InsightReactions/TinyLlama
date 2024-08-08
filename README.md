@@ -14,6 +14,11 @@
 - [Minimum System Requirements](#minimum-system-requirements)
 - [Installation](#installation)
 - [Disclaimers](#disclaimers)
+  - [Usage Guidelines](#usage-guidelines)
+  - [Model and AI Plugin Licensing](#model-and-ai-plugin-licensing)
+    - [Licensing Terms for Third-Party Packages](#licensing-terms-for-third-party-packages)
+    - [Use at Your Own Risk](#use-at-your-own-risk)
+  - [Security](#security)
 
 # About Tiny Llama
 
@@ -88,26 +93,33 @@ Notice: Systems that utilize the Tiny Llama service offered by InsightReactions 
 
 # Disclaimers
 
-- Licensing
-  - Each third-party package provided by Tiny Llama has it's own licensing terms. Before attempting to use a specific suite of packages within a commercial context, verify that each module can be used legally within that context. The term "Packages" used here is defined (non-exhaustively) as a software service (Open-WebUI, SwarmUI), machine learning model (Llama3.1, Hermes2-Theta, SDXL), or plugins (ComfyUI Widgets, LLM Prompts). Use this product commercially at your own risk -- Tiny Llama is primarily geared toward serving home users in a non-commercial/hobbyist context with pre-configured COTS hardware to encourage wide adoption of AI technologies by the general public.
+## Usage Guidelines
+
+Tiny Llama is not suitable for children and should only be used under adult supervision.
+Some features may inadvertently contain mature or explicit content, which is an inherent aspect of cutting-edge open-source generative AI technologies. Our goal is to provide access to these models as they exist, rather than sanitizing their natural state.
+
+**To Ensure a Safe Experience:**
+
+* Adult supervision is strongly recommended, especially for users under 18.
+* Parents and guardians must review the product's features and content before allowing their children to use it.
+* By using this product, you acknowledge that InsightReactions LLC. is not responsible for any harm or damage caused by its misuse.
+
+## Model and AI Plugin Licensing
+
+### Licensing Terms for Third-Party Packages
+
+When using Tiny Llama in a commercial context, it's essential to verify that each third-party package is licensed for use within your specific application. This includes software services (e.g., Open-WebUI, SwarmUI), machine learning models (e.g., Llama3.1, Hermes2-Theta, SDXL), and plugins (e.g., ComfyUI Widgets, LLM Prompts).
+
+### Use at Your Own Risk
+
+Tiny Llama is primarily designed for home users in a non-commercial or hobbyist context. Our pre-configured solutions are intended to abide by the terms of various open-source licenses, promoting widespread adoption of AI technologies among the general public while being respectful to license owners.
+
+Before using Tiny Llama within a commercial context, ensure that you have obtained the necessary permissions and adhered to the licensing terms for each third-party package. Failure to do so may result in unintended consequences.
+
+## Security
+
 - Tiny Llama Service
   - Some products offered by the Tiny Llama service may request login credentials. Unless otherwise specified, these accounts are created and stored locally on the device. Each service provides it's own mechanisms for user session management and authentication.
   - mDNS service is pre-installed during the [Installation step](#installation) and is required for proper functioning of the http://tinyllama.local url. To uninstall it, you can simply run `sudo apt remove tinyllama-mdns`.
 - Tiny Llama Home Server
   - GNOME Location services are enabled by default for system clock timezone sychronization
-
-**Important Notice: The use of this product is not suitable for children and should only be used under adult supervision.**
-
-Tiny Llama is designed to provide a robust experience with cutting-edge open-source generative AI technologies, but it's essential to acknowledge that some features may not be suitable for all audiences, especially young users.
-
-**Please note the following:**
-
-* Some models and plugins may inadvertently contain mature or explicit content.
-* Certain features, such as chat interfaces, may allow for unmonitored dissemination of concepts or theories that children may be unprepared for.
-* The product's default configuration does not include any built-in parental controls or filtering mechanisms.
-
-**To ensure a safe experience:**
-
-* Adult supervision is strongly recommended when using the services provided by Tiny Llama, especially for children under 18 years old.
-* Parents and guardians should review the product's features and content before allowing their children to use it.
-* By using this product, you agree that InsightReactions LLC. is not responsible for any harm or damage caused by the misuse of this product.
