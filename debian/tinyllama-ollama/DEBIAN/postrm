@@ -1,7 +1,8 @@
 #!/bin/bash
 rm /etc/systemd/system/ollama.service ||:
 rm /usr/bin/ollama ||:
+mv /usr/share/ollama/.ollama /usr/share/ ||:
 userdel ollama ||:
 groupdel ollama ||:
 
-echo "Ollama user data must be removed manually, if desired, at path /usr/share/ollama"
+echo "Ollama user data must be removed manually, if desired, at path /usr/share/.ollama"

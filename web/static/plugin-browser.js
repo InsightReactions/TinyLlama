@@ -1,6 +1,6 @@
 // Create the removal modal content
 let removeModal = document.createElement('div');
-removeModal.className = 'card-frame';
+removeModal.className = 'fitArticleWidth modal';
 removeModal.id = 'confirm-removal-modal';
 removeModal.style.cssText = "display: none; flex-direction: column; justify-content: space-between; align-items: center; z-index: 1; padding: 12px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: var(--ir-background-color); box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.8); max-height: 80%; overflow-y: auto;";
 

@@ -3398,6 +3398,13 @@ td.mat-footer-cell {
   width: 100%;
 }
 
+.modal {
+  border: 1px solid var(--ir-border-color);
+  border-radius: 6px;
+  display: flex;
+  align-items: stretch;
+}
+
 a,
 .mat-card-title {
   text-decoration: none;
