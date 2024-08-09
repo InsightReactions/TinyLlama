@@ -3502,6 +3502,7 @@ html {
   /* This is so that we can absolutely position the symbol */
   border: 1px solid var(--ir-border-color);
   border-radius: 3px;
+  max-width: 747px;
 }
 
 .warning-card::before,
