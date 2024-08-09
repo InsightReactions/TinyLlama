@@ -3,7 +3,7 @@ set -eu
 
 # If the ollama user or group exists when the install script runs, it will fail
 if id ollama &>/dev/null; then
-  userdel --force ollama &>/dev/null ||:
+  userdel ollama &>/dev/null ||:
 fi
 if getent group ollama &>/dev/null; then
   groupdel ollama &>/dev/null ||:
