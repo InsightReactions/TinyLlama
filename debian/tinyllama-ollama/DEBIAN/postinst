@@ -1,8 +1,16 @@
 #!/bin/bash
 set -eu
 
+# If the ollama user or group exists when the install script runs, it will fail
+if id ollama &>/dev/null; then
+  userdel --force ollama &>/dev/null ||:
+fi
+if getent group ollama &>/dev/null; then
+  groupdel ollama &>/dev/null ||:
+fi
+
 # Ollama
-export OLLAMA_VERSION="0.1.48"
+export OLLAMA_VERSION="0.3.4"
 curl -fsSL https://ollama.com/install.sh | sh
 
 # Ollama service configuration

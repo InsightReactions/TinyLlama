@@ -1,5 +1,5 @@
 Package: tinyllama-ollama
-Version: 1.0.2-0.1.48
+Version: 1.0.4-0.3.4
 Maintainer: InsightReactions <support@insightreactions.com>
 Section: utils
 Priority: optional
