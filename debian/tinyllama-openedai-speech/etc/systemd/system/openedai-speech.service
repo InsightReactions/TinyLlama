@@ -1,0 +1,14 @@
+[Unit]
+Description=openedai-speech
+After=network.target
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+ExecStartPre=-/usr/bin/docker stop openedai-speech
+ExecStartPre=-/usr/bin/docker rm openedai-speech
+ExecStart=/usr/bin/docker run --rm -p 8000:8000 --network=host --gpus=all -v /srv/www/openedai-speech/tts-voices:/app/voices -v /srv/www/openedai-speech/tts-config:/app/config --name openedai-speech ghcr.io/matatonic/openedai-speech:0.17.2
+
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,8 @@
+#!/bin/bash
+set -eu
+
+mkdir -p /srv/www/openedai-speech ||:
+docker pull ghcr.io/matatonic/openedai-speech:0.17.2
+
+systemctl enable openedai-speech
+systemctl start openedai-speech

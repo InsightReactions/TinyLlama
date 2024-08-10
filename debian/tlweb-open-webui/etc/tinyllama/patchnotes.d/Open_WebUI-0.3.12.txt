@@ -1,20 +1,5 @@
-Here's a summary of the latest updates:
+The InsightReactions team is excited to introduce new features that enhance your experience with Tiny Llama!
 
-New Features
+New Text-to-Speech Integration
 
-- Enhanced Markdown rendering with clickable images and improved code block styling
-- Infinite scroll feature in the sidebar for more efficient chat navigation
-- Admins no longer have default visibility over shared chats when security settings are tightened
-- Added Malay (Bahasa Malaysia) translation and updated Catalan and Traditional Chinese translations
-
-Improvements
-
-- Fixed markdown rendering issues to ensure consistent display across components
-- Resolved styling issues throughout the application
-- Enhanced file interface with file size display for upcoming upload restrictions
-- Improved latex rendering processes
-
-Notable Changes
-
-- The "Min P" parameter has been added in advanced settings for customized model precision control
-- Custom redirect URI support has been introduced for OAuth behind reverse proxies, enabling safer authentication processes
+Seamlessly engage with our Large Language Models (LLMs) in a more immersive way! With Open WebUI, you can now listen to text-to-speech output for any chat message. Simply click the speaker icon below the message, and choose from various voices in the Open WebUI settings.
