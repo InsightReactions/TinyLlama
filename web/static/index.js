@@ -7,6 +7,7 @@ const upgradeResultsContainer = document.getElementById('upgrade-results-contain
 const patchnotesContainer = document.getElementById('patchnotes-container');
 const updateModal = document.getElementById('update-modal');
 const updateButton = document.getElementById('update-button');
+const reclaimVramButton = document.getElementById('reclaim-vram-button');
 const pluginBrowserContainer = document.getElementById('plugin-browser-container');
 const vramProgressBar = document.getElementById('vram-progress-bar');
 const removeCancelButton = document.getElementById('remove-cancel-button');
@@ -33,8 +34,8 @@ function fetchPatchnotes(showSystemOnlyUpdates) {
                 patchnotes.forEach((item) => {
                     const header = document.createElement('h2');
                     const filenameParts = item.filename.split('-'); // Split the string at '-'
-                    const nameVersionParts = filenameParts[1].split('.') // Split the second part of the split string at '.'
-                    const headerText = `${filenameParts[0].replace('_', ' ')} v${nameVersionParts[0]}.${nameVersionParts[1]}`; // Replace '_' with ' ', and construct the final string
+                    const version = filenameParts[1].substring(0, filenameParts[1].lastIndexOf('.')); // Extract the version number from the second part of the split string
+                    const headerText = `${filenameParts[0].replace('_', ' ')} v${version}`; // Replace '_' with ' ', and construct the final string
                     header.textContent = headerText;
                     header.style.alignSelf = "start";
 
@@ -86,7 +87,7 @@ function checkUpgrading() {
                 while (patchnotesContainer.firstChild) {
                     patchnotesContainer.removeChild(patchnotesContainer.firstChild);
                 }
-                
+
                 // Show the error
                 const p = document.createElement('p');
                 p.textContent = "An error occurred during the update process. Please submit the following error log to support@insightreactions.com for further assistance:";
@@ -114,16 +115,19 @@ function checkUpgrading() {
 
 function updateVram() {
     fetch('/gpu/usage/memory/0')
-    .then(response => response.json())
-    .then(data => {
-         const total = data.total;
-         const used = data.used + data.reserved;
+        .then(response => response.json())
+        .then(data => {
+            const total = data.total;
+            const used = data.used + data.reserved;
 
-         // Calculate the percentage of VRAM used
-         const percentUsed = (used / total) * 100;
-         vramProgressBar.value = percentUsed;
-    })
-    .catch(error => console.error('Error:', error));
+            // Calculate the percentage of VRAM used
+            const percentUsed = (used / total) * 100;
+            vramProgressBar.value = percentUsed;
+
+            // Update the title to show current / total in GB
+            vramProgressBar.title = `${(used / 1024).toFixed(2)} GB / ${(total / 1024).toFixed(2)} GB`;
+        })
+        .catch(error => console.error('Error:', error));
 }
 
 
@@ -171,4 +175,21 @@ document.getElementById('close-button').addEventListener('click', (e) => {
     if (refreshOnClose) {
         window.location.reload();
     }
+});
+reclaimVramButton.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    reclaimVramButton.classList.add('mat-button-disabled');
+    reclaimVramButton.disabled = true;
+
+    fetch('/gpu/flush', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({}),
+    })
+        .catch((error) => console.error(error))
+        .finally(() => {
+            reclaimVramButton.classList.remove('mat-button-disabled');
+            reclaimVramButton.disabled = false;
+        });
 });

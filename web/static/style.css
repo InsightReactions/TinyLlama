@@ -1377,6 +1377,7 @@ body {
 .mat-stroked-button.mat-warn.mat-button-disabled,
 .mat-stroked-button.mat-button-disabled.mat-button-disabled {
   color: rgba(255, 255, 255, 0.3);
+  cursor: default;
 }
 
 .mat-button.mat-primary .mat-button-focus-overlay,
@@ -3586,4 +3587,20 @@ button {
 
 .primary-button {
   color: var(--ir-primary-color);
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button:disabled:hover {
+  cursor: default;
+}
+
+.small-button {
+  width: 64px;
+  height: 40px;
+  justify-content: center;
+  justify-items: center;
+  padding: 6px;
 }

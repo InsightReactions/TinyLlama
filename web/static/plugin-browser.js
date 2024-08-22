@@ -183,11 +183,12 @@ function createCard(package, name, description, route, port) {
     cardControls.style = "display: none; flex-direction: column; align-items: center; gap: 6px;"
     cardLeft.appendChild(cardControls);
     
-    const buttonClassName = "mat-raised-button";
-    const buttonStyle = "width: 64px; justify-self: center; justify-content: center; display: none; padding: 6px;"
+    const buttonClassName = "mat-raised-button small-button";
+    const buttonStyle = "display: none;"
 
     var cardAddButton = document.createElement("button");
     cardAddButton.className = buttonClassName + " add-button";
+    cardAddButton.title = "Install " + name;
     cardAddButton.style = buttonStyle;
     cardAddButton.addEventListener('click', onAddPluginClicked);
     cardControls.appendChild(cardAddButton);
@@ -199,6 +200,7 @@ function createCard(package, name, description, route, port) {
 
     var cardRemoveButton = document.createElement("button");
     cardRemoveButton.className = buttonClassName + " remove-button";
+    cardRemoveButton.title = "Uninstall " + name;
     cardRemoveButton.style = buttonStyle;
     cardRemoveButton.addEventListener('click', onRemovePluginClicked);
     cardControls.appendChild(cardRemoveButton);
@@ -210,6 +212,7 @@ function createCard(package, name, description, route, port) {
 
     var cardStartButton = document.createElement("button");
     cardStartButton.className = buttonClassName + " start-button";
+    cardStartButton.title = "Start " + name;
     cardStartButton.style = buttonStyle;
     cardStartButton.addEventListener('click', onStartPluginClicked);
     cardControls.appendChild(cardStartButton);
@@ -221,6 +224,7 @@ function createCard(package, name, description, route, port) {
 
     var cardStopButton = document.createElement("button");
     cardStopButton.className = buttonClassName + " stop-button";
+    cardStopButton.title = "Stop " + name;
     cardStopButton.style = buttonStyle;
     cardStopButton.addEventListener('click', onStopPluginClicked);
     cardControls.appendChild(cardStopButton);
@@ -236,6 +240,7 @@ function createCard(package, name, description, route, port) {
 
     var cardTitle = document.createElement("a");
     cardTitle.className = "mat-card-title";
+    cardTitle.title = "Navigate to " + name;
     cardTitle.href = "http://" + route + ":" + port;
     cardTitle.text = name;
     cardRight.appendChild(cardTitle);
