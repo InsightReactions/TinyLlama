@@ -9,5 +9,24 @@
 </head>
 <body style="overflow: hidden; background-color: var(--ir-background2-color);">
     <script src="eyes.js"></script>
+    <div id="eyemotion-container" style="margin: 12px;">
+        <button id="neutral-btn" class="mat-raised-button">Neutral</button>
+        <button id="happy-btn" class="mat-raised-button">Happy</button>
+        <button id="skeptic-btn" class="mat-raised-button">Skeptic</button>
+    </div>
+
+    <script>
+        document.getElementById('neutral-btn').addEventListener('click', () => {
+            setEmotion("neutral", eyes);
+        });
+
+        document.getElementById('happy-btn').addEventListener('click', () => {
+            setEmotion("happy", eyes);
+        });
+
+        document.getElementById('skeptic-btn').addEventListener('click', () => {
+            setEmotion("skeptic", eyes);
+        });
+    </script>
 </body>
 </html>
