@@ -9,10 +9,18 @@
 </head>
 <body style="overflow: hidden; background-color: var(--ir-background2-color);">
     <script src="eyes.js"></script>
-    <div id="eyemotion-container" style="margin: 12px;">
+    <div id="eyemotion-container" style="margin: 12px; max-width: 600px; display: grid; gap:12px; grid-template-columns: repeat(4, 1fr)">
         <button id="neutral-btn" class="mat-raised-button">Neutral</button>
         <button id="happy-btn" class="mat-raised-button">Happy</button>
-        <button id="skeptic-btn" class="mat-raised-button">Skeptic</button>
+        <button id="worried-btn" class="mat-raised-button">Worried</button>
+        <button id="sad-btn" class="mat-raised-button">Sad</button>
+        <button id="angry-btn" class="mat-raised-button">Angry</button>
+        <button id="furious-btn" class="mat-raised-button">Furious</button>
+        <button id="focused-btn" class="mat-raised-button">Focused</button>
+        <button id="suspicious-btn" class="mat-raised-button">Suspicious</button>
+        <button id="skeptical-btn" class="mat-raised-button">Skeptical</button>
+        <button id="unimpressed-btn" class="mat-raised-button">Unimpressed</button>
+        <button id="sleepy-btn" class="mat-raised-button">Sleepy</button>
     </div>
 
     <script>
@@ -24,8 +32,40 @@
             setEmotion("happy", eyes);
         });
 
-        document.getElementById('skeptic-btn').addEventListener('click', () => {
-            setEmotion("skeptic", eyes);
+        document.getElementById('sad-btn').addEventListener('click', () => {
+            setEmotion("sad", eyes);
+        });
+
+        document.getElementById('worried-btn').addEventListener('click', () => {
+            setEmotion("worried", eyes);
+        });
+
+        document.getElementById('angry-btn').addEventListener('click', () => {
+            setEmotion("angry", eyes);
+        });
+
+        document.getElementById('furious-btn').addEventListener('click', () => {
+            setEmotion("furious", eyes);
+        });
+
+        document.getElementById('focused-btn').addEventListener('click', () => {
+            setEmotion("focused", eyes);
+        });
+
+        document.getElementById('suspicious-btn').addEventListener('click', () => {
+            setEmotion("suspicious", eyes);
+        });
+
+        document.getElementById('skeptical-btn').addEventListener('click', () => {
+            setEmotion("skeptical", eyes);
+        });
+
+        document.getElementById('unimpressed-btn').addEventListener('click', () => {
+            setEmotion("unimpressed", eyes);
+        });
+
+        document.getElementById('sleepy-btn').addEventListener('click', () => {
+            setEmotion("sleepy", eyes);
         });
     </script>
 </body>
