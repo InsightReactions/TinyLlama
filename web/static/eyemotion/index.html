@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/lib/snap.svg-min.js"></script>
+    <script src="/lib/socket.io.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/style.css">
     <title>Eyes</title>
 </head>
 <body style="overflow: hidden; background-color: var(--ir-background2-color);">
-    <script src="eyes.js"></script>
-    <div id="eyemotion-container" style="margin: 12px; max-width: 600px; display: grid; gap:12px; grid-template-columns: repeat(4, 1fr)">
+    <script src="eyemotion.js"></script>
+    <div id="eyemotion-container" style="margin: 12px; max-width: 600px; display: none; gap:12px; grid-template-columns: repeat(4, 1fr);">
         <button id="neutral-btn" class="mat-raised-button">Neutral</button>
         <button id="happy-btn" class="mat-raised-button">Happy</button>
         <button id="worried-btn" class="mat-raised-button">Worried</button>

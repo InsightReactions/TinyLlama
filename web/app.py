@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import subprocess
 from flask import Flask, request, jsonify, send_from_directory
+from flask_socketio import SocketIO, emit, join_room
 import os
 from datetime import datetime, timezone
 import logging
@@ -20,6 +21,8 @@ app = Flask("Tiny Llama Service",
             static_folder='static')
 app.config["JSON_AS_ASCII"] = False
 app.config["JSONIFY_MIMETYPE"] = "application/json; charset=utf-8"
+
+sio = SocketIO(app, cors_allowed_origins="*", async_mode='gevent')
 
 
 def get_default_route_ip():
@@ -102,7 +105,8 @@ def get_patchnote_files(since: datetime):
             creation_time = creation_time.replace(microsecond=0)
 
             # Print the comparisons between dates
-            print(f"Comparing {creation_time} > {since} = {creation_time > since}")
+            print(f"Comparing {creation_time} > {
+                  since} = {creation_time > since}")
 
             # Check if the file was created after the provided `since` date
             if creation_time > since:
@@ -196,6 +200,39 @@ def restart_services(services, only_running=True):
         except subprocess.CalledProcessError as e:
             results[service] = {"success": False, "error": str(e)}
     return jsonify(results), 200 if all([result["success"] for result in results.values()]) else 500
+
+
+@sio.on('join')
+def on_join(data):
+    # Add the client to the specified room
+    print("Client joining room:", data['room'])
+    join_room(data['room'])
+
+
+@sio.on_error_default
+def default_error_handler(e):
+    print(f"SocketIO error: {e}", request)
+
+
+@app.route('/eyemotion/room/<room_id>', methods=['POST'])
+def handle_eyemotion(room_id):
+    """
+    Handles POST requests to the '/eyemotion/<room_id>' endpoint.
+
+    Args:
+        room_id (str): The ID of the room where the emotion is being handled, related to an active socketio connection.
+
+    Returns:
+        jsonify: A JSON response with a success message.
+    """
+    data = request.get_json()
+    print(f"emitting new_emotion event to room '{room_id}': {data}")
+    try:
+        sio.emit('new_emotion', data, to=room_id)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+    return jsonify({'message': 'Data pushed successfully'}), 200
 
 
 @app.route('/has-updates', methods=['GET'])

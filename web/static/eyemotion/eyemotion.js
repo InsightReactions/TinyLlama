@@ -58,7 +58,7 @@ function mapValue(value, start1, stop1, start2, stop2) {
 function createEye(idPrefix, x) {
     var eyeBase = draw.rect(0, 0, EYE_SIZE.width, EYE_SIZE.height);
     eyeBase.attr({
-        id: `${idPrefix}EyeBase`,
+        id: `${idPrefix}Iris`,
         fill: "#006fee",
         rx: CORNER_RADIUS,
         ry: CORNER_RADIUS,
@@ -126,6 +126,19 @@ function createEye(idPrefix, x) {
     });
 
     return eye;
+}
+
+function setIrisColor(eye, color) {
+    var idPrefix = eye.attr("id").replace("Eye", "");
+    var iris = eye.select(`#${idPrefix}Iris`);
+    iris.attr({ fill: color });
+}
+
+function setEyesColor(eyes, color) {
+    const leftEye = eyes.select("#LeftEye");
+    const rightEye = eyes.select("#RightEye");
+    setIrisColor(leftEye, color);
+    setIrisColor(rightEye, color);
 }
 
 // Blink animation for either eye
@@ -326,7 +339,7 @@ function setEyeEmotion(emotion, eye) {
         var lox = lowerEyelid.attr("ox");
         var loy = lowerEyelid.attr("oy");
         var lsx = lowerEyelid.attr("sx");
-        
+
         var lsy = EMOTION_EYELID_FACTORS[emotion][idPrefix].lower;
         lowerEyelid.attr('sy', lsy);
         lowerEyelid.animate({ transform: `t${lox},${loy} s${lsx},${lsy},0,${EYE_SIZE.height}` }, 150);
@@ -400,3 +413,40 @@ eyes.attr({
 // Initialize animation states
 setEmotion("neutral", eyes);
 queueBlink();
+
+// ========================
+// SOCKETIO INITIALIZATION
+// ========================
+let socket = io({ transports: ['websocket'], autoConnect: false });
+console.log(socket);
+
+socket.on('connect', function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const roomId = urlParams.get('room_id');
+    console.log(socket);
+    if (roomId) {
+        // Connect to the server with the specified room ID.
+        console.log(`Connecting to SocketIO in room ${roomId}...`);
+        socket.emit('join', {'room': roomId})
+    }
+});
+
+socket.on("connect_error", (err) => {
+    // the reason of the error, for example "xhr poll error"
+    console.log(err.message);
+  
+    // some additional description, for example the status code of the initial HTTP response
+    console.log(err.description);
+  
+    // some additional context, for example the XMLHttpRequest object
+    console.log(err.context);
+  });
+
+socket.on('new_emotion', function (data) {
+    console.log("Received new emotion data:", data);
+    setEmotion(data.emotion, eyes);
+    moveEyes(eyes, data.x, data.y);
+    setEyesColor(eyes, data.color);
+});
+
+socket.connect();
