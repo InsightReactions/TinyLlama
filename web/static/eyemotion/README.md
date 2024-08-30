@@ -1,17 +1,28 @@
-Here's the updated `README.md`:
+# Eyemotion
 
-# Testing the Eyemotion Endpoint
+The Eyemotion runtime supports 11 distinct emotional states for the eyes, each with unique visual cues to convey the intended sentiment. The supported emotions are:
 
-This guide walks you through manually testing the `/eyemotion/room/<room_id>` endpoint, which is responsible for handling new emotions in a specified room.
+* **Neutral**: The default. A calm and neutral expression, ideal for situations where no emotion is desired.
+* **Focused**: A calm and alert expression, ideal for situations where attention is required.
+* **Suspicious**: An expression of uncertainty or mistrust, suitable for scenarios where doubt is present.
+* **Sleepy**: A tired and drowsy expression, perfect for depicting sleep deprivation or fatigue.
+* **Happy**: A cheerful and joyful expression, great for showcasing happiness and contentment.
+* **Sad**: A melancholic and sorrowful expression, ideal for depicting emotional pain or sadness.
+* **Worried**: An anxious and concerned expression, suitable for scenarios where worry or anxiety is present.
+* **Angry**: A fierce and irate expression, perfect for depicting anger or frustration.
+* **Furious**: A furious and enraged expression, great for showcasing intense anger or outrage.
+* **Skeptical**: An asymmetrical expression of skepticism or doubt.
+* **Unimpressed**: A disinterested and unimpressed expression, perfect for depicting a lack of enthusiasm or interest.
 
-## Prerequisites
+## Testing the Eyemotion Endpoint
 
-Before proceeding, ensure that:
+This section walks you through manually testing the `/eyemotion/room/<room_id>` endpoint, which is responsible for handling new emotions in a specified room.
 
-* Your server is running on `http://localhost:8000`.
-* You have access to the Eyemotion controller interface.
+### Prerequisites
 
-## Step 1: Test the Endpoint Using curl
+Before proceeding, ensure that the TinyLlama server is running on `http://localhost:8000`, or substitute the domain path for your local configuration.
+
+### Step 1: Test the Endpoint Using curl
 
 To test the endpoint manually, use the following command in your terminal:
 ```bash
@@ -28,11 +39,25 @@ The JSON payload sent with the `POST` request should conform to a specific schem
   "color": string (optional)
 }
 ```
-In this example, we're specifying an emotion of `"furious"` and a color of `#FF0000`. The `x` and `y` properties are optional and represent the normalized eye position along the X and Y axes (-1 to 1), respectively. If not provided, they default to 0.
 
 The `/eyemotion/room/<room_id>` endpoint is designed to validate incoming requests against this schema using JSON Schema. If your request data does not conform to this structure, you may encounter errors or unexpected behavior.
 
-## Step 2: Verify the Server Response
+Here's an example of how to use this API with the specified payload:
+```json
+{
+  "emotion": "furious",
+  "x": -0.5,
+  "y": 0.2,
+  "color": "#FF0000"
+}
+```
+
+In this example, we're specifying an emotion of `"furious"`, a color of `#FF0000`, and some movement towards the bottom-left corner of the canvas. 
+
+The `x` and `y` properties define the position of the eye within the canvas, normalized along the X and Y axes. The center of the canvas is at (0, 0), with positive values on the Y-axis pointing downwards. If not specified, they default to the middle.
+
+
+### Step 2: Verify the Server Response
 
 The server should respond with a JSON object indicating whether the emission was successful or not. If the response is:
 ```json
@@ -42,16 +67,14 @@ The server should respond with a JSON object indicating whether the emission was
 ```
 Then the test was successful.
 
-## Step 3: Observe Client-Side Behavior (Recommended)
+### Step 3: Observe Client-Side Behavior (Recommended)
 
-To manually interact with the Eyemotion controller and observe how it reacts to new emotions, navigate to:
+To  observe how the Eyemotion controller reacts to new emotions, navigate to:
 
 http://localhost:8000/eyemotion/index.html?room_id=test
 
-This URL will assign you to a test room (`test`) where you can manually change your emotion by clicking on one of the emotion buttons.
+This URL will assign you to a test room (`test`) where you can preview the effects of your API calls in real-time.
 
-**Understanding Room IDs**
+## Understanding Room IDs
 
-The `room_id` parameter is used to identify a specific room within the Eyemotion controller. Each room has its own set of connected clients, and the `/eyemotion/room/<room_id>` endpoint sends new emotions only to clients assigned to that particular room. In this case, by navigating to the test URL with `?room_id=test`, you're effectively joining a test room where you can manually interact with the Eyemotion controller.
-
-By observing how your emotion changes in response to the curl command sent in Step 1, you'll gain insight into how the Eyemotion endpoint handles new emotions and broadcasts them to connected clients.
+The `room_id` parameter is used to identify a specific room within the Eyemotion controller. Each room has its own set of connected clients, and the `/eyemotion/room/<room_id>` endpoint sends new emotions only to clients assigned to that particular room. In this case, by navigating to the test URL with `?room_id=test`, you're effectively joining a test room where you can view the Eyemotion controller assigned to that room.

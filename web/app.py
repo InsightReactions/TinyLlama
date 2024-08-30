@@ -121,8 +121,7 @@ def get_patchnote_files(since: datetime):
             creation_time = creation_time.replace(microsecond=0)
 
             # Print the comparisons between dates
-            print(f"Comparing {creation_time} > {
-                  since} = {creation_time > since}")
+            print(f"Comparing {creation_time} > {since} = {creation_time > since}")
 
             # Check if the file was created after the provided `since` date
             if creation_time > since:
