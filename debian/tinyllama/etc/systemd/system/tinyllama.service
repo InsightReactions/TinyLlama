@@ -3,7 +3,7 @@ Description=TinyLlama Web Service
 After=network.target
 
 [Service]
-ExecStart=/srv/www/TinyLlama/venv/bin/python3 -m gunicorn -w 2 -b 0.0.0.0:80 'app:app'
+ExecStart=/srv/www/TinyLlama/venv/bin/python3 -m gunicorn -b 0.0.0.0:80 -k geventwebsocket.gunicorn.workers.GeventWebSocketWorker 'app:app'
 WorkingDirectory=/srv/www/TinyLlama
 Restart=always
 RestartSec=3

@@ -3396,6 +3396,7 @@ td.mat-footer-cell {
   border-radius: 6px;
   display: flex;
   align-items: stretch;
+  min-width: 300px;
   width: 100%;
 }
 
