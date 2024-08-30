@@ -11,7 +11,7 @@ The Eyemotion runtime supports 11 distinct emotional states for the eyes, each w
 * **Worried**: An anxious and concerned expression, suitable for scenarios where worry or anxiety is present.
 * **Angry**: A fierce and irate expression, perfect for depicting anger or frustration.
 * **Furious**: A furious and enraged expression, great for showcasing intense anger or outrage.
-* **Skeptical**: An asymmetrical expression of skepticism or doubt.
+* **Skeptical**: An asymmetrical expression of skepticism or doubt, suitable for situations where the character's belief is uncertain.
 * **Unimpressed**: A disinterested and unimpressed expression, perfect for depicting a lack of enthusiasm or interest.
 
 ## Testing the Eyemotion Endpoint
