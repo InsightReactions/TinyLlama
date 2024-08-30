@@ -11,4 +11,4 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 export TL_TESTING=True
-python3 -m gunicorn -w 2 -k gevent 'app:app'
+python3 -m gunicorn -k geventwebsocket.gunicorn.workers.GeventWebSocketWorker 'app:app'

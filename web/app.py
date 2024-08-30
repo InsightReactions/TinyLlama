@@ -6,6 +6,8 @@ import os
 from datetime import datetime, timezone
 import logging
 import json
+import jsonschema
+import re
 
 TL_TESTING = bool(os.environ.get('TL_TESTING', False))
 if TL_TESTING:
@@ -16,13 +18,27 @@ PLUGIN_MARKETPLACE_DIR = "/usr/share/tinyllama/plugin-marketplace"
 # Maximum amount of patchnotes to serve to the client at once
 PATCHNOTE_LIMIT = 10
 
+# Define the expected schema for 'new_emotion' event data
+NEW_EMOTION_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "emotion": {"type": "string"},
+        "x": {"type": "number"},
+        "y": {"type": "number"},
+        "color": {"type": "string"}
+    },
+    "required": ["emotion"],
+    "additionalProperties": False
+}
+
 app = Flask("Tiny Llama Service",
             static_url_path='',
             static_folder='static')
 app.config["JSON_AS_ASCII"] = False
 app.config["JSONIFY_MIMETYPE"] = "application/json; charset=utf-8"
 
-sio = SocketIO(app, cors_allowed_origins="*", async_mode='gevent')
+sio = SocketIO(app, cors_allowed_origins="*",
+               async_mode='gevent', always_connect=True)
 
 
 def get_default_route_ip():
@@ -223,9 +239,19 @@ def handle_eyemotion(room_id):
         room_id (str): The ID of the room where the emotion is being handled, related to an active socketio connection.
 
     Returns:
-        jsonify: A JSON response with a success message.
+        jsonify: A JSON response with a success message if the emission was successful, or an error message otherwise.
+
+    The 'new_emotion' event data expected in this endpoint follows the NEW_EMOTION_SCHEMA.
     """
     data = request.get_json()
+
+    # Validate the 'new_emotion' event data against the schema
+    try:
+        jsonschema.validate(instance=data, schema=NEW_EMOTION_SCHEMA)
+    except (jsonschema.ValidationError, jsonschema.SchemaError) as e:
+        return jsonify({'error': re.sub(r'\s+', ' ', str(e).replace('\n', ' '))}), 400
+
+    # Emit the 'new_emotion' event to all clients in the specified room
     print(f"emitting new_emotion event to room '{room_id}': {data}")
     try:
         sio.emit('new_emotion', data, to=room_id)
@@ -324,13 +350,11 @@ def get_patchnotes():
     Example:
         To retrieve patch notes since 2023-01-01T00:00:00Z, use /patchnotes?since=2023-01-01T00:00:00Z in the GET request.
     """
-    since_str = request.args.get('since')
-    print(since_str)
+    since_str = request.args.get('since') or '1970-01-01'
     try:
         since_date = datetime.fromisoformat(since_str)
     except:
         since_date = datetime(1970, 1, 1, tzinfo=timezone.utc)
-    print(since_date.tzinfo)
 
     print("fetching patchnotes since", since_date)
     patchnotes = list(find_patchnotes(since_date))

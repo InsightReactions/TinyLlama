@@ -4,16 +4,83 @@
 // GLOBAL CONSTANT DEFINITIONS
 // ========================
 
+/**
+ * The default eye color.
+ * @type {string}
+ */
+const DEFAULT_EYE_COLOR = "#006fee";
+
+/**
+ * The distance between the eyes in pixels.
+ *
+ * @type {number}
+ */
 const EYE_DISTANCE = 60;
+
+/**
+ * The size of each eye, as a width and height object.
+ *
+ * @type {{ width: number, height: number }}
+ */
 const EYE_SIZE = { width: 100, height: 100 };
+
+/**
+ * The size of the upper and lower eyelids, as a width and height object.
+ *
+ * @type {{ width: number, height: number }}
+ */
 const EYELID_SIZE = { width: EYE_SIZE.width + 5, height: EYE_SIZE.height };
+
+/**
+ * The size of the entire animation panel, as a width and height object.
+ *
+ * @type {{ width: number, height: number }}
+ */
 const SNAP_SIZE = { width: 600, height: 300 };
-const CORNER_RADIUS = Math.floor(SNAP_SIZE.height * 0.06);
-const UPPER_EYELID_CORNER_RADIUS = CORNER_RADIUS * 0.1;
-const MAX_BLINK_DELAY = 10; // in seconds
+
+/**
+ * The radius of each iris corner in pixels.
+ *
+ * @type {number}
+ */
+const IRIS_CORNER_RADIUS = Math.floor(SNAP_SIZE.height * 0.06);
+
+/**
+ * The maximum delay in seconds for a random eye blink animation to trigger.
+ *
+ * @type {number}
+ */
+const MAX_BLINK_DELAY = 15;
+
+/**
+ * The base y-coordinate of the top of each eye, relative to the SNAP_SIZE.height and EYE_SIZE.height.
+ *
+ * @type {number}
+ */
 const BASE_EYE_TOP_Y = Math.floor(SNAP_SIZE.height / 2 - EYE_SIZE.height / 2);
+
+/**
+ * The base y-coordinate of the top of the upper eyelid, which is offset from BASE_EYE_TOP_Y.
+ *
+ * @type {number}
+ */
 const BASE_UPPER_EYELID_TOP_Y = BASE_EYE_TOP_Y - EYELID_SIZE.height;
+
+/**
+ * The base y-coordinate of the top of the lower eyelid, which is also offset from BASE_EYE_TOP_Y.
+ *
+ * @type {number}
+ */
 const BASE_LOWER_EYELID_TOP_Y = BASE_EYE_TOP_Y + EYELID_SIZE.height;
+
+/**
+ * An object containing factors to adjust the size and position of the eyelids for different emotions.
+ *
+ * Each emotion has two keys: Left and Right, representing the left and right eye respectively. Within each key,
+ * there are two sub-keys: upper and lower, representing the top and bottom eyelid respectively.
+ *
+ * @type {{ [emotion: string]: { [side: string]: { upper: number, lower: number } } }}
+ */
 const EMOTION_EYELID_FACTORS = {
     focused: {
         Left: {
@@ -51,17 +118,20 @@ const EMOTION_EYELID_FACTORS = {
 // FUNCTION DEFINITIONS
 // ========================
 
-function mapValue(value, start1, stop1, start2, stop2) {
-    return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
-}
-
+/**
+ * Creates an eye with the specified id prefix and x-coordinate.
+ *
+ * @param {string} idPrefix The prefix for the IDs of the eye components.
+ * @param {number} x The x-coordinate of the eye.
+ * @returns {Snap.Element} The created eye element.
+ */
 function createEye(idPrefix, x) {
     var eyeBase = draw.rect(0, 0, EYE_SIZE.width, EYE_SIZE.height);
     eyeBase.attr({
         id: `${idPrefix}Iris`,
-        fill: "#006fee",
-        rx: CORNER_RADIUS,
-        ry: CORNER_RADIUS,
+        fill: DEFAULT_EYE_COLOR,
+        rx: IRIS_CORNER_RADIUS,
+        ry: IRIS_CORNER_RADIUS,
         ox: x,
         oy: BASE_EYE_TOP_Y,
         transform: `t${x},${BASE_EYE_TOP_Y}`
@@ -73,8 +143,6 @@ function createEye(idPrefix, x) {
     upperEyelid.attr({
         id: `${idPrefix}UpperEyelid`,
         fill: "#18181b",
-        rx: UPPER_EYELID_CORNER_RADIUS,
-        ry: UPPER_EYELID_CORNER_RADIUS,
         ox: ox,
         oy: BASE_UPPER_EYELID_TOP_Y,
         sx: 1,
@@ -128,12 +196,26 @@ function createEye(idPrefix, x) {
     return eye;
 }
 
+/**
+ * Sets the iris color of a given eye.
+ *
+ * @param {Snap.Element} eye - The eye element to modify.
+ * @param {string} color - The desired iris color (e.g. "#006fee").
+ */
 function setIrisColor(eye, color) {
     var idPrefix = eye.attr("id").replace("Eye", "");
     var iris = eye.select(`#${idPrefix}Iris`);
-    iris.attr({ fill: color });
+
+    // Define an animation object to smoothly transition from startColor to color
+    iris.animate({ fill: Snap.color(color) }, 1000);
 }
 
+/**
+ * Sets the iris color of both eyes.
+ *
+ * @param {Snap.Element} eyes - The container element containing both left and right eyes.
+ * @param {string} color - The desired iris color (e.g. "#006fee").
+ */
 function setEyesColor(eyes, color) {
     const leftEye = eyes.select("#LeftEye");
     const rightEye = eyes.select("#RightEye");
@@ -141,7 +223,11 @@ function setEyesColor(eyes, color) {
     setIrisColor(rightEye, color);
 }
 
-// Blink animation for either eye
+/**
+ * Animates a blink effect for either eye.
+ *
+ * @param {Snap.Element} eye - The eye element to animate.
+ */
 function blink(eye) {
     var idPrefix = eye.attr("id").replace("Eye", "");
     var upperEyelid = eye.select(`#${idPrefix}UpperEyelid`);
@@ -166,15 +252,14 @@ function blink(eye) {
     });
 }
 
-// Move animation for both eyes to look at a location on the canvas
-function moveEyes(eyes, x, y) {
-    // Calculate proportional distances from center of screen
-    const propX = (x - parseInt(draw.attr("width")) / 2) / (parseInt(draw.attr("width")) / 2);
-    const propY = (y - parseInt(draw.attr("height")) / 2) / (parseInt(draw.attr("height")) / 2);
-
-    // Calculate proportional scaling based on distance from the center of the screen (both x and y axes)
-    const propS = 1 + Math.sqrt(propX * propX + propY * propY) * 0.5;
-
+/**
+ * Move eyes to a target location on the canvas.
+ *
+ * @param {Snap.Group} eyes - A group of eye elements.
+ * @param {number} propX - The proportion of x distance between the eyes and their original position.
+ * @param {number} propY - The proportion of y distance between the eyes and their original position.
+ */
+function moveEyes(eyes, propX, propY) {
     // Animate eyes coming closer together slightly to look at a location on the canvas
     const leftEye = eyes.select("#LeftEye");
     const rightEye = eyes.select("#RightEye");
@@ -218,6 +303,11 @@ function moveEyes(eyes, x, y) {
     rightEye.animate({ transform: `t${rightOx},${rightOy} s${rightSx},${rightSx}` }, 1000, mina.easeinout);
 }
 
+/**
+ * Queue blink animation for both eyes.
+ *
+ * @param {number} interval - The time in milliseconds to wait before blinking.
+ */
 function queueBlink() {
     var interval = Math.floor(Math.random() * MAX_BLINK_DELAY) * 1000;
     setTimeout(function () {
@@ -227,6 +317,11 @@ function queueBlink() {
     }, interval);
 }
 
+/**
+ * Resets an eye to its original state.
+ *
+ * @param {Snap.Group} eye - The eye element to reset.
+ */
 function resetEye(eye) {
     var idPrefix = eye.attr("id").replace("Eye", "");
     // reset the top eyelid to its original position
@@ -281,7 +376,13 @@ function resetEye(eye) {
     lowerEyelid.animate({ transform: `t${lox},${loy} s1,1,0,0` }, 150);
 }
 
-function setEyeEmotion(emotion, eye) {
+/**
+ * Set the emotion of an eye to a specified value.
+ *
+ * @param {Snap.Group} eye - The eye element whose emotion will be changed.
+ * @param {string} emotion - The desired emotion for the eye.
+ */
+function setEyeEmotion(eye, emotion) {
     var curEmotion = eye.attr('emotion');
     emotion = emotion.toLowerCase();
     if (curEmotion === emotion) {
@@ -289,6 +390,9 @@ function setEyeEmotion(emotion, eye) {
     } else {
         resetEye(eye);
         eye.attr("emotion", emotion);
+        if (emotion === "neutral") {
+            return;
+        }
     }
     var idPrefix = eye.attr("id").replace("Eye", "");
 
@@ -350,7 +454,7 @@ function setEyeEmotion(emotion, eye) {
         var oy = upperEyelid.attr("oy");
         var sx = upperEyelid.attr("sx");
 
-        var sy = 1.4
+        var sy = 1.4;
         upperEyelid.attr('sy', sy);
         upperEyelid.animate({ transform: `t${ox},${oy} s${sx},${sy},0,0` }, 150);
     } else if (emotion === "unimpressed") {
@@ -360,26 +464,25 @@ function setEyeEmotion(emotion, eye) {
         var oy = upperEyelid.attr("oy");
         var sx = upperEyelid.attr("sx");
 
-        var sy = 1.7
+        var sy = 1.7;
         upperEyelid.attr('sy', sy);
         upperEyelid.animate({ transform: `t${ox},${oy} s${sx},${sy},0,0` }, 150);
-    } else if (emotion === "sleepy") {
-        // move the top eyelid down
-        var upperEyelid = eye.select(`#${idPrefix}UpperEyelid`);
-        var ox = upperEyelid.attr("ox");
-        var oy = upperEyelid.attr("oy");
-        var sx = upperEyelid.attr("sx");
-
-        var sy = 1.5
-        upperEyelid.animate({ transform: `t${ox},${oy} s${sx},${sy},0,0` }, 150);
+    } else {
+        console.log(`Unable to execute animation: Emotion "${emotion}" not found for eye "${idPrefix}Eye"`);
     }
 }
 
-function setEmotion(emotion, eyes) {
+/**
+ * Set the emotion of both eyes to a specified value.
+ *
+ * @param {Snap.Group} eyes - A group of eye elements whose emotions will be changed.
+ * @param {string} emotion - The desired emotion for the eye.
+ */
+function setEmotion(eyes, emotion) {
     emotion = emotion.toLowerCase();
     // Set the emotion for both eyes
-    setEyeEmotion(emotion, eyes.select("#LeftEye"));
-    setEyeEmotion(emotion, eyes.select("#RightEye"));
+    setEyeEmotion(eyes.select("#LeftEye"), emotion);
+    setEyeEmotion(eyes.select("#RightEye"), emotion);
 }
 
 // ========================
@@ -396,7 +499,7 @@ draw.mousedown(function (event) {
 });
 
 // Fill in background
-draw.rect(0, 0, SNAP_SIZE.width, SNAP_SIZE.height).attr({ fill: '#18181b', rx: CORNER_RADIUS, ry: CORNER_RADIUS });
+draw.rect(0, 0, SNAP_SIZE.width, SNAP_SIZE.height).attr({ fill: '#18181b', rx: IRIS_CORNER_RADIUS, ry: IRIS_CORNER_RADIUS });
 
 // Create eyes
 var leftEye = createEye("Left", (SNAP_SIZE.width / 2) - EYE_DISTANCE - (EYE_SIZE.width / 2));
@@ -411,13 +514,13 @@ eyes.attr({
 });
 
 // Initialize animation states
-setEmotion("neutral", eyes);
+setEmotion(eyes, "neutral");
 queueBlink();
 
 // ========================
 // SOCKETIO INITIALIZATION
 // ========================
-let socket = io({ transports: ['websocket'], autoConnect: false });
+let socket = io({ transports: ['websocket', 'polling'] });
 console.log(socket);
 
 socket.on('connect', function () {
@@ -427,26 +530,45 @@ socket.on('connect', function () {
     if (roomId) {
         // Connect to the server with the specified room ID.
         console.log(`Connecting to SocketIO in room ${roomId}...`);
-        socket.emit('join', {'room': roomId})
+        socket.emit('join', { 'room': roomId })
     }
 });
 
 socket.on("connect_error", (err) => {
-    // the reason of the error, for example "xhr poll error"
-    console.log(err.message);
-  
-    // some additional description, for example the status code of the initial HTTP response
-    console.log(err.description);
-  
-    // some additional context, for example the XMLHttpRequest object
-    console.log(err.context);
-  });
+    console.log(err);
+});
 
 socket.on('new_emotion', function (data) {
-    console.log("Received new emotion data:", data);
-    setEmotion(data.emotion, eyes);
-    moveEyes(eyes, data.x, data.y);
-    setEyesColor(eyes, data.color);
+    /**
+     * Expected format of the 'new_emotion' event data:
+     * {
+     *   "emotion": string, // REQUIRED. (e.g. "furious")
+     *   x: number, // OPTIONAL. normalized eye position along X axis (-1 to 1), 0 is center of screen
+     *   y: number, // OPTIONAL. normalized eye position along Y axis (-1 to 1), 0 is center of screen
+     *   "color": string // OPTIONAL. (e.g. "#ff0000")
+     * }
+     */
+    console.log("new_emotion:", data);
+
+    var emotion = data.emotion;
+    var x = data.x || 0; // default to no movement along X axis if not provided
+    var y = data.y || 0; // default to no movement along Y axis if not provided
+    var color = data.color;
+
+    setEmotion(eyes, emotion);
+
+    if (color) {
+        setEyesColor(eyes, color);
+    }
+    moveEyes(eyes, x, y);
+
+    setTimeout(function () {
+        setEmotion(eyes, "neutral");
+        if (color) {
+            setEyesColor(eyes, DEFAULT_EYE_COLOR);
+        }
+        moveEyes(eyes, 0, 0);
+    }, 5000);
 });
 
 socket.connect();
