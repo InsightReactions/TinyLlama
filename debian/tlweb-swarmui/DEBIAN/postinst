@@ -13,7 +13,7 @@ if [ -d "SwarmUI" ]; then
 fi
 
 # Download swarm
-git clone https://github.com/mcmonkeyprojects/SwarmUI --depth 1 --branch 0.9.1-Beta
+git clone https://github.com/mcmonkeyprojects/SwarmUI --depth 1 --branch 0.9.2-Beta
 
 echo "Restoring SwarmUI data from a backup. This may take some time. Please wait..."
 if [ -d "SwarmUI_bak" ]; then
@@ -49,7 +49,7 @@ cd ..
 /root/.dotnet/dotnet build src/SwarmUI.csproj --configuration Release -o ./src/bin/live_release
 
 # Install ComfyUI
-bash ./launchtools/comfy-install-linux.sh
+bash ./launchtools/comfy-install-linux.sh nv
 
 # Copy configuration files
 if [ ! -d "Data" ]; then

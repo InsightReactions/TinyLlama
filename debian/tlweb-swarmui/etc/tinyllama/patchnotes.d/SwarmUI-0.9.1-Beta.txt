@@ -1,6 +1,0 @@
-The latest patch notes contain some exciting updates. Here are the most notable ones:
-
-- Support has been added for a new graphics tablet with dynamic pen pressure values in the Edit Image interface.
-- Controlnets (InstantX) now have full support on SD3.
-- A user setting called "AutoCompleteSuffix" has been introduced to automatically append commas or other characters when using autocompletion.
-- The tab title now updates to show the number of current pending generations, giving you a progress update even when you're not actively using the application.

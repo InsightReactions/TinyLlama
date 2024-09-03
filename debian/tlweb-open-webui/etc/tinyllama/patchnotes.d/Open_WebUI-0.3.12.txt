@@ -1,5 +1,0 @@
-The InsightReactions team is excited to introduce new features that enhance your experience with Tiny Llama!
-
-New Text-to-Speech Integration
-
-Seamlessly engage with our Large Language Models (LLMs) in a more immersive way! With Open WebUI, you can now listen to text-to-speech output for any chat message. Simply click the speaker icon below the message, and choose from various voices in the Open WebUI settings.

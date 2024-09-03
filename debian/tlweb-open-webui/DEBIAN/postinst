@@ -1,12 +1,12 @@
 #!/bin/bash
 set -eu
 
-ollama pull taozhiyuai/hermes-2-theta-llama-3:8b-q4_k_m
+ollama pull hermes3
 ollama pull llama3.1
 ollama pull llava-phi3
 
 mkdir -p /srv/www/open-webui
-docker pull ghcr.io/open-webui/open-webui:git-c869652
+docker pull ghcr.io/open-webui/open-webui:git-63c0772
 
 DEFAULT_IMAGE_GEN_MODEL="CyberRealistic_V4.2_FP16.safetensors"
 WEBUI_DIR="/srv/www/open-webui"

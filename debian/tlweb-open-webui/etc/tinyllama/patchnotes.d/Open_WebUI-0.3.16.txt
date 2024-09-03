@@ -1,0 +1,25 @@
+The InsightReactions team is excited to introduce new Open WebUI features that enhance your experience with Tiny Llama!
+
+**New Features:**
+
+1. Enhanced Markdown Rendering for smoother display of LaTeX and Mermaid charts
+2. Auto-Install Tools & Functions Python Dependencies for streamlined setup processes
+3. OAuth Email Claim Customization for greater flexibility in authentication processes
+4. Websocket Reconnection for consistent communication
+5. The InsightReactions team has updated Hermes2 Theta with Hermes3 for more engaging and immersive roleplay
+
+**Improvements:**
+
+1. ComfyUI Performance Improvement to prevent UI unresponsiveness during image generation
+2. Session Handling fixes for smoother session management and transitions
+3. Migration to SvelteKit 2 for enhanced speed, better code structure, and improved deployment capabilities
+4. General Cleanup and Refactoring across the platform for improved code efficiency
+
+**Bug Fixes:**
+
+1. Minor Bug Fixes and Format Corrections, including typo corrections and test amendments
+
+**Removed/Deprecated:**
+
+1. Deprecated ComfyUI Environment Variables to simplify configuration management
+2. Deprecated Frontend Functions migrated to backend to declutter the codebase
