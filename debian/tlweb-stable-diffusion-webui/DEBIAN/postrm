@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# TODO: Anything to backup?
+rm -rf /srv/www/stable-diffusion-webui ||:

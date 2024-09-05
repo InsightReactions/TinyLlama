@@ -1,0 +1,12 @@
+[Unit]
+Description=stable-diffusion-webui
+After=network.target
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+ExecStart=/bin/bash ./webui.sh -f --listen
+WorkingDirectory=/srv/www/stable-diffusion-webui
+
+[Install]
+WantedBy=default.target

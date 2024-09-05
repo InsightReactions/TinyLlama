@@ -1,0 +1,3 @@
+Empower your creativity with InsightReactions' latest addition to our open-source marketplace: Automatic1111's Stable Diffusion Web UI!
+
+This popular plugin unleashes the full potential of Stable Diffusion models, enabling users to generate stunning images from text prompts, edit existing ones, and explore new possibilities. With its intuitive interface and extensive customization options, this innovative tool is designed to spark imagination and inspire artistic expression - now available on InsightReactions' marketplace for developers and creators.

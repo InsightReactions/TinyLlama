@@ -1,0 +1,3 @@
+#!/bin/bash
+systemctl stop stable-diffusion-webui ||:
+systemctl disable stable-diffusion-webui ||:

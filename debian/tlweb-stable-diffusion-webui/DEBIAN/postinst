@@ -1,0 +1,28 @@
+#!/bin/bash
+set -eu
+
+mkdir -p /srv/www
+cd /srv/www
+
+wget -q https://raw.githubusercontent.com/AUTOMATIC1111/stable-diffusion-webui/master/webui.sh
+
+# Disable the script's ability to launch the application during setup
+sed -i 's/KEEP_GOING=1/KEEP_GOING=0/' webui.sh
+
+bash ./webui.sh -f
+rm ./webui.sh
+
+# For now, we are going to link ../models into stable-diffusion-webui/models so that the models can be accessed by both SwarmUI and SD Web UI
+# since stable-diffusion-webui doesn't have a convenient way to download models and re-using models saves disk space
+SD_WEBUI_MODEL_DIR=/srv/www/stable-diffusion-webui/models
+SWARMUI_MODEL_DIR="/srv/www/SwarmUI/Models"
+rm -rf $SD_WEBUI_MODEL_DIR/Stable-diffusion
+rm -rf $SD_WEBUI_MODEL_DIR/VAE
+rm -rf $SD_WEBUI_MODEL_DIR/Lora
+
+ln -sf $SWARMUI_MODEL_DIR/Stable-Diffusion $SD_WEBUI_MODEL_DIR/Stable-diffusion
+ln -sf $SWARMUI_MODEL_DIR/VAE $SD_WEBUI_MODEL_DIR/VAE
+ln -sf $SWARMUI_MODEL_DIR/Lora $SD_WEBUI_MODEL_DIR/Lora
+
+systemctl enable stable-diffusion-webui
+systemctl start stable-diffusion-webui
