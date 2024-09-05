@@ -1,0 +1,141 @@
+{
+    "image_generation": {
+        "engine": "comfyui",
+        "enable": true,
+        "comfyui": {
+            "base_url": "http://localhost:7821"
+        },
+        "model": "CyberRealistic_V4.2_FP16.safetensors",
+        "size": "512x512",
+        "steps": 30
+    },
+    "ui": {
+        "default_models": "llama3.1:latest",
+        "prompt_suggestions": [
+            {
+                "title": [
+                    "Help me study",
+                    "vocabulary for a college entrance exam"
+                ],
+                "content": "Help me study vocabulary: write a sentence for me to fill in the blank, and I'll try to pick the correct option."
+            },
+            {
+                "title": [
+                    "Give me ideas",
+                    "for what to do with my kids' art"
+                ],
+                "content": "What are 5 creative things I could do with my kids' art? I don't want to throw them away, but it's also so much clutter."
+            },
+            {
+                "title": [
+                    "Tell me a fun fact",
+                    "about the Roman Empire"
+                ],
+                "content": "Tell me a random fun fact about the Roman Empire"
+            },
+            {
+                "title": [
+                    "Show me a code snippet",
+                    "of a website's sticky header"
+                ],
+                "content": "Show me a code snippet of a website's sticky header in CSS and JavaScript."
+            },
+            {
+                "title": [
+                    "Explain options trading",
+                    "if I'm familiar with buying and selling stocks"
+                ],
+                "content": "Explain options trading in simple terms if I'm familiar with buying and selling stocks."
+            },
+            {
+                "title": [
+                    "Overcome procrastination",
+                    "give me tips"
+                ],
+                "content": "Could you start by asking me about instances when I procrastinate the most and then give me some suggestions to overcome it?"
+            }
+        ],
+        "banners": [],
+        "user_permissions": {
+            "chat": {
+                "deletion": true
+            }
+        }
+    },
+    "task": {
+        "model": {
+            "default": "",
+            "external": ""
+        },
+        "title": {
+            "prompt_template": "Query: {{prompt}}\n\nWhat is the most informative 3-5 word subject header for this chat session inquiry? Do not wrap the response in quotes. Respond only with the subject header."
+        },
+        "search": {
+            "prompt_template": "You are tasked with generating web search queries. Give me an appropriate query to answer my question for google search. Answer with only the query. Today is {{CURRENT_DATE}}.\n        \nQuestion:\n{{prompt:end:4000}}",
+            "prompt_length_threshold": 100
+        },
+        "tools": {
+            "prompt_template": "Tools: {{TOOLS}}\nIf a function tool doesn't match the query, return an empty string. Else, pick a function tool, fill in the parameters from the function tool's schema, and return it in the format { \"name\": \"functionName\", \"parameters\": { \"key\": \"value\" } }. Only pick a function if the user asks.  Only return the object. Do not return any other text."
+        }
+    },
+    "rag": {
+        "pdf_extract_images": true,
+        "youtube_loader_language": [
+            "en"
+        ],
+        "enable_web_loader_ssl_verification": null,
+        "web": {
+            "search": {
+                "enable": true,
+                "engine": "duckduckgo",
+                "searxng_query_url": "",
+                "google_pse_api_key": "",
+                "google_pse_engine_id": "",
+                "brave_search_api_key": "",
+                "serpstack_api_key": "",
+                "serpstack_https": true,
+                "serper_api_key": "",
+                "serply_api_key": "",
+                "tavily_api_key": "",
+                "result_count": 5,
+                "concurrent_requests": 10
+            }
+        },
+        "template": "Use the following context as your learned knowledge, inside <context></context> XML tags.\n<context>\n    [context]\n</context>\n\nWhen answer to user:\n- If you don't know, just say that you don't know.\n- If you don't know when you are not sure, ask for clarification.\nAvoid mentioning that you obtained the information from the context.\nAnd answer according to the language of the user's question.\n\nGiven the context information, answer the query.\nQuery: [query]",
+        "top_k": 5,
+        "relevance_threshold": 0,
+        "enable_hybrid_search": false,
+        "embedding_engine": "",
+        "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+        "CONTENT_EXTRACTION_ENGINE": "",
+        "tika_server_url": "http://tika:9998",
+        "chunk_size": 1500,
+        "chunk_overlap": 100
+    },
+    "audio": {
+        "tts": {
+            "openai": {
+                "api_base_url": "http://127.0.0.1:8000/v1",
+                "api_key": "sk-111111111"
+            },
+            "engine": "openai",
+            "model": "tts-1-hd",
+            "voice": "alloy",
+            "api_key": ""
+        },
+        "stt": {
+            "openai": {
+                "api_base_url": "https://api.openai.com/v1",
+                "api_key": ""
+            },
+            "engine": "",
+            "model": "whisper-1"
+        }
+    },
+    "model_filter": {
+        "enable": false,
+        "list": [
+            ""
+        ]
+    }
+}
