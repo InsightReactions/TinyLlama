@@ -4,13 +4,16 @@ set -eu
 mkdir -p /srv/www
 cd /srv/www
 
-wget -q https://raw.githubusercontent.com/AUTOMATIC1111/stable-diffusion-webui/master/webui.sh
+git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git -b v1.10.0 --depth=1
+cd stable-diffusion-webui
 
-# Disable the script's ability to launch the application during setup
-sed -i 's/KEEP_GOING=1/KEEP_GOING=0/' webui.sh
+# Disable the script's ability to launch the application
+sed -i 's/start()/#start()/g' launch.py
 
 bash ./webui.sh -f
-rm ./webui.sh
+
+# Re-enable the script's ability to launch the application after setup
+sed -i 's/#start()/start()/g' launch.py
 
 # For now, we are going to link ../models into stable-diffusion-webui/models so that the models can be accessed by both SwarmUI and SD Web UI
 # since stable-diffusion-webui doesn't have a convenient way to download models and re-using models saves disk space
