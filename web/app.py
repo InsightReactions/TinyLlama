@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import subprocess
 from flask import Flask, request, jsonify, send_from_directory
-from flask_socketio import SocketIO, emit, join_room
 import os
 from datetime import datetime, timezone
 import logging
@@ -18,27 +17,11 @@ PLUGIN_MARKETPLACE_DIR = "/usr/share/tinyllama/plugin-marketplace"
 # Maximum amount of patchnotes to serve to the client at once
 PATCHNOTE_LIMIT = 10
 
-# Define the expected schema for 'new_emotion' event data
-NEW_EMOTION_SCHEMA = {
-    "type": "object",
-    "properties": {
-        "emotion": {"type": "string"},
-        "x": {"type": "number"},
-        "y": {"type": "number"},
-        "color": {"type": "string"}
-    },
-    "required": ["emotion"],
-    "additionalProperties": False
-}
-
 app = Flask("Tiny Llama Service",
             static_url_path='',
             static_folder='static')
 app.config["JSON_AS_ASCII"] = False
 app.config["JSONIFY_MIMETYPE"] = "application/json; charset=utf-8"
-
-sio = SocketIO(app, cors_allowed_origins="*",
-               async_mode='gevent', always_connect=True)
 
 
 def get_default_route_ip():
@@ -215,49 +198,6 @@ def restart_services(services, only_running=True):
         except subprocess.CalledProcessError as e:
             results[service] = {"success": False, "error": str(e)}
     return jsonify(results), 200 if all([result["success"] for result in results.values()]) else 500
-
-
-@sio.on('join')
-def on_join(data):
-    # Add the client to the specified room
-    print("Client joining room:", data['room'])
-    join_room(data['room'])
-
-
-@sio.on_error_default
-def default_error_handler(e):
-    print(f"SocketIO error: {e}", request)
-
-
-@app.route('/eyemotion/room/<room_id>', methods=['POST'])
-def handle_eyemotion(room_id):
-    """
-    Handles POST requests to the '/eyemotion/<room_id>' endpoint.
-
-    Args:
-        room_id (str): The ID of the room where the emotion is being handled, related to an active socketio connection.
-
-    Returns:
-        jsonify: A JSON response with a success message if the emission was successful, or an error message otherwise.
-
-    The 'new_emotion' event data expected in this endpoint follows the NEW_EMOTION_SCHEMA.
-    """
-    data = request.get_json()
-
-    # Validate the 'new_emotion' event data against the schema
-    try:
-        jsonschema.validate(instance=data, schema=NEW_EMOTION_SCHEMA)
-    except (jsonschema.ValidationError, jsonschema.SchemaError) as e:
-        return jsonify({'error': re.sub(r'\s+', ' ', str(e).replace('\n', ' '))}), 400
-
-    # Emit the 'new_emotion' event to all clients in the specified room
-    print(f"emitting new_emotion event to room '{room_id}': {data}")
-    try:
-        sio.emit('new_emotion', data, to=room_id)
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
-    return jsonify({'message': 'Data pushed successfully'}), 200
 
 
 @app.route('/has-updates', methods=['GET'])
