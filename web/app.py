@@ -540,6 +540,24 @@ def get_gpu_usage(id):
         return jsonify({"error": "Failed to get GPU usage", "details": str(e)}), 500
 
 
+@app.route('/logs/<string:unit>/<int:n>', methods=['GET'])
+def get_logs(unit, n):
+    """
+    This function retrieves the logs of a specific systemd unit. It uses journalctl to obtain the logs and returns them in JSON format.
+
+    Parameters:
+        unit (str): The name of the systemd unit for which logs are requested.
+        n (int): The number of most recent log lines to retrieve.
+    Returns:
+        dict: A dictionary with two keys: 'logs' and 'error'. If successful, 'logs' will contain a list of strings representing the log entries. Otherwise, 'error' will contain an error message and the HTTP response code will be 500.
+    """
+    try:
+        output = subprocess.check_output(['journalctl', '-u', unit, '-n', str(n)])
+        return jsonify({"logs": output.decode('utf-8').split('\n')})
+    except subprocess.CalledProcessError as e:
+        return jsonify({"error": "Failed to get journalctl logs", "details": str(e)}), 500
+
+
 @app.route('/')
 def root():
     """
