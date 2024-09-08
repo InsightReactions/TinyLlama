@@ -101,7 +101,7 @@ function fetchPatchnotes(showSystemOnlyUpdates) {
  * @yields {Object} Yields JSON object with completion data as they arrive in the streaming response.
  */
 async function* generateCompletion(model, prompt, options = {}) {
-    const url = 'http://' + window.location.hostname + ':11434/api/generate';
+    const url = window.location.origin + ':11434/api/generate';
     const data = { model, prompt, ...options };
 
     const response = await fetch(url, {
