@@ -2,7 +2,8 @@
 var checkUpgradeIntervalId = undefined;
 var newPatchDate = new Date(localStorage.getItem("lastPatchDate"));
 var refreshOnClose = false;
-let updateUpgradeStatusRunning = false;
+var updateUpgradeStatusRunning = false;
+var lastUpdateLogs = [];
 const upgradeWaitingContainer = document.getElementById('upgrade-waiting-container');
 const upgradeResultsContainer = document.getElementById('upgrade-results-container');
 const patchnotesContainer = document.getElementById('patchnotes-container');
@@ -125,7 +126,6 @@ async function* generateCompletion(model, prompt, options = {}) {
             break;
         }
 
-        // This will be a chunk of the response body
         yield JSON.parse(decoder.decode(value));
     }
 }
@@ -152,48 +152,38 @@ async function fetchUpgradeLog(n) {
 }
 
 /**
- * Fetches the last n lines of upgrade logs and generates a short phrase describing their content.
- *
- * @async
- * @generator
- * @function fetchUpgradePhrase
- * @param {number} [n=5] - The number of log entries to retrieve.
- * @yields {string} Yields each part of the completion response as it arrives.
- */
-async function* fetchUpgradePhrase(n = 5) {
-    try {
-        const journalLogs = await fetchUpgradeLog(n);
-        const prompt = `Respond with a concise, attention-grabbing phrase from these journalctl logs that provides a snapshot of system status. Respond only with the phrase. Logs: ${journalLogs.join('\n')}`;
-        const options = { max_tokens: 15, keep_alive: '1m' };
-
-        for await (const part of generateCompletion('llama3.1', prompt, options)) {
-            if (part.done) {
-                break;
-            }
-            yield part.response;
-        }
-    } catch (error) {
-        console.error('Error while fetching upgrade phrase:', error.message);
-    }
-}
-
-/**
  * Updates the upgrade status element with a new completion.
  *
  * @async
  * @function updateUpgradeStatus
  */
 async function updateUpgradeStatus() {
-    if(updateUpgradeStatusRunning) {
+    if (updateUpgradeStatusRunning) {
         return;
     }
 
     updateUpgradeStatusRunning = true;
 
     let response = '';
-    for await (const part of fetchUpgradePhrase()) {
-        response += part;
-        upgradeStatusElement.textContent = response;
+    try {
+        const journalLogs = await fetchUpgradeLog(5);
+        if (lastUpdateLogs.length === 0 || JSON.stringify(lastUpdateLogs) !== JSON.stringify(journalLogs)) {
+            lastUpdateLogs = journalLogs;
+
+            const prompt = `Respond with a concise and attention-grabbing phrase from the following journalctl logs that gives a snapshot of system status for a loading screen. Provide only the selected phrase, followed by an ellipsis (...). Do not enclose the phrase in quotes. Logs: ${lastUpdateLogs.join('\n')}`;
+            const options = { max_tokens: 15, keep_alive: '1m', stream: false };
+
+            for await (const part of generateCompletion('llama3.1', prompt, options)) {
+                response += part.response;
+                upgradeStatusElement.textContent = response;
+                if (part.done) {
+                    break;
+                }
+            }
+        }
+    } catch (error) {
+        console.error('Error while fetching upgrade phrase:', error.message);
+        lastUpdateLogs = [];
     }
 
     updateUpgradeStatusRunning = false;
@@ -207,12 +197,13 @@ function checkUpgrading() {
     fetch('/upgrade/status')
         .then(response => response.json())
         .then(data => {
+            updateUpgradeStatus();
             if (data.state === 'active') {
-                updateUpgradeStatus();
                 return;
             }
 
             clearInterval(checkUpgradeIntervalId);
+            lastUpdateLogs = [];
 
             if (data.state === 'inactive') {
                 fetchPatchnotes(true);
