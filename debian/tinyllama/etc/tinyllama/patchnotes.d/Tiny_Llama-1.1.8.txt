@@ -1,7 +1,0 @@
-Enhancements
-- Improved UI: Button tooltips have been added for a more intuitive user experience.
-- VRAM Indicator Tooltips: The VRAM progress indicator bar now displays detailed tooltips when hovered, providing users with absolute VRAM values, in Gigabytes (GB).
-- Reclaim VRAM Button: A new "Reclaim VRAM" button has been added to the right of the vram usage indicator. This feature allows users to force restart compute-intensive services when resources need to be utilized for other work, even if they're currently in use.
-
-Important Notes
-- The "Reclaim VRAM" button is designed to assist in quickly clearing VRAM when resources are needed for urgent tasks. Please use this feature responsibly and be considerate of other users' needs.
