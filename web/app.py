@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 import subprocess
 from flask import Flask, request, jsonify, send_from_directory
+from flask_cors import CORS
 import os
 from datetime import datetime, timezone
 import logging
 import json
-import jsonschema
-import re
 
 TL_TESTING = bool(os.environ.get('TL_TESTING', False))
 if TL_TESTING:
@@ -22,6 +21,7 @@ app = Flask("Tiny Llama Service",
             static_folder='static')
 app.config["JSON_AS_ASCII"] = False
 app.config["JSONIFY_MIMETYPE"] = "application/json; charset=utf-8"
+CORS(app)
 
 
 def get_default_route_ip():

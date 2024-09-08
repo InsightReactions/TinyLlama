@@ -1,5 +1,5 @@
 Package: tinyllama-openedai-speech
-Version: 1.0.0-0.17.2
+Version: 1.0.1-0.17.2
 Maintainer: InsightReactions <support@insightreactions.com>
 Section: utils
 Priority: optional

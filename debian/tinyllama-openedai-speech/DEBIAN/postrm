@@ -1,5 +1,9 @@
 #!/bin/bash
 
+
+systemctl disable openedai-speech ||:
+systemctl stop openedai-speech ||:
+
 docker rmi ghcr.io/matatonic/openedai-speech:0.17.2
 
 echo "openedai-speech user data must be removed manually, if desired, at path /srv/www/openedai-speech"
