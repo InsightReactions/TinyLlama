@@ -2,6 +2,8 @@
 var checkUpgradeIntervalId = undefined;
 var newPatchDate = new Date(localStorage.getItem("lastPatchDate"));
 var refreshOnClose = false;
+var updateUpgradeStatusRunning = false;
+var lastUpdateLogs = [];
 const upgradeWaitingContainer = document.getElementById('upgrade-waiting-container');
 const upgradeResultsContainer = document.getElementById('upgrade-results-container');
 const patchnotesContainer = document.getElementById('patchnotes-container');
@@ -12,8 +14,21 @@ const pluginBrowserContainer = document.getElementById('plugin-browser-container
 const vramProgressBar = document.getElementById('vram-progress-bar');
 const removeCancelButton = document.getElementById('remove-cancel-button');
 const removeConfirmButton = document.getElementById('remove-confirm-button');
+const upgradeStatusElement = document.getElementById('upgrade-status');
 
 // FUNCTIONS
+/**
+ * Fetches patch notes from the server and displays them in a container.
+ *
+ * This function sends a GET request to '/patchnotes' endpoint with 'since' query parameter set to the last known patch date,
+ * expects a JSON response containing an array of patch note objects each with 'filename', 'content', and 'creationTime' properties.
+ * For each patch note object, it creates a header element with the name of the update (derived from filename) and a textarea to display the content.
+ * If there are no new patch notes, it displays a message indicating that the system update is complete.
+ * It also handles errors by logging them to console.
+ *
+ * @function fetchPatchnotes
+ * @param {boolean} showSystemOnlyUpdates - Whether to display for system updates only or not.
+ */
 function fetchPatchnotes(showSystemOnlyUpdates) {
     fetch(`/patchnotes?since=${localStorage.getItem("lastPatchDate")}`)
         .then(response => response.json())
@@ -70,25 +85,135 @@ function fetchPatchnotes(showSystemOnlyUpdates) {
         });
 }
 
+/**
+ * Generates completion for given model and prompt using Ollama API.
+ *
+ * This function sends a POST request to 'http://127.0.0.1:11434/api/generate' with provided model, prompt, and options in the request body.
+ * It expects a streaming response where each chunk contains a JSON object with completion data. The function yields these objects one by one as they arrive.
+ * If there is an error during the fetch operation, it throws an Error with the HTTP status text.
+ *
+ * @async
+ * @function generateCompletion
+ * @param {string} model - The name of the language model to use for generation.
+ * @param {string} prompt - The input text to generate completion for.
+ * @param {Object} [options={}] - Additional options to include in the request body.
+ * @throws {Error} Throws an error if the HTTP response status is not OK.
+ * @yields {Object} Yields JSON object with completion data as they arrive in the streaming response.
+ */
+async function* generateCompletion(model, prompt, options = {}) {
+    const url = 'http://' + window.location.hostname + ':11434/api/generate';
+    const data = { model, prompt, ...options };
+
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder('utf-8');
+
+    while (true) {
+        const { done, value } = await reader.read();
+
+        if (done) {
+            break;
+        }
+
+        yield JSON.parse(decoder.decode(value));
+    }
+}
+
+/**
+ * Fetches the last n lines of journal logs related to tinyllama-upgrade.
+ *
+ * @async
+ * @function fetchUpgradeLog
+ * @param {number} n - The number of log entries to retrieve.
+ * @returns {Promise<string[]>} A promise that resolves with an array of string representing the last n lines of the logs
+ */
+async function fetchUpgradeLog(n) {
+    try {
+        const response = await fetch(`/logs/tinyllama-upgrade/${n}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch upgrade logs: ' + response.statusText);
+        }
+        const data = await response.json();
+        return data.logs;
+    } catch (error) {
+        console.error('Error while fetching upgrade logs:', error.message);
+    }
+}
+
+/**
+ * Updates the upgrade status element with a new completion.
+ *
+ * @async
+ * @function updateUpgradeStatus
+ */
+async function updateUpgradeStatus() {
+    if (updateUpgradeStatusRunning) {
+        return;
+    }
+
+    updateUpgradeStatusRunning = true;
+
+    let response = '';
+    try {
+        const journalLogs = await fetchUpgradeLog(5);
+        if (lastUpdateLogs.length === 0 || JSON.stringify(lastUpdateLogs) !== JSON.stringify(journalLogs)) {
+            lastUpdateLogs = journalLogs;
+
+            const prompt = `Respond with a concise and attention-grabbing phrase from the following journalctl logs that gives a snapshot of system status for a loading screen. Provide only the selected phrase, followed by an ellipsis (...). Do not enclose the phrase in quotes. Logs: ${lastUpdateLogs.join('\n')}`;
+            const options = { max_tokens: 15, keep_alive: '1m', stream: false };
+
+            for await (const part of generateCompletion('llama3.1', prompt, options)) {
+                response += part.response;
+                upgradeStatusElement.textContent = response;
+                if (part.done) {
+                    break;
+                }
+            }
+        }
+    } catch (error) {
+        console.error('Error while fetching upgrade phrase:', error.message);
+        lastUpdateLogs = [];
+    }
+
+    updateUpgradeStatusRunning = false;
+}
+
+/**
+ * Checks system upgrade status and handles it accordingly. Fetches patch notes if 'inactive', shows errors if 'failed'.
+ * Calls updateUpgradeStatus() for active upgrades, logs an error message for unhandled states. Handles fetch errors.
+ */
 function checkUpgrading() {
     fetch('/upgrade/status')
         .then(response => response.json())
         .then(data => {
+            updateUpgradeStatus();
             if (data.state === 'active') {
                 return;
             }
 
             clearInterval(checkUpgradeIntervalId);
+            lastUpdateLogs = [];
 
             if (data.state === 'inactive') {
                 fetchPatchnotes(true);
             } else if (data.state === 'failed') {
-                // clear patchnotes section
+                // Clear patchnotes section
                 while (patchnotesContainer.firstChild) {
                     patchnotesContainer.removeChild(patchnotesContainer.firstChild);
                 }
 
-                // Show the error
+                // Show the error message and log
                 const p = document.createElement('p');
                 p.textContent = "An error occurred during the update process. Please submit the following error log to support@insightreactions.com for further assistance:";
 
@@ -113,6 +238,10 @@ function checkUpgrading() {
         .catch(error => console.error('Error:', error));
 }
 
+/**
+ * Fetches and updates VRAM usage data, updating progress bar and title.
+ * Handles fetch errors by logging them to console.
+ */
 function updateVram() {
     fetch('/gpu/usage/memory/0')
         .then(response => response.json())

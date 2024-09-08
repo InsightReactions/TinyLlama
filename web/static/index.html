@@ -21,23 +21,23 @@
         <p style="color: #006fee; margin-right: 5%; font-weight: 700; font-size: x-large; margin-bottom: 0; align-content: center; text-align: center; align-self: center;">
           Tiny Llama<span style="color: gray; font-size: medium; padding-left: 12px;">Local</span>
         </p>
-        <a class="header-link external" href="https://insightreactions.com/store" target="_blank" style="padding-left: 2%;">Store</a>
+        <a class="header-link external" href="https://insightreactions.com/store" target="_blank">Store</a>
         <div style="border: 0; border-right: 1px solid var(--ir-border-color); margin-left: 2%; margin-right: 2%;"></div>
-        <a class="header-link external" href="https://tinyllama.insightreactions.com/guides" target="_blank" style="padding-left: 2%;">Guides</a>
+        <a class="header-link external" href="https://tinyllama.insightreactions.com/guides" target="_blank">Guides</a>
         <div style="border: 0; border-right: 1px solid var(--ir-border-color); margin-left: 2%; margin-right: 2%;"></div>
         <a class="header-link external" href="https://tinyllama.insightreactions.com" target="_blank">News</a>
         <div style="border: 0; border-right: 1px solid var(--ir-border-color); margin-left: 2%; margin-right: 2%;"></div>
         <a class="header-link external" href="https://github.com/InsightReactions/TinyLlama/discussions" target="_blank">Discuss</a>
         <div style="border: 0; border-right: 1px solid var(--ir-border-color); margin-left: 2%; margin-right: 2%;"></div>
         <a class="header-link external" href="https://insightreactions.com/about" target="_blank">About</a>
-        <button type="button" class="mat-raised-button" id="update-button" style="margin-left: 7%; font-weight: 700; cursor: pointer; display: none; color: var(--ir-primary-color);" title="Click to upgrade">
+        <button type="button" class="mat-raised-button" id="update-button" style="margin-left: 2%; font-weight: 700; cursor: pointer; display: none; color: var(--ir-primary-color);" title="Click to upgrade">
           Update
         </button>
         <div class="fitArticleWidth modal" id="update-modal" style="display: none; flex-direction: column; justify-content: space-between; align-items: center; z-index: 1; padding: 12px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: var(--ir-background-color); box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.8); max-height: 80%; overflow-y: auto;">
           <div></div>
           <div id="upgrade-waiting-container" style="display: none; flex-direction: column; align-items: center;">
             <div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-            <h4>Upgrading, please wait...</h4>
+            <h4 id="upgrade-status">Upgrading, please wait...</h4>
             <div></div>
           </div>
           <div id="upgrade-results-container" style="display: none; flex-direction: column; justify-content: space-between; align-items: center; width: 100%; height: 100%;">
