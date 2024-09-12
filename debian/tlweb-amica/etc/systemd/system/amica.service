@@ -1,0 +1,12 @@
+[Unit]
+Description=amica
+After=network.target
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+ExecStart=/usr/bin/npm run dev -- -H 0.0.0.0 -p 3000
+WorkingDirectory=/srv/www/amica
+
+[Install]
+WantedBy=default.target

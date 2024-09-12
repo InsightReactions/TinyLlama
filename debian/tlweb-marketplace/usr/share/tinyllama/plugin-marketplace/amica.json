@@ -1,0 +1,6 @@
+{
+    "package": "tlweb-amica",
+    "name": "Amica",
+    "description": "Amica is an open source interface for interactive communication with 3D characters with voice synthesis and speech recognition.",
+    "port": 3000
+}

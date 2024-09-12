@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# TODO: Delete everything inside the amica folder except the subfolders named ".private"
+rm -rf /srv/www/amica ||:
+
+#echo "Amica user data must be removed manually, if desired, at path /srv/www/amica"

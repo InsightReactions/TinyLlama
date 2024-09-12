@@ -1,6 +1,7 @@
 #!/bin/bash
 set -eu
 
+export OLLAMA_MODELS=/usr/share/ollama/.ollama/models
 ollama pull hermes3
 ollama pull llama3.1
 ollama pull llava-phi3
