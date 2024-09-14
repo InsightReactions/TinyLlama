@@ -23,7 +23,7 @@ DEFAULT_ROUTE_IP=$(get_default_route_ip)
 
 export OLLAMA_MODELS=/usr/share/ollama/.ollama/models
 ollama pull hermes3
-ollama pull llava-phi3
+ollama pull minicpm-v
 
 cd /srv/www
 

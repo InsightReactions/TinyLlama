@@ -4,7 +4,7 @@ set -eu
 export OLLAMA_MODELS=/usr/share/ollama/.ollama/models
 ollama pull hermes3
 ollama pull llama3.1
-ollama pull llava-phi3
+ollama pull minicpm-v
 
 mkdir -p /srv/www/open-webui
 docker pull ghcr.io/open-webui/open-webui:git-63c0772
