@@ -1,9 +1,9 @@
 Package: tlweb-amica
-Version: 1.0.0-0.2.1
+Version: 1.0.1-0.2.1
 Maintainer: InsightReactions <support@insightreactions.com>
 Section: utils
 Priority: optional
 Architecture: amd64
 Description: Amica is an open source interface for interactive communication with 3D characters with voice synthesis and speech recognition.
-Depends: sudo, git, nodejs, npm
+Depends: sudo, git, nodejs, npm, tinyllama-ollama ( >= 1.0.8-0.3.10 ), tinyllama-openedai-speech
 Recommends: tinyllama
