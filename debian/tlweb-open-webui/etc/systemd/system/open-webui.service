@@ -7,7 +7,7 @@ TimeoutStartSec=0
 Restart=always
 ExecStartPre=-/usr/bin/docker stop open-webui
 ExecStartPre=-/usr/bin/docker rm open-webui
-ExecStart=/usr/bin/docker run --rm -p 8080:8080 --network=host -e AUDIO_TTS_ENGINE=openai -e AUDIO_TTS_OPENAI_API_BASE_URL=http://127.0.0.1:8000/v1 -e AUDIO_TTS_OPENAI_API_KEY=sk-111111111 -e AUDIO_TTS_MODEL=tts-1-hd -e AUDIO_TTS_VOICE=alloy -e OLLAMA_BASE_URL=http://127.0.0.1:11434 -e COMFYUI_CFG_SCALE=7 -e COMFYUI_SAMPLER=euler_ancestral -v /srv/www/open-webui:/app/backend/data --name open-webui ghcr.io/open-webui/open-webui:git-63c0772
+ExecStart=/usr/bin/docker run --rm -p 8080:8080 --network=host -e AUDIO_TTS_ENGINE=openai -e AUDIO_TTS_OPENAI_API_BASE_URL=http://127.0.0.1:8000/v1 -e AUDIO_TTS_OPENAI_API_KEY=sk-111111111 -e AUDIO_TTS_MODEL=tts-1-hd -e AUDIO_TTS_VOICE=alloy -e OLLAMA_BASE_URL=http://127.0.0.1:11434 -e COMFYUI_CFG_SCALE=7 -e COMFYUI_SAMPLER=euler_ancestral -v /srv/www/open-webui:/app/backend/data --name open-webui ghcr.io/open-webui/open-webui:git-534e4c9
 
 
 [Install]

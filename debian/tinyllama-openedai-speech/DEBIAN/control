@@ -1,11 +1,10 @@
 Package: tinyllama-openedai-speech
-Version: 1.0.1-0.17.2
+Version: 1.0.1-0.18.2
 Maintainer: InsightReactions <support@insightreactions.com>
 Section: utils
 Priority: optional
 Architecture: amd64
-Description: Open WebUI is an extensible, feature-rich, and user-friendly self-hosted web-based AI
- chat interface designed to operate entirely offline. It supports various LLM runners, including Ollama and
- OpenAI-compatible APIs.
+Description: An OpenAI API compatible text to speech server.
 Depends: docker-ce
 Recommends: tinyllama
+Homepage: https://github.com/matatonic/openedai-speech

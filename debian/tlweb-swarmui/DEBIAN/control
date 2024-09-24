@@ -8,3 +8,4 @@ Description: A Modular Stable Diffusion web-based image generation interface, wi
  making AI powertools easily accessible, performant, and extensible.
 Depends: git, rsync, wget
 Recommends: tinyllama
+Homepage: https://github.com/mcmonkeyprojects/SwarmUI

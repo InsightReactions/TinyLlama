@@ -7,3 +7,4 @@ Architecture: amd64
 Description: Stable Diffusion WebUI is a browser interface for Stable Diffusion based on Gradio library, created by Automatic1111
 Depends: wget, git, python3, python3-venv, libgl1, libglib2.0-0, tlweb-swarmui
 Recommends: tinyllama
+Homepage: https://github.com/AUTOMATIC1111/stable-diffusion-webui

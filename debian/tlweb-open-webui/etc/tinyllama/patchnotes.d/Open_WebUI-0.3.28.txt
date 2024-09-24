@@ -1,0 +1,31 @@
+### Key Improvements and Fixes:
+1. **Web Search Functionality** (0.3.28): Fixed an issue where web search was not functioning properly.
+2. **Periodic Cleanup Error Resolved** (0.3.27): Corrected a critical error in the `periodic_usage_pool_cleanup` coroutine, improving system stability and performance.
+3. **Enhanced LaTeX Rendering** (0.3.27): Improved clarity and visual presentation of mathematical content.
+4. **Image Generation Functionality Fixed** (0.3.25): Resolved an issue where image generation was not working correctly.
+5. **Rate Response Corrections** (0.3.25): Ensured reliable feedback mechanisms are operational.
+6. **Rendering Optimization** (0.3.24): Significantly improved message rendering performance, enhancing user experience and responsiveness.
+7. **Favorite Response Feature Added** (0.3.24): Users can now mark responses as favorite directly from the chat overview for easier retrieval.
+8. **Audio Support Enhanced** (0.3.24): Now supports 'audio/x-m4a' files, broadening compatibility with audio content.
+
+### Additional Features and Enhancements:
+- **WebSocket Redis Support** (0.3.23): Improved load balancing capabilities for better performance in WebUI.
+- **Adjustable Chat Controls** (0.3.23): Introduced width-adjustable chat controls for a more personalized user interface.
+- **Chat Overview Node-Based Interactive Messages Diagram** (0.3.22): Added a node-based interactive messages diagram for improved conversation visualization.
+- **Multiple Vector DB Support** (0.3.22): Now supports multiple vector databases, including Milvus.
+- **Customizable Playback Speed** (0.3.22): Users can now adjust audio playback speed to their preferences.
+
+### Bug Fixes:
+- **Temporary File Handling On Windows** (0.3.28): Fixed an issue causing errors when accessing a temporary file being used by another process.
+- **Authentication Toggle Issue Resolved** (0.3.28): Ensured that setting `WEBUI_AUTH=False` appropriately disables authentication.
+- **Save As Copy for Many Model Chats Fixed** (0.3.24): Resolved an error preventing users from saving messages as copies in many model chats.
+
+### User Experience Enhancements:
+- **Enhanced Search Prompts** (0.3.21): Improved the accuracy and user interaction of search query generation prompts.
+- **Markdown Spacing Correction** (0.3.20): Corrected spacing issues in Markdown rendering for better text appearance.
+- **Message Re-rendering Fixed** (0.3.20): Prevents all response messages from re-rendering with each new message, improving chat performance.
+
+### Localization and Translations:
+- **Updated Chinese, Ukrainian, Russian, French, and Catalan translations** to enhance user experience in different languages.
+
+These changes aim to improve functionality, stability, and user experience across various features of tlweb-open-webui.

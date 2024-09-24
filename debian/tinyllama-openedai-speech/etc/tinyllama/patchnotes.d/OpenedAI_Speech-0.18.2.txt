@@ -1,0 +1,13 @@
+- **Version 0.18.2** (2024-08-16):
+  - Fixed docker building for `amd64` architecture.
+  - Refactored GitHub Actions again.
+  - Freed up more disk space.
+
+- **Version 0.18.1**: 
+  - Refactored GitHub Actions.
+
+- **Version 0.18.0** (2024-08-15):
+  - Added support for folders of wav samples in xtts, allowing mixed voices and collections of small samples, but limited to 30 seconds total.
+  - Fixed missing YAML requirement in `-min` image.
+  - Resolved issues with `fr_FR-tom-medium` and other 44kHz Piper voices by correctly detecting non-default sample rates.
+  - Minor updates.
