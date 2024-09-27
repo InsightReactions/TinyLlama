@@ -1,4 +1,4 @@
-Empower your creativity and streamline your AI applications with LangFlow's latest addition to our open-source marketplace: LangFlow!
+Empower your creativity and streamline your AI applications with the latest addition to our open-source marketplace: LangFlow!
 
 LangFlow is a low-code app builder for RAG (Retrieval-Augmented Generation) and multi-agent AI applications. It’s Python-based and agnostic to any model, API, or database.
 
