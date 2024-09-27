@@ -1,0 +1,6 @@
+{
+    "package": "tlweb-langflow",
+    "name": "Langflow",
+    "description": "Langflow is a low-code app builder for RAG and multi-agent AI applications.",
+    "port": 8081
+}

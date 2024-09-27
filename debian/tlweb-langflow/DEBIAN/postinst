@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -eu
+
+cd /srv/www
+
+mkdir langflow 2>/dev/null || true
+cd langflow
+
+rm -rf .venv 2>/dev/null || true
+
+# Create and activate Python virtual environment
+python3 -m venv .venv
+
+source .venv/bin/activate
+python -m pip install langflow==1.0.18
+deactivate
+
+cp -r /usr/share/langflow/* ./
+
+systemctl enable langflow
+systemctl start langflow

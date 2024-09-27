@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo "langflow user data must be removed manually, if desired, at path /srv/www/langflow"

@@ -1,0 +1,10 @@
+Package: tlweb-langflow
+Version: 1.0.0-1.0.18
+Maintainer: InsightReactions <support@insightreactions.com>
+Section: utils
+Priority: optional
+Architecture: amd64
+Description: Langflow is a low-code app builder for RAG and multi-agent AI applications.
+Depends: docker-ce, tinyllama-ollama
+Recommends: tinyllama
+Homepage: https://github.com/langflow-ai/langflow

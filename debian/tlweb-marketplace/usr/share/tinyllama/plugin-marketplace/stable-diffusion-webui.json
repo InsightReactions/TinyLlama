@@ -1,6 +1,6 @@
 {
     "package": "tlweb-stable-diffusion-webui",
     "name": "Stable Diffusion WebUI",
-    "description": "Stable Diffusion WebUI is a browser interface for Stable Diffusion based on Gradio library, created by Automatic1111",
+    "description": "Stable Diffusion WebUI is a browser interface for Stable Diffusion, created by Automatic1111.",
     "port": 7860
 }

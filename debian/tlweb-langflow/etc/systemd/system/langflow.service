@@ -1,0 +1,12 @@
+[Unit]
+Description=langflow
+After=network.target
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+ExecStart=/bin/bash /srv/www/langflow/run.sh
+WorkingDirectory=/srv/www/langflow
+
+[Install]
+WantedBy=default.target
