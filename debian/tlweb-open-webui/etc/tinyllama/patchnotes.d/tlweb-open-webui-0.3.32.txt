@@ -1,0 +1,40 @@
+### 0.3.32 (2024-10-06)
+
+**Added:**
+- Workspace enhancements with model, prompt, tool, and function counts.
+- Knowledge feature improvements including streamlined API integration for RAG.
+- Enhanced accessibility for floating buttons (esc key to close).
+- Updated information URL to direct to the general release page.
+
+**Fixed:**
+- Web and YouTube attachment issues.
+- Call mode activation from the landing page.
+- Various bug fixes including action button functionality, multi-model chat loops, and chat export issues.
+
+**Changed:**
+- Refactored URL parameter for 'tool_ids'.
+- Updated floating buttons styling to intelligently adjust.
+- Upgraded library dependencies for pip installs.
+- Renamed 'rag' endpoints to 'retrieval'.
+
+### 0.3.31 (2024-10-06)
+
+**Added:**
+- Knowledge feature with improved UI and performance.
+- New landing page design with toggle options between new and classic UIs.
+- Full document retrieval mode for enhanced tasks.
+- Extracted file content display, artifacts feature, editable code blocks, and code block enhancements.
+- SVG pan/zoom capabilities and text select quick actions.
+
+**Fixed:**
+- Action button functionality issues.
+- Multi-model chat loop problems.
+- Chat PDF/TXT export issues.
+- Call to text-to-speech function problems.
+
+**Changed:**
+- Renamed 'rag' endpoints to 'retrieval'.
+- Multiple styling and interface updates for enhanced visual appeal.
+
+**Removed:**
+- Deprecated 'DOCS_DIR' variable in favor of direct file management solutions.
