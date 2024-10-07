@@ -63,10 +63,8 @@ def write_summary(repo_root, updates: list[tuple[Package, Release]]) -> str:
     return output_path
 
 
-def get_display_name(path: str) -> str | None:
-    name = path.split('/')[-1]
-    plugin_name = name.split('-', 1)[1]
-    json_path = os.path.join(path, 'tlweb-marketplace/usr/share/tinyllama/plugin-marketplace', f'{plugin_name}.json')
+def get_display_name(package: Package) -> str | None:
+    json_path = os.path.join(package.deb_root, 'tlweb-marketplace/usr/share/tinyllama/plugin-marketplace', f'{package.name}.json')
     if os.path.isfile(json_path):
         with open(json_path, 'r') as f:
             data = json.load(f)
@@ -78,7 +76,7 @@ def get_display_name(path: str) -> str | None:
 
 def write_changelogs(deb_path, updates: list[tuple[Package, Release]]):
     for package, release in updates:
-        display_name = get_display_name(f"{deb_path}/{package.name}") or package.name
+        display_name = get_display_name(deb_path) or package.name.split('-', 1)[1]
         display_name = display_name.replace(' ', '_')
         file_name = f"{display_name}-{str(release.verison)}.txt"
         base_path = os.path.join(deb_path, package.name)
