@@ -1,4 +1,4 @@
-### 0.3.0 (2024-10-10)
+### 1.3.0 (2024-10-10)
 
 **Added:**
 - **File Manager:** A file manager that allows users to directly add or (bulk) remove image models and SwarmUI image caches for improved accessibility.
