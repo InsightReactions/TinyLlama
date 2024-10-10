@@ -8,7 +8,8 @@ if [ ! -d "venv" ]; then
 fi
 
 source venv/bin/activate
-pip install -r requirements.txt
+echo "Updating requirements..."
+pip install -r requirements.txt 2>&1 >/dev/null
 
 export TL_TESTING=True
-python3 -m gunicorn -k geventwebsocket.gunicorn.workers.GeventWebSocketWorker 'app:app'
+python3 -m gunicorn -k geventwebsocket.gunicorn.workers.GeventWebSocketWorker -b 127.0.0.1:8008 'app:app'

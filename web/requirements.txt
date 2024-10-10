@@ -4,3 +4,4 @@ gunicorn
 gevent
 gevent-websocket
 jsonschema
+flask-admin

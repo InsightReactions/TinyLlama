@@ -78,7 +78,7 @@ def write_changelogs(deb_path, updates: list[tuple[Package, Release]]):
     for package, release in updates:
         display_name = get_display_name(deb_path) or package.name.split('-', 1)[1]
         display_name = display_name.replace(' ', '_')
-        file_name = f"{display_name}-{str(release.verison)}.txt"
+        file_name = f"{display_name}-{str(release.verison)}.md"
         base_path = os.path.join(deb_path, package.name)
         if not os.path.exists(base_path):
             print(f'Error: {package.name} not found at {base_path}')

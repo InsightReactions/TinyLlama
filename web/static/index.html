@@ -13,6 +13,7 @@
     <meta name="msapplication-TileColor" content="#006fee">
     <meta name="theme-color" content="#006fee">
     <meta name="viewport" content="initial-scale=1">
+    <script src="/lib/marked.min.js"></script>
 </head>
 
 <body class="mat-app-background mat-body" style="padding: 12px; margin-bottom: 77px;">
@@ -21,11 +22,11 @@
         <p style="color: #006fee; margin-right: 5%; font-weight: 700; font-size: x-large; margin-bottom: 0; align-content: center; text-align: center; align-self: center;">
           Tiny Llama<span style="color: gray; font-size: medium; padding-left: 12px;">Local</span>
         </p>
+        <a class="header-link" href="/file-manager">File Manager</a>
+        <div style="border: 0; border-right: 1px solid var(--ir-border-color); margin-left: 2%; margin-right: 2%;"></div>
         <a class="header-link external" href="https://insightreactions.com/store" target="_blank">Store</a>
         <div style="border: 0; border-right: 1px solid var(--ir-border-color); margin-left: 2%; margin-right: 2%;"></div>
         <a class="header-link external" href="https://tinyllama.insightreactions.com/guides" target="_blank">Guides</a>
-        <div style="border: 0; border-right: 1px solid var(--ir-border-color); margin-left: 2%; margin-right: 2%;"></div>
-        <a class="header-link external" href="https://tinyllama.insightreactions.com" target="_blank">News</a>
         <div style="border: 0; border-right: 1px solid var(--ir-border-color); margin-left: 2%; margin-right: 2%;"></div>
         <a class="header-link external" href="https://github.com/InsightReactions/TinyLlama/discussions" target="_blank">Discuss</a>
         <div style="border: 0; border-right: 1px solid var(--ir-border-color); margin-left: 2%; margin-right: 2%;"></div>
@@ -67,14 +68,17 @@
     <script src="index.js"></script>
 </body>
 
-<footer class="mat-app-background" style="position: fixed; bottom: 0; left:12px; right:12px; padding: 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; border-top: 1px solid var(--ir-border-color); font-weight: 500;">
+<footer class="mat-app-background" style="position: fixed; bottom: 0; left:12px; right:12px; padding: 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px; border-top: 1px solid var(--ir-border-color); font-weight: 500;">
     &copy; InsightReactions LLC. All rights reserved.
     <hr style="border: 0; border-right: 0px solid var(--ir-border-color);" />
-    <span>
-        <img src="x-logo.svg" style="height: 10px;" alt="X Logo" />
-        <a class="footer-link" href="https://twitter.com/InsightReact" style="margin-left: 0px;">@InsightReact</a>
-    </span>
-    <a class="footer-link" href="mailto:support@insightreactions.com">support@insightreactions.com</a>
+    <a class="footer-link" href="https://github.com/insightreactions/tinyllama" style="display: flex; align-items: center;">
+        <img src="/github-mark-white.svg" title="Tiny Llama on GitHub" alt="Tiny Llama on GitHub" style="width: 16px; height: auto;"/>
+    </a>
+    <a title="InsightReactions on X" class="footer-link" href="https://twitter.com/InsightReact">
+      <img src="x-logo.svg" style="height: 10px;" alt="X Logo" />
+        <span style="margin-left: 0px;">@InsightReact</span>
+    </a>
+    <a title="InsightReactions Support Email" class="footer-link" href="mailto:support@insightreactions.com">support@insightreactions.com</a>
 </footer>
 
 </html>

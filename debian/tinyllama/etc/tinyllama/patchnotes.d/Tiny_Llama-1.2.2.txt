@@ -1,2 +1,0 @@
-Enhancements
-• With this update, users will get a more informative and engaging experience during the upgrade process. Llama3.1 will now monitor the process behind the scenes and update you on what's going on under the hood during lengthy upgrade sequences.

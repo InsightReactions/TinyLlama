@@ -34,7 +34,7 @@ function fetchPatchnotes(showSystemOnlyUpdates) {
         .then(response => response.json())
         .then(data => {
             if (!data || !data.patchnotes) {
-                console.info('No data returned from server.');
+                console.info('No patch notes returned from server.');
                 return;
             }
 
@@ -47,23 +47,24 @@ function fetchPatchnotes(showSystemOnlyUpdates) {
 
             if (patchnotes.length > 0) {
                 patchnotes.forEach((item) => {
-                    const header = document.createElement('h2');
+                    const header = document.createElement('h1');
                     const filenameParts = item.filename.split('-'); // Split the string at '-'
                     const version = filenameParts[1].substring(0, filenameParts[1].lastIndexOf('.')); // Extract the version number from the second part of the split string
                     const headerText = `${filenameParts[0].replace('_', ' ')} v${version}`; // Replace '_' with ' ', and construct the final string
                     header.textContent = headerText;
                     header.style.alignSelf = "start";
+                    header.style.margin = 0;
 
-                    const textarea = document.createElement('textarea');
-                    textarea.title = "Patch Notes";
-                    textarea.textContent = item.content;
-                    textarea.style.width = '100%';
-                    textarea.style.height = '400px'; // Adjust the height as needed for your design
-                    textarea.style.marginBottom = '12px'; // Add some space below each textarea
-                    textarea.readOnly = true;
+                    const contentDiv = document.createElement('div');
+                    contentDiv.style.width = '100%';
+                    contentDiv.style.paddingBottom = '12px';
+                    contentDiv.style.margin = '12px';
+                    contentDiv.style.borderBottom = '2px solid var(--ir-border-color)';
+                    contentDiv.readOnly = true;
+                    contentDiv.innerHTML = marked.parse(item.content);
 
                     patchnotesContainer.appendChild(header);
-                    patchnotesContainer.appendChild(textarea);
+                    patchnotesContainer.appendChild(contentDiv);
                 });
 
                 newPatchDate = new Date(patchnotes[0].creationTime);

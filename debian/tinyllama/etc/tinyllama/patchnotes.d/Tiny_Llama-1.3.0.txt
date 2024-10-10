@@ -1,0 +1,7 @@
+### 0.3.0 (2024-10-10)
+
+**Added:**
+- **File Manager:** A file manager that allows users to directly add or (bulk) remove image models and SwarmUI image caches for improved accessibility.
+- **File Manager Link:** A new link to the File Manager has been added to the tinyllama.local website header. The redundant News link has been removed to make space for this.
+- **Patch Notes Markdown Support:** The `marked.js` library has been added to support rendering patch notes in Markdown format.
+- **GitHub icon in Footer:** The GitHub icon has been added to the footer for easier access to Tiny Llama's GitHub page.

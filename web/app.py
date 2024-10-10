@@ -6,6 +6,8 @@ import os
 from datetime import datetime, timezone
 import logging
 import json
+from flask_admin import Admin
+from flask_admin.contrib.fileadmin import FileAdmin
 
 TL_TESTING = bool(os.environ.get('TL_TESTING', False))
 if TL_TESTING:
@@ -21,8 +23,12 @@ app = Flask("Tiny Llama Service",
             static_folder='static')
 app.config["JSON_AS_ASCII"] = False
 app.config["JSONIFY_MIMETYPE"] = "application/json; charset=utf-8"
+app.config["SECRET_KEY"] = os.environ.get('FLASK_SECRET', 'sk-tinyllama')
 CORS(app)
 
+admin = Admin(app=app, name="File Manager", template_mode='bootstrap3', url='/file-manager')
+admin.add_view(FileAdmin("/srv/www/SwarmUI/Models", name="Image Models", endpoint="/image-models"))
+admin.add_view(FileAdmin("/srv/www/SwarmUI/Output/local", name="SwarmUI Image Cache", endpoint="/swarmui-image-cache"))
 
 def get_default_route_ip():
     """
@@ -103,15 +109,12 @@ def get_patchnote_files(since: datetime):
             # Strip off microseconds from the creation_time (since they are not supported by the client)
             creation_time = creation_time.replace(microsecond=0)
 
-            # Print the comparisons between dates
-            print(f"Comparing {creation_time} > {since} = {creation_time > since}")
-
             # Check if the file was created after the provided `since` date
             if creation_time > since:
                 filepaths.append(filepath)
                 creation_times.append(creation_time)
 
-    print(f"Found {len(filepaths)} patchnotes since {since}")
+    # print(f"Found {len(filepaths)} patchnotes since {since}")
     return filepaths, creation_times
 
 
