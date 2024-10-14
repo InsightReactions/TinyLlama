@@ -8,3 +8,5 @@ Description: Amica is an open source interface for interactive communication wit
 Depends: sudo, git, nodejs, npm, tinyllama-ollama ( >= 1.0.8-0.3.10 ), tinyllama-openedai-speech
 Recommends: tinyllama
 Homepage: https://github.com/semperai/amica
+Commit: a03cb29c416e32429eb3a5d9d99db14c202c28d8
+Name: Amica

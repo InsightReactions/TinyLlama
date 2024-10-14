@@ -8,3 +8,5 @@ Description: An OpenAI API compatible text to speech server.
 Depends: docker-ce
 Recommends: tinyllama
 Homepage: https://github.com/matatonic/openedai-speech
+Commit: 09b1c051e10cfbbbb48bdbff09ffa71536c2c8d4
+Name: OpenedAI Speech

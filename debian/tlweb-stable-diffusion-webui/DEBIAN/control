@@ -8,3 +8,5 @@ Description: Stable Diffusion WebUI is a browser interface for Stable Diffusion 
 Depends: wget, git, python3, python3-venv, libgl1, libglib2.0-0, tlweb-swarmui
 Recommends: tinyllama
 Homepage: https://github.com/AUTOMATIC1111/stable-diffusion-webui
+Commit: c19d04436496ab29ddca4758a792831ae41b31de
+Name: Stable Diffusion WebUI

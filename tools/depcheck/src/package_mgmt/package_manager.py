@@ -71,6 +71,7 @@ class Package:
             raise ValueError('Control file must have a Version field')
 
         self.name: str = name
+        self.display_name: str = control_dict.get("Name", name)
         self.full_version: str = version
 
         dep_version: str = self.full_version.split(
@@ -78,6 +79,7 @@ class Package:
         self.dep_version = Version(sanitize_version(dep_version))
 
         self.homepage: str | None = control_dict.get("Homepage", None)
+        self.commit: str | None = control_dict.get('Commit', None)
         self.deb_root = deb_root
         self.deb_path = f"{deb_root}/{self.name}"
         if not os.path.exists(self.deb_path):

@@ -1,5 +1,5 @@
 Package: tlweb-swarmui
-Version: 1.2.2-0.9.2-Beta
+Version: 1.2.2-0.9.3-Beta
 Maintainer: InsightReactions <support@insightreactions.com>
 Section: utils
 Priority: optional
@@ -9,3 +9,5 @@ Description: A Modular Stable Diffusion web-based image generation interface, wi
 Depends: git, rsync, wget
 Recommends: tinyllama
 Homepage: https://github.com/mcmonkeyprojects/SwarmUI
+Commit: 3122b8ab7fdef6d6c2a4199d771b23cdbcbbfc2a
+Name: SwarmUI

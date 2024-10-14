@@ -10,3 +10,5 @@ Description: Open WebUI is an extensible, feature-rich, and user-friendly self-h
 Depends: docker-ce, tinyllama-ollama ( >= 1.0.8-0.3.10 ), tinyllama-openedai-speech
 Recommends: tinyllama
 Homepage: https://github.com/open-webui/open-webui
+Commit: bc29d5d3c3534c7e42eb3bdf5fa5e11e7a287aaa
+Name: Open WebUI

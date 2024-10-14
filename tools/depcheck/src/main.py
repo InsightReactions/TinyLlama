@@ -13,7 +13,7 @@ def find_packages_with_homepage(deb_root) -> list[Package]:
                 path = os.path.join(root, file)
                 try:
                     package = Package.from_file(deb_root, path)
-                    if package.homepage:
+                    if package.homepage and package.commit:
                         packages.append(package)
                 except ValueError as e:
                     print(f"Error parsing control file '{path}': {e}", file=sys.stderr)
@@ -63,22 +63,9 @@ def write_summary(repo_root, updates: list[tuple[Package, Release]]) -> str:
     return output_path
 
 
-def get_display_name(package: Package) -> str | None:
-    json_path = os.path.join(package.deb_root, 'tlweb-marketplace/usr/share/tinyllama/plugin-marketplace', f'{package.name}.json')
-    if os.path.isfile(json_path):
-        with open(json_path, 'r') as f:
-            data = json.load(f)
-            # The name of the plugin is located at `name`
-            if 'name' in data:
-                return data['name']
-    return None
-
-
 def write_changelogs(deb_path, updates: list[tuple[Package, Release]]):
     for package, release in updates:
-        display_name = get_display_name(deb_path) or package.name.split('-', 1)[1]
-        display_name = display_name.replace(' ', '_')
-        file_name = f"{display_name}-{str(release.verison)}.md"
+        file_name = f"{package.display_name}-{str(release.verison)}.md"
         base_path = os.path.join(deb_path, package.name)
         if not os.path.exists(base_path):
             print(f'Error: {package.name} not found at {base_path}')
@@ -122,6 +109,10 @@ def main():
             apply_update(package, release)
         write_changelogs(deb_path, updates)
     print(f"A summary of the updates has been written to {summary_path}.")
+    if answer.lower() != 'y':
+        sys.exit(2)
+    else:
+        sys.exit(0)
 
 
 if __name__ == '__main__':

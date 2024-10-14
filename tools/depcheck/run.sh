@@ -14,8 +14,15 @@ source .venv/bin/activate
 echo "Updating depcheck Python dependencies..."
 pip install -r requirements.txt >/dev/null 2>&1
 echo "Running depcheck to update dependencies..."
-python3 src/main.py $REPO_ROOT
-deactivate
+
+python3 src/main.py "$REPO_ROOT"
+ret_code=$?
+if [ $ret_code -eq 2 ]; then
+    exit 0
+elif [ $ret_code -ne 0 ]; then
+    echo "Error: Python script returned a non-zero exit status. Exiting..."
+    exit 1
+fi
 
 pkgs=$(sed -n 's/^Name:\s*\(.*\)$/\1/p' $REPO_ROOT/build/debian/depcheck.txt | paste -sd,)
 echo "The following packages may be built and deployed: $pkgs"
