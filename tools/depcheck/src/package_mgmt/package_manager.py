@@ -7,17 +7,24 @@ from bs4 import BeautifulSoup, Tag
 
 def sanitize_version(tag: str):
     version = ""
-    for c in tag:
-        if c.isdigit() or c == '.':
-            version += c
+    for sub in tag.split("-"):
+        if "." not in sub:
+            continue
+
+        for c in sub:
+            if c.isdigit() or c == '.':
+                version += c
+        break
+    
     return version
 
 
 class Release:
-    def __init__(self, version: Version, commit: str, changelog: str):
+    def __init__(self, version: Version, commit: str, changelog: str, is_prerelease: bool):
         self.verison: Version = version
         self.commit: str = commit
         self.changelog: str = changelog
+        self.prerelease: bool = is_prerelease
 
     @staticmethod
     def from_section(package_name: str, section: Tag) -> 'Release':
@@ -57,7 +64,14 @@ class Release:
             raise ValueError(f"Could not find changelog in {package_name}")
         content = body.get_text()
 
-        return Release(Version(sanitize_version(version_tag)), commit, content)
+        # Check if perelease
+        is_prerelease = False
+        spans: list[Tag] = section.find_all('span')
+        for span in spans:
+            if 'Pre-release' in span.text:
+                is_prerelease = True
+
+        return Release(Version(sanitize_version(version_tag)), commit, content, is_prerelease)
 
 
 class Package:
@@ -164,7 +178,7 @@ def get_latest_release(package: Package) -> Release | None:
             f'No homepage found in debian/control for package {package.name}')
 
     releases = [release for release in get_releases(
-        package.name, package.homepage) if release.verison > package.dep_version]
+        package.name, package.homepage) if release.verison > package.dep_version and not release.prerelease]
     if 0 < len(releases):
         latest_release = max(releases, key=lambda x: x.verison)
     else:
@@ -172,8 +186,7 @@ def get_latest_release(package: Package) -> Release | None:
 
     changelog = generate_changelog(package.name, releases)
     if changelog is None:
-        print(f"Error: Failed to generate changelog for package {
-              package.name}")
+        print(f"Error: Failed to generate changelog for package {package.name}")
         return None
 
     latest_release.changelog = changelog
