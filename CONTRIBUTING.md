@@ -75,7 +75,7 @@ Here's an explanation of the main components:
 
    7. **tlweb-marketplace**: This package sets up and configures the Tiny Llama Marketplace, which allows users to easily discover, install, and manage AI tools and services on their Tiny Llama Local Dashboard. It includes JSON files for each available tool or service in the marketplace to serve as a mapping between the local dashboard and 3rd-party applications.
 
-   8. **tlweb-open-webui**: This package installs Open WebUI, a web-based user interface that provides access to various AI tools and services on the Tiny Llama AI Home Server. It includes a systemd service file (`open-webui.service`) for managing the Open WebUI server.
+   8. **tlweb-open-webui**: This package installs Open WebUI, an extensible, feature-rich, and user-friendly self-hosted web-based AI chat interface designed to operate entirely offline. It includes a systemd service file (`open-webui.service`) for managing the Open WebUI server.
 
    9.  **tlweb-stable-diffusion-webui**: This package installs Stable Diffusion WebUI, an open-source web-based user interface for running Stable Diffusion, a powerful text-to-image generation model. It includes a systemd service file (`stable-diffusion-webui.service`) for managing the Stable Diffusion WebUI server.
 
