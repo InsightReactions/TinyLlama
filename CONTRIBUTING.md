@@ -83,11 +83,9 @@ Here's an explanation of the main components:
 
    Each Debian package is designed to install, configure, and manage its respective component or feature independently, allowing users to customize their Tiny Llama AI Home Server by selecting which packages they want to install. This modular approach ensures that the system remains lightweight and adaptable to various hardware configurations and user preferences.
 
-   There are also 
-
 3. **Tools**: A folder containing additional tools or utilities used in the project. In this case, it primarily includes 'depcheck' for automatically checking and updating third-party Debian project dependencies to maintain the update lifecycle for Tiny Llama packages.
 
-4. **Web**: This directory contains files related to the Tiny Llama Local Dashboard, such as Python scripts (app.py), Gunicorn configuration file, requirements file, static assets like CSS and JavaScript files, and an HTML index file. To run a copy locally, simply ensure `python3` is available, and run `web/run.sh`.
+4. **Web**: This directory contains files related to the Tiny Llama Local Dashboard, such as Python scripts (app.py), Gunicorn configuration file, requirements file, static assets like CSS and JavaScript files, and an HTML index file. To run a copy locally, simply ensure `python3` is available, and run [`web/run.sh`](web/run.sh).
 
 Overall, this project is a modular and extensible system designed to provide a user-friendly interface for managing various AI tools and services on an AI home server. The Debian package management structure ensures that individual components can be easily installed, updated, or removed as needed, which is beneficial for maintaining the system's integrity and ease of use.
 
