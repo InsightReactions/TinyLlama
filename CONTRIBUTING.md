@@ -1,8 +1,21 @@
  # Contributing
 
-We welcome suggestions and bug reports! Here's how you can contribute to our project:
+## Table of Contents
+
+- [Contributing](#contributing)
+  - [Table of Contents](#table-of-contents)
+  - [How to Contribute](#how-to-contribute)
+    - [1. Before You Start](#1-before-you-start)
+    - [2. Suggesting Enhancements](#2-suggesting-enhancements)
+    - [3. Reporting Bugs](#3-reporting-bugs)
+    - [3. Contributing Code](#3-contributing-code)
+  - [Project Structure](#project-structure)
+  - [Project Deployment](#project-deployment)
+
 
 ## How to Contribute
+
+We welcome suggestions and bug reports! Here's how you can contribute to our project.
 
 ### 1. Before You Start
 
