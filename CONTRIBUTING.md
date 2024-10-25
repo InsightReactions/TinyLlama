@@ -8,7 +8,7 @@
     - [1. Before You Start](#1-before-you-start)
     - [2. Suggesting Enhancements](#2-suggesting-enhancements)
     - [3. Reporting Bugs](#3-reporting-bugs)
-    - [3. Contributing Code](#3-contributing-code)
+    - [4. Contributing Code](#4-contributing-code)
   - [Project Structure](#project-structure)
   - [Project Deployment](#project-deployment)
 
@@ -41,7 +41,7 @@ If you find a bug in the project, please tell us about it! Here's how:
 4. Provide screenshots or code snippets if available.
 5. Specify the operating system, browser, and version you are using.
 
-### 3. Contributing Code
+### 4. Contributing Code
 
 Contributions are accepted on a case-by-case basis, determined by the project maintainers and InsightReactions based on the desired direction of the project. Before forking, consider a feature request to see if we're interested!
 
