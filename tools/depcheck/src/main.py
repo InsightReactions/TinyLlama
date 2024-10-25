@@ -102,6 +102,9 @@ def main():
     updates = check_for_updates(packages)
     summary_path = write_summary(repo_root, updates)
     print_updates(updates)
+    if len(updates) <= 0:
+        return
+
     answer = input(
         "Do you want to update these packages? (y/n): ")
     if answer.lower() == 'y':
@@ -112,7 +115,7 @@ def main():
     if answer.lower() != 'y':
         sys.exit(2)
     else:
-        sys.exit(0)
+        return
 
 
 if __name__ == '__main__':

@@ -4,7 +4,7 @@ Maintainer: InsightReactions <support@insightreactions.com>
 Section: utils
 Priority: optional
 Architecture: amd64
-Description: Langflow is a low-code app builder for RAG and multi-agent AI applications.
+Description: Langflow is a UI framework for developing AI Agent applications with LLMs using a visual editor. 
 Depends: docker-ce, tinyllama-ollama
 Recommends: tinyllama
 Homepage: https://github.com/langflow-ai/langflow
