@@ -83,7 +83,7 @@ Here's an explanation of the main components:
 
    Each Debian package is designed to install, configure, and manage its respective component or feature independently, allowing users to customize their Tiny Llama AI Home Server by selecting which packages they want to install. This modular approach ensures that the system remains lightweight and adaptable to various hardware configurations and user preferences.
 
-3. **Tools**: A folder containing additional tools or utilities used in the project. In this case, it primarily includes 'depcheck' for automatically checking and updating third-party Debian project dependencies to maintain the update lifecycle for Tiny Llama packages.
+3. **Tools**: A folder containing additional tools or utilities used in the project. In this case, it primarily includes 'depcheck' for automatically checking and updating third-party Debian project dependencies to maintain the update lifecycle for Tiny Llama packages. Ensure `python3` and `ollama` are available on your PATH (with qwen2.5:7b-instruct-q8_0 installed -- [model is configurable in the *generate_changelog* function](tools/depcheck/src/main.py)), then run `./tools/depcheck/run.sh` to iniatiate the process.
 
 4. **Web**: This directory contains files related to the Tiny Llama Local Dashboard, such as Python scripts (app.py), Gunicorn configuration file, requirements file, static assets like CSS and JavaScript files, and an HTML index file. To run a copy locally, simply ensure `python3` is available, and run [`web/run.sh`](web/run.sh).
 
