@@ -10,7 +10,6 @@
 **Table of Contents**
 - [About Tiny Llama](#about-tiny-llama)
 - [Tiny Llama AI Home Server](#tiny-llama-ai-home-server)
-- [Upcoming Additions](#upcoming-additions)
 - [Minimum System Requirements](#minimum-system-requirements)
 - [Installation](#installation)
 - [Disclaimers](#disclaimers)
@@ -22,7 +21,14 @@
 
 # About Tiny Llama
 
-Harness the power of Stable Diffusion Image Generation and robust LLM chat interface for breathtaking image quality and intelligent conversations. Plus, unlock new creative possibilities with LLM-image interoperability. And with the permissive open-source licensing structure, you're in control.
+Harness the power of:
+- Stable Diffusion image generation, powered by SwarmUI or SD WebUI, for breathtaking image quality.
+- Robust LLM chat interfaces with Open WebUI for intelligent conversations.
+- Immersive 3D Character role-play or virtual assistants powered by Amica.
+- Streamlined AI agent workflows enabled by Langflow.
+- Managed & effortless system updates by InsightReactions, ensuring optimal quality and stability for various bleeding edge technologies.
+
+With our permissive open-source licensing structure, you're in control.
 
 Tiny Llama is a baseline configuration layer on top of Debian:latest, which provides the following value:
 - Pre-packaged AI WebUI software which alleviates the technical experience required to use the latest open-source AI products and can be enjoyed on any device with appropriate aspect ratio displays (per-product basis).
@@ -30,6 +36,8 @@ Tiny Llama is a baseline configuration layer on top of Debian:latest, which prov
 - mDNS server auto-discovery support for ease of access using your favorite mobile web browser
 - A landing page on port 80 for a 'Home Portal' where all of the web apps can be accessed without memorizing or bookmarking urls
 - Premium content that provides a 'robust default experience' for each AI product
+
+**[Explore our ever-expanding cookbook](https://tinyllama.insightreactions.com/guides/) to learn more about Tiny Llama.**
 
 Notice: Tiny Llama is primarily geared toward serving home users in a non-commercial/hobbyist context with pre-configured COTS hardware to encourage wide adoption of AI technologies by the general public.
 
@@ -53,22 +61,8 @@ Experience cutting-edge image generation and large language models with our affo
 - **Continuous Updates:** Stay updated with effortless, ongoing improvements from InsightReactions and plugin providers at no extra cost.
 Harness the power of generative AI on your own terms with the Tiny Llama AI Home Server!
 
-[Explore our comprehensive guides](https://tinyllama.insightreactions.com/guides/) to learn more about Tiny Llama
 
 The **Tiny Llama AI Home Server** starts at $1099.00, **available at the [InsightReactions Store](https://insightreactions.com/store)**.
-
-# Upcoming Additions 
-
-in no particular order and non-exhaustive:
-- Speech-to-Text (STT) Support
-- Text-to-Speech and Speech Cloning Support
-- Audio/Video Multimodal Model Support
-- Continued support for cutting-edge models
-- Custom ComfyUI Workflows
-- How-to Guides
-  - LoRAs and how to use them
-  - Walkthrough of advanced ComfyUI Workflows
-  - LLM Prompting Guide
 
 # Minimum System Requirements
 
@@ -86,9 +80,9 @@ Notice: Systems that utilize the Tiny Llama service offered by InsightReactions 
 1. Obtain a working system with a fresh installation of Debian 12 (Home or server) that is connected to the internet
 2. Run this command to baseline the system: `sudo bash -lc "curl -fsSL https://raw.githubusercontent.com/InsightReactions/TinyLlama/main/debian/os_baseline.sh | bash"`
 3. Reboot
-4. The Tiny Llama landing page can be accessed at http://tinyllama.local on any modern device that supports mDNS. Alternatively, the IP address of the server may be retrieved by: 
+4. The Tiny Llama landing page can be accessed at http://tinyllama.local on any modern device that supports mDNS. Alternatively, the IP address of the server may be retrieved by:
    - Running this command on a Linux PC with *avahi-utils* installed: `avahi-browse -art | grep -a2 "Tiny Llama" | grep address | cut -d'[' -f2 | cut -d']' -f1`
-   - Running the command `ip addr` on the Tiny Llama device and looking for the IP address with the appropriate subnet. Once the IP is retrieved, the landing page can be accessed with the following template: `http://<IP_ADDRESS>` 
+   - Running the command `ip addr` on the Tiny Llama device and looking for the IP address with the appropriate subnet. Once the IP is retrieved, the landing page can be accessed with the following template: `http://<IP_ADDRESS>`
 5. That's it. Enjoy! Feel free to bookmark each web service in your favorite browsers on all of your home devices for maximal ease of access.
 
 # Disclaimers
@@ -123,3 +117,4 @@ Before using Tiny Llama within a commercial context, ensure that you have obtain
   - mDNS service is pre-installed during the [Installation step](#installation) and is required for proper functioning of the http://tinyllama.local url. To uninstall it, you can simply run `sudo apt remove tinyllama-mdns`.
 - Tiny Llama Home Server
   - GNOME Location services are enabled by default for system clock timezone sychronization
+
