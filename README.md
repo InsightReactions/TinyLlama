@@ -116,5 +116,5 @@ Before using Tiny Llama within a commercial context, ensure that you have obtain
   - Some products offered by the Tiny Llama service may request login credentials. Unless otherwise specified, these accounts are created and stored locally on the device. Each service provides it's own mechanisms for user session management and authentication.
   - mDNS service is pre-installed during the [Installation step](#installation) and is required for proper functioning of the http://tinyllama.local url. To uninstall it, you can simply run `sudo apt remove tinyllama-mdns`.
 - Tiny Llama Home Server
-  - GNOME Location services are enabled by default for system clock timezone sychronization
+  - GNOME Location services are enabled by default for system clock timezone synchronization
 
