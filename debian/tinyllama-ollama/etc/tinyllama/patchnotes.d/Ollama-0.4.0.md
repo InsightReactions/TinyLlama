@@ -1,7 +1,0 @@
-- **New Model Support**: Added support for Llama 3.2 Vision (Mllama) architecture.
-- **Performance Improvement**: Follow-on requests to vision models will now be much faster.
-- **Bug Fixes**:
-  - Correctly detect stop sequences.
-  - Import models from Safetensors without a Modelfile when using `ollama create`.
-  - Prevent invalid characters from being written when redirecting output to a file on Windows.
-  - Handle errors caused by invalid model data.

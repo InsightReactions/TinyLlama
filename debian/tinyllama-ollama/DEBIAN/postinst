@@ -10,7 +10,7 @@ if getent group ollama &>/dev/null; then
 fi
 
 # Ollama
-export OLLAMA_VERSION="0.4.0"
+export OLLAMA_VERSION="0.4.1"
 curl -fsSL https://ollama.com/install.sh | sh
 
 # Restore backup if it exists
