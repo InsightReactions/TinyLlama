@@ -6,7 +6,7 @@ Priority: optional
 Architecture: amd64
 Description: ollama configured for the Tiny Llama AI Home server platform by InsightReactions
 Depends: curl
-Reccomends: tinyllama
+Recommends: tinyllama
 Homepage: https://github.com/ollama/ollama
 Commit: c2e8cbaa140986b6a27f2c795e2fb9b38e74f094
 Name: Ollama
