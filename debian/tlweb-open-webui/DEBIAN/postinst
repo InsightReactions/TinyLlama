@@ -7,7 +7,7 @@ ollama pull llama3.1
 ollama pull minicpm-v
 
 mkdir -p /srv/www/open-webui
-docker pull ghcr.io/open-webui/open-webui:git-f1f068f
+docker pull ghcr.io/open-webui/open-webui:git-c4ea313
 
 DEFAULT_IMAGE_GEN_MODEL="CyberRealistic_V4.2_FP16.safetensors"
 WEBUI_DIR="/srv/www/open-webui"
