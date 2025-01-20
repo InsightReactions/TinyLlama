@@ -1,5 +1,5 @@
 #!/bin/bash
 
-docker rmi ghcr.io/open-webui/open-webui:git-e42cbf0
+docker rmi ghcr.io/open-webui/open-webui:git-506dc01
 
 echo "Open-WebUI user data must be removed manually, if desired, at path /srv/www/open-webui"
